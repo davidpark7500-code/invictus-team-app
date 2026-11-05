@@ -12,7 +12,7 @@ export default function HomeStack() {
       <Stack.Screen
         name="index"
         options={{
-          title: 'Invictus',
+          title: 'Home',
           headerRight: () => (
             <Link href="/settings" asChild>
               <Pressable hitSlop={12} accessibilityLabel="Settings" haptic={false}>

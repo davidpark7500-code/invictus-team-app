@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 
+import { BrandLogo } from '@/components/ui/BrandLogo';
 import { Card } from '@/components/ui/Card';
 import { Icon } from '@/components/ui/Icon';
 import { ListRow } from '@/components/ui/ListRow';
@@ -28,9 +29,12 @@ export default function HomeScreen() {
 
   return (
     <Screen>
-      <Text variant="title3" color="textSecondary">
-        {greeting()}
-      </Text>
+      <View style={styles.brand}>
+        <BrandLogo width={150} />
+        <Text variant="title3" color="textSecondary">
+          {greeting()}
+        </Text>
+      </View>
 
       {nextEvent ? (
         <Card onPress={() => router.push(`/events/${nextEvent.id}`)} tintColor={colors.accentSoft}>
@@ -92,6 +96,7 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  brand: { alignItems: 'center', gap: Spacing.sm, paddingVertical: Spacing.sm },
   cardHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: Spacing.sm },
   inlineHead: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, marginBottom: Spacing.xs },
   inlineTitle: { flex: 1 },

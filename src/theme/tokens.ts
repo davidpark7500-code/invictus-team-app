@@ -1,9 +1,10 @@
 import { Platform } from 'react-native';
 
 /**
- * Design tokens. One accent, neutrals that let glass do the work,
- * semantic colors for pipeline stages. Brand values are placeholders
- * until the Invictus mark and palette are supplied.
+ * Design tokens, derived from the Invictus monogram: ink and paper.
+ * The "accent" is the ink colour itself, inverted in dark mode, so
+ * primary actions read as solid black (light) or solid white (dark)
+ * pills. Colour is reserved for meaning (success / warning / danger).
  */
 
 export type Scheme = 'light' | 'dark';
@@ -36,8 +37,8 @@ export const palettes = {
     text: '#0B0B0F',
     textSecondary: '#5C5F66',
     textTertiary: '#8E9097',
-    accent: '#2F6BFF',
-    accentSoft: 'rgba(47,107,255,0.14)',
+    accent: '#0B0B0F',
+    accentSoft: 'rgba(11,11,15,0.07)',
     onAccent: '#FFFFFF',
     glassTint: 'rgba(255,255,255,0.35)',
   },
@@ -55,9 +56,9 @@ export const palettes = {
     text: '#F5F5F7',
     textSecondary: '#A8ABB3',
     textTertiary: '#6F7279',
-    accent: '#5B8CFF',
-    accentSoft: 'rgba(91,140,255,0.20)',
-    onAccent: '#FFFFFF',
+    accent: '#F5F5F7',
+    accentSoft: 'rgba(245,245,247,0.12)',
+    onAccent: '#0B0B0F',
     glassTint: 'rgba(20,20,26,0.35)',
   },
 } as const;

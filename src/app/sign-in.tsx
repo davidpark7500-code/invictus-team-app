@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Glass } from '@/components/glass/Glass';
 import { Button } from '@/components/ui/Button';
-import { Icon } from '@/components/ui/Icon';
+import { BrandLogo } from '@/components/ui/BrandLogo';
 import { Text } from '@/components/ui/Text';
 import { useAuth } from '@/lib/AuthProvider';
 import { useTheme } from '@/theme/ThemeProvider';
@@ -31,10 +31,7 @@ export default function SignInScreen() {
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.center}>
         <View style={styles.column}>
           <View style={styles.hero}>
-            <View style={[styles.mark, { backgroundColor: colors.accent }]}>
-              <Icon name="sparkles" size={28} color={colors.onAccent} />
-            </View>
-            <Text variant="largeTitle">Invictus</Text>
+            <BrandLogo width={240} style={styles.logo} />
             <Text variant="subheadline" color="textSecondary">
               Team access only. Ask your leader for the team login.
             </Text>
@@ -80,7 +77,7 @@ const styles = StyleSheet.create({
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: Spacing.lg },
   column: { width: '100%', maxWidth: MaxContentWidth, gap: Spacing.xl },
   hero: { alignItems: 'center', gap: Spacing.sm },
-  mark: { width: 72, height: 72, borderRadius: 22, alignItems: 'center', justifyContent: 'center', marginBottom: Spacing.sm },
+  logo: { marginBottom: Spacing.md },
   form: { padding: Spacing.lg, gap: Spacing.md },
   input: { height: 48, borderRadius: Radius.sm, paddingHorizontal: Spacing.lg, fontSize: 17 },
 });
