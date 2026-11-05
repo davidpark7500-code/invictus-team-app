@@ -1,56 +1,52 @@
-# Welcome to your Expo app 👋
+# Invictus Team
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Replacement for the Invictus Team mobile app (iOS + Android), rebuilt from scratch with
+Expo Router and Supabase, designed around Apple's Liquid Glass with full light and dark mode.
 
-## Get started
+Status: **foundation**. Every tab renders on placeholder data; no backend is wired yet.
 
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Run it
 
 ```bash
-npm run reset-project
+npm install
+npx expo start
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+Press `i` for iOS simulator, `a` for Android, `w` for web. Liquid Glass needs iOS 26 on a
+device or simulator built with Xcode 26; everything else gets a material-blur fallback.
 
-### Other setup steps
+Expo Go cannot run this project once native modules beyond its bundle are added. Use a
+development build:
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+```bash
+npx eas-cli@latest build --profile development --platform ios
+```
 
-## Learn more
+## Layout
 
-To learn more about developing your project with Expo, look at the following resources:
+| Path | What |
+|---|---|
+| `src/app/_layout.tsx` | Root: theme, auth gate, player state, settings sheet |
+| `src/app/(tabs)/_layout.tsx` | Native tab bar (Home, Audio, Resources, Events, List), mini player as bottom accessory on iOS 26 |
+| `src/app/(tabs)/*` | One stack per tab with large titles and glass headers |
+| `src/components/glass/Glass.tsx` | The glass surface: UIGlassEffect on iOS 26, blur elsewhere, solid under Reduce Transparency |
+| `src/components/ui/*` | Text scale, Icon (SF Symbols / Material Symbols), Card, ListRow, Pill, Button, Screen |
+| `src/theme/*` | Tokens and the light / dark / system theme provider (persisted) |
+| `src/data/*` | Domain types reverse-engineered from the old app, plus placeholder content |
+| `src/features/*` | Audio player state and List Builder pieces |
+| `src/lib/supabase.ts` | Client; app runs in demo mode until `.env.local` is filled |
+| `supabase/migrations` | Schema for the real backend |
+| `docs/` | Reverse-engineering notes and open questions |
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Configure the backend
 
-## Join the community
+1. Create a Supabase project and run `supabase/migrations/0001_init.sql` in the SQL editor.
+2. Copy `.env.example` to `.env.local` and fill in the URL and anon key.
+3. Restart `expo start`. Sign-in becomes real; demo mode turns off.
 
-Join our community of developers creating universal apps.
+## Checks
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+npx tsc --noEmit
+npx expo lint
+```
