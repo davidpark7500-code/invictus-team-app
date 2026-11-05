@@ -33,8 +33,8 @@ export default function NowPlayingScreen() {
 
   return (
     <Screen playerInset={false} contentContainerStyle={styles.content}>
-      <View style={[styles.artwork, { backgroundColor: colors.accentSoft }]}>
-        <Icon name="waveform" size={72} color={colors.accent} weight="thin" />
+      <View style={[styles.artwork, { backgroundColor: colors.brandSoft }]}>
+        <Icon name="waveform" size={72} color={colors.brandText} weight="thin" />
       </View>
 
       <View style={styles.titles}>
@@ -49,7 +49,7 @@ export default function NowPlayingScreen() {
 
       <View style={styles.progress}>
         <View style={[styles.track, { backgroundColor: colors.fillStrong }]}>
-          <View style={[styles.fill, { backgroundColor: colors.accent, width: `${progress * 100}%` }]} />
+          <View style={[styles.fill, { backgroundColor: colors.brand, width: `${progress * 100}%` }]} />
         </View>
         <View style={styles.times}>
           <Text variant="caption" color="textTertiary" mono>

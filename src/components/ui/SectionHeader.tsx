@@ -12,7 +12,7 @@ export function SectionHeader({ title, action, onAction }: Props) {
       <Text variant="title2">{title}</Text>
       {action ? (
         <Pressable onPress={onAction} haptic={false} hitSlop={8}>
-          <Text variant="subheadline" color="accent">
+          <Text variant="subheadline" color="brandText">
             {action}
           </Text>
         </Pressable>

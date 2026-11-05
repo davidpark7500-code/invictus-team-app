@@ -35,11 +35,11 @@ export default function EventsScreen() {
         const d = new Date(e.startsAt);
         return (
           <Card key={e.id} onPress={() => router.push(`/events/${e.id}`)} padded={false} style={styles.row}>
-            <View style={[styles.date, { backgroundColor: colors.accentSoft }]}>
-              <Text variant="caption" color="accent">
+            <View style={[styles.date, { backgroundColor: colors.brandSoft }]}>
+              <Text variant="caption" color="brandText">
                 {d.toLocaleDateString(undefined, { month: 'short' }).toUpperCase()}
               </Text>
-              <Text variant="title2" color="accent" rounded>
+              <Text variant="title2" color="brandText" rounded>
                 {d.getDate()}
               </Text>
             </View>

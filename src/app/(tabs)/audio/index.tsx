@@ -37,11 +37,11 @@ export default function AudioScreen() {
                 subtitle={a.speaker}
                 meta={`${formatDuration(a.durationSec)} · ${formatDate(a.recordedAt)}`}
                 leading={
-                  <View style={[styles.art, { backgroundColor: active ? colors.accent : colors.accentSoft }]}>
+                  <View style={[styles.art, { backgroundColor: active ? colors.brand : colors.brandSoft }]}>
                     <Icon
                       name={active && playing ? 'waveform' : 'play'}
                       size={16}
-                      color={active ? colors.onAccent : colors.accent}
+                      color={active ? colors.onBrand : colors.brandText}
                     />
                   </View>
                 }

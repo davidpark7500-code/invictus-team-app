@@ -39,9 +39,9 @@ function TabButton({ label, icon, isFocused, ...props }: TabTriggerSlotProps & {
   const { colors } = useTheme();
   return (
     <Pressable {...props} haptic={false} style={styles.trigger}>
-      <View style={[styles.triggerInner, isFocused && { backgroundColor: colors.accentSoft }]}>
-        <Icon name={icon} size={20} color={isFocused ? colors.accent : colors.textSecondary} />
-        <Text variant="caption" color={isFocused ? 'accent' : 'textSecondary'}>
+      <View style={[styles.triggerInner, isFocused && { backgroundColor: colors.brandSoft }]}>
+        <Icon name={icon} size={20} color={isFocused ? colors.brandText : colors.textSecondary} />
+        <Text variant="caption" color={isFocused ? 'brandText' : 'textSecondary'}>
           {label}
         </Text>
       </View>

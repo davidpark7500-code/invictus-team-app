@@ -17,11 +17,11 @@ export default function TabsLayout() {
   return (
     <NativeTabs
       minimizeBehavior="onScrollDown"
-      tintColor={colors.accent}
-      iconColor={{ default: colors.textSecondary, selected: colors.accent }}
-      labelStyle={{ default: { color: colors.textSecondary }, selected: { color: colors.accent } }}
-      indicatorColor={colors.accentSoft}
-      rippleColor={colors.accentSoft}>
+      tintColor={colors.brandText}
+      iconColor={{ default: colors.textSecondary, selected: colors.brandText }}
+      labelStyle={{ default: { color: colors.textSecondary }, selected: { color: colors.brandText } }}
+      indicatorColor={colors.brandSoft}
+      rippleColor={colors.brandSoft}>
       {tabs.map((tab) => (
         <NativeTabs.Trigger key={tab.name} name={tab.name}>
           <NativeTabs.Trigger.Label>{tab.label}</NativeTabs.Trigger.Label>

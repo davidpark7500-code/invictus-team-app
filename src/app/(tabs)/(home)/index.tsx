@@ -37,9 +37,9 @@ export default function HomeScreen() {
       </View>
 
       {nextEvent ? (
-        <Card onPress={() => router.push(`/events/${nextEvent.id}`)} tintColor={colors.accentSoft}>
+        <Card onPress={() => router.push(`/events/${nextEvent.id}`)} tintColor={colors.brandSoft}>
           <View style={styles.cardHead}>
-            <Pill label="Next up" filled />
+            <Pill label="Next up" filled color={colors.brand} textColor={colors.onBrand} />
             <Text variant="caption" color="textSecondary">
               {formatRelativeDay(nextEvent.startsAt)}
             </Text>
@@ -84,8 +84,8 @@ export default function HomeScreen() {
           subtitle={`${a.speaker} · ${a.series}`}
           meta={formatDuration(a.durationSec)}
           leading={
-            <View style={[styles.play, { backgroundColor: colors.accent }]}>
-              <Icon name="play" size={16} color={colors.onAccent} />
+            <View style={[styles.play, { backgroundColor: colors.brand }]}>
+              <Icon name="play" size={16} color={colors.onBrand} />
             </View>
           }
           onPress={() => play(a)}

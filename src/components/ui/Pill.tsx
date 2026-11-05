@@ -9,9 +9,10 @@ type Props = ViewProps & {
   color?: string;
   /** Filled = solid color with white text. Soft = tinted fill with colored text. */
   filled?: boolean;
+  textColor?: string;
 };
 
-export function Pill({ label, color, filled = false, style, ...rest }: Props) {
+export function Pill({ label, color, filled = false, textColor, style, ...rest }: Props) {
   const { colors } = useTheme();
   const tone = color ?? colors.accent;
   return (
@@ -22,7 +23,7 @@ export function Pill({ label, color, filled = false, style, ...rest }: Props) {
         filled ? { backgroundColor: tone } : { backgroundColor: colors.fill },
         style,
       ]}>
-      <Text variant="caption" style={{ color: filled ? colors.onAccent : tone }}>
+      <Text variant="caption" style={{ color: textColor ?? (filled ? colors.onAccent : tone) }}>
         {label}
       </Text>
     </View>

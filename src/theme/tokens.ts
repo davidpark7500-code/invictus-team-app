@@ -4,8 +4,17 @@ import { Platform } from 'react-native';
  * Design tokens, derived from the Invictus monogram: ink and paper.
  * The "accent" is the ink colour itself, inverted in dark mode, so
  * primary actions read as solid black (light) or solid white (dark)
- * pills. Colour is reserved for meaning (success / warning / danger).
+ * pills.
+ *
+ * `brand` is the one signature colour, used for highlights only (current tab,
+ * "next up", play, links, progress). PLACEHOLDER gold until the colour from the
+ * current Invictus app is confirmed; change BRAND below and nothing else.
+ * Light mode needs a deeper shade for text to stay readable on white.
  */
+const BRAND = {
+  light: { fill: '#C9A227', text: '#8C6A17', soft: 'rgba(201,162,39,0.16)', on: '#0B0B0F' },
+  dark: { fill: '#E0BC4E', text: '#E0BC4E', soft: 'rgba(224,188,78,0.18)', on: '#0B0B0F' },
+} as const;
 
 export type Scheme = 'light' | 'dark';
 
@@ -40,6 +49,10 @@ export const palettes = {
     accent: '#0B0B0F',
     accentSoft: 'rgba(11,11,15,0.07)',
     onAccent: '#FFFFFF',
+    brand: BRAND.light.fill,
+    brandText: BRAND.light.text,
+    brandSoft: BRAND.light.soft,
+    onBrand: BRAND.light.on,
     glassTint: 'rgba(255,255,255,0.35)',
   },
   dark: {
@@ -59,6 +72,10 @@ export const palettes = {
     accent: '#F5F5F7',
     accentSoft: 'rgba(245,245,247,0.12)',
     onAccent: '#0B0B0F',
+    brand: BRAND.dark.fill,
+    brandText: BRAND.dark.text,
+    brandSoft: BRAND.dark.soft,
+    onBrand: BRAND.dark.on,
     glassTint: 'rgba(20,20,26,0.35)',
   },
 } as const;

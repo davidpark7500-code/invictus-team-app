@@ -25,8 +25,8 @@ export function MiniPlayer({ placement = 'regular' }: Props) {
   return (
     <Pressable onPress={() => router.push(`/audio/${track.id}`)} haptic={false} style={styles.hit}>
       <Glass variant="regular" radius={Radius.pill} style={[styles.bar, compact && styles.barCompact]}>
-        <View style={[styles.art, { backgroundColor: colors.accentSoft }]}>
-          <Icon name="waveform" size={16} color={colors.accent} />
+        <View style={[styles.art, { backgroundColor: colors.brandSoft }]}>
+          <Icon name="waveform" size={16} color={colors.brandText} />
         </View>
         <View style={styles.text}>
           <Text variant="subheadline" numberOfLines={1} style={styles.title}>

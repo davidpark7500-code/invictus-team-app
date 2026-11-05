@@ -41,10 +41,10 @@ export default function SettingsScreen() {
               <Glass
                 interactive
                 radius={Radius.md}
-                tintColor={selected ? colors.accentSoft : undefined}
-                style={[styles.segmentInner, selected && { borderColor: colors.accent, borderWidth: 1 }]}>
-                <Icon name={opt.icon} size={20} color={selected ? colors.accent : colors.textSecondary} />
-                <Text variant="subheadline" color={selected ? 'accent' : 'textSecondary'}>
+                tintColor={selected ? colors.brandSoft : undefined}
+                style={[styles.segmentInner, selected && { borderColor: colors.brand, borderWidth: 1 }]}>
+                <Icon name={opt.icon} size={20} color={selected ? colors.brandText : colors.textSecondary} />
+                <Text variant="subheadline" color={selected ? 'brandText' : 'textSecondary'}>
                   {opt.label}
                 </Text>
               </Glass>
