@@ -33,6 +33,7 @@ respected by the native navigators; custom animations stay under 300 ms.
 - Brand mark, colours, app icon, splash art.
 - Real audio playback (expo-audio), lock-screen controls, downloads.
 - PDF viewer and share sheet on Resources.
-- Add / edit forms for prospects and customers.
+- List Builder (parked): needs per-person accounts before it can ship.
+- Listening position saved on-device, since the shared login can't hold per-person progress.
 - Push notifications for new audio and events.
 - Admin surface for uploading content.

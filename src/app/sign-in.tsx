@@ -13,14 +13,14 @@ import { MaxContentWidth, Radius, Spacing } from '@/theme/tokens';
 export default function SignInScreen() {
   const { signIn } = useAuth();
   const { colors } = useTheme();
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   async function submit() {
     setBusy(true);
-    setError(await signIn(email.trim(), password));
+    setError(await signIn(username, password));
     setBusy(false);
   }
 
@@ -36,21 +36,21 @@ export default function SignInScreen() {
             </View>
             <Text variant="largeTitle">Invictus</Text>
             <Text variant="subheadline" color="textSecondary">
-              Team access only. Use the email your leader invited.
+              Team access only. Ask your leader for the team login.
             </Text>
           </View>
 
           <Glass radius={Radius.xl} style={styles.form}>
             <TextInput
               style={field}
-              placeholder="Email"
+              placeholder="Username"
               placeholderTextColor={colors.textTertiary}
               autoCapitalize="none"
-              autoComplete="email"
-              keyboardType="email-address"
+              autoCorrect={false}
+              autoComplete="username"
               textContentType="username"
-              value={email}
-              onChangeText={setEmail}
+              value={username}
+              onChangeText={setUsername}
             />
             <TextInput
               style={field}
@@ -67,7 +67,7 @@ export default function SignInScreen() {
                 {error}
               </Text>
             ) : null}
-            <Button label="Sign in" onPress={submit} loading={busy} disabled={!email || !password} />
+            <Button label="Sign in" onPress={submit} loading={busy} disabled={!username || !password} />
           </Glass>
         </View>
       </KeyboardAvoidingView>

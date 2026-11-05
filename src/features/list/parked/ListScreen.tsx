@@ -1,4 +1,4 @@
-import { useRouter } from 'expo-router';
+import { type Href, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
@@ -47,7 +47,7 @@ export default function ListScreen() {
         ? sortedProspects.map((p) => {
             const due = p.nextFollowUpAt && new Date(p.nextFollowUpAt).getTime() <= now;
             return (
-              <Card key={p.id} onPress={() => router.push(`/list/prospect/${p.id}`)}>
+              <Card key={p.id} onPress={() => router.push(`/list/prospect/${p.id}` as Href)}>
                 <View style={styles.head}>
                   <Text variant="headline">{p.name}</Text>
                   {p.nextFollowUpAt ? (
@@ -70,7 +70,7 @@ export default function ListScreen() {
             );
           })
         : customers.map((c) => (
-            <Card key={c.id} onPress={() => router.push(`/list/customer/${c.id}`)}>
+            <Card key={c.id} onPress={() => router.push(`/list/customer/${c.id}` as Href)}>
               <View style={styles.head}>
                 <Text variant="headline">{c.name}</Text>
                 {!c.thankYouSent ? <Pill label="Thank-you due" color={colors.warning} /> : null}

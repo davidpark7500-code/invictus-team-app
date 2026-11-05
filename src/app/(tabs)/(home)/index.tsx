@@ -9,7 +9,7 @@ import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Text } from '@/components/ui/Text';
 import { formatDateTime, formatDuration, formatRelativeDay, greeting } from '@/data/format';
-import { announcements, audios, events, prospects } from '@/data/mock';
+import { announcements, audios, events } from '@/data/mock';
 import { usePlayer } from '@/features/audio/PlayerProvider';
 import { useTheme } from '@/theme/ThemeProvider';
 import { Radius, Spacing } from '@/theme/tokens';
@@ -25,12 +25,11 @@ export default function HomeScreen() {
     .sort((a, b) => a.startsAt.localeCompare(b.startsAt))[0];
   const pinned = announcements.find((a) => a.pinned);
   const latest = audios.slice(0, 3);
-  const followUps = prospects.filter((p) => p.nextFollowUpAt && new Date(p.nextFollowUpAt).getTime() <= now + 86_400_000);
 
   return (
     <Screen>
       <Text variant="title3" color="textSecondary">
-        {greeting()}, David
+        {greeting()}
       </Text>
 
       {nextEvent ? (
@@ -71,22 +70,6 @@ export default function HomeScreen() {
             {pinned.body}
           </Text>
         </Card>
-      ) : null}
-
-      {followUps.length ? (
-        <>
-          <SectionHeader title="Follow up" action="Open list" onAction={() => router.push('/list')} />
-          {followUps.map((p) => (
-            <ListRow
-              key={p.id}
-              icon="person"
-              title={p.name}
-              subtitle={p.notes}
-              meta={p.nextFollowUpAt ? `Due ${formatRelativeDay(p.nextFollowUpAt).toLowerCase()}` : undefined}
-              onPress={() => router.push(`/list/prospect/${p.id}`)}
-            />
-          ))}
-        </>
       ) : null}
 
       <SectionHeader title="New audio" action="See all" onAction={() => router.push('/audio')} />

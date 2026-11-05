@@ -26,7 +26,7 @@ export const resources: Resource[] = [
   { id: 'r4', title: 'The Plan (English)', category: 'Plan', kind: 'pdf', summary: 'Current plan deck.', updatedAt: iso(-45), url: '' },
   { id: 'r5', title: 'El Plan (Español)', category: 'Plan', kind: 'pdf', summary: 'Plan deck, Spanish.', updatedAt: iso(-45), url: '' },
   { id: 'r6', title: 'Launch / Onboarding Checklist', category: 'Training', kind: 'link', summary: 'Shared checklist for a new IBO’s first 30 days.', updatedAt: iso(-5), url: '' },
-  { id: 'r7', title: 'List Builder Template', category: 'Forms', kind: 'link', summary: 'Spreadsheet template, superseded by the List tab.', updatedAt: iso(-90), url: '' },
+  { id: 'r7', title: 'Ideas for Building Your List', category: 'Training', kind: 'pdf', summary: 'Prompts and memory joggers for writing out your list of names.', updatedAt: iso(-20), url: '' },
 ];
 
 export const events: TeamEvent[] = [

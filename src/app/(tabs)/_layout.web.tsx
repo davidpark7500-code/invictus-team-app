@@ -14,7 +14,6 @@ const tabs: { name: string; href: string; label: string; icon: IconName }[] = [
   { name: 'audio', href: '/audio', label: 'Audio', icon: 'audio' },
   { name: 'resources', href: '/resources', label: 'Resources', icon: 'resources' },
   { name: 'events', href: '/events', label: 'Events', icon: 'events' },
-  { name: 'list', href: '/list', label: 'List', icon: 'list' },
 ];
 
 /** Web: a floating glass tab bar at the bottom, mirroring the native one. */

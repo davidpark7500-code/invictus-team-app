@@ -10,7 +10,6 @@ const tabs = [
   { name: 'audio', label: 'Audio', icon: icons.audio },
   { name: 'resources', label: 'Resources', icon: icons.resources },
   { name: 'events', label: 'Events', icon: icons.events },
-  { name: 'list', label: 'List', icon: icons.list },
 ] as const;
 
 export default function TabsLayout() {
