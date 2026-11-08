@@ -9,6 +9,7 @@ import { Pill } from '@/components/ui/Pill';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Text } from '@/components/ui/Text';
+import { TeamHero } from '@/features/home/TeamHero';
 import { formatDateTime, formatRelativeDay, greeting } from '@/data/format';
 import { events, resources, WELCOME } from '@/data/mock';
 import { useTheme } from '@/theme/ThemeProvider';
@@ -32,6 +33,8 @@ export default function HomeScreen() {
           {greeting()}
         </Text>
       </View>
+
+      <TeamHero />
 
       <Card>
         {WELCOME.map((para) => (
