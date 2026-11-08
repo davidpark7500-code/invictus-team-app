@@ -81,7 +81,7 @@ export const profiles: Profile[] = [
 /** Welcome text from the current app's Home tab, verbatim. */
 export const WELCOME = [
   "INVICTUS has always been more than just a catchy Team Name to us... it truly is a Lifestyle & a Culture that we are Proud to live out. It is fundamentally established on an Attitude of Winning & that's what matters most to us... seeing others Win in All areas of their Life.",
-  'We have found that Influence is Everything & we are excited for your Lives to be Positively influenced in the same way that ours have been. Welcome to a Movement. Welcome to our Culture. Welcome to The INVICTUS Team.',
+  'We have found that Influence is Everything & we are excited for your Lives to be Positively influenced in the same way that ours have been. Welcome to the Movement. Welcome to our Culture. Welcome to The INVICTUS Team.',
 ];
 
 export const announcements: Announcement[] = [

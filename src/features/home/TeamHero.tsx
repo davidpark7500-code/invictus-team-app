@@ -27,8 +27,8 @@ export function TeamHero() {
           accessibilityLabel="The Invictus team together at an event"
         />
         <LinearGradient
-          colors={['rgba(11,11,15,0)', 'rgba(11,11,15,0.55)', INK]}
-          locations={[0.55, 0.82, 1]}
+          colors={['rgba(11,11,15,0)', 'rgba(11,11,15,0.35)', INK]}
+          locations={[0.86, 0.95, 1]}
           style={StyleSheet.absoluteFill}
           pointerEvents="none"
         />
@@ -38,7 +38,7 @@ export function TeamHero() {
           THE INVICTUS TEAM
         </Text>
         <Text variant="title1" style={styles.title}>
-          Welcome to a Movement.
+          Welcome to the Movement.
         </Text>
         <Text variant="subheadline" style={styles.subtitle}>
           Welcome to our Culture.
@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     backgroundColor: INK,
   },
-  /** Source photo is 941 × 496. */
-  photo: { width: '100%', aspectRatio: 941 / 496 },
+  /** Source photo is 1093 × 618; the box matches it exactly so no one is cropped. */
+  photo: { width: '100%', aspectRatio: 1093 / 618 },
   copy: { paddingHorizontal: Spacing.xl, paddingTop: Spacing.xs, paddingBottom: Spacing.xl, gap: Spacing.xxs },
   eyebrow: { letterSpacing: 1.6, fontWeight: '700' },
   title: { color: '#FFFFFF' },
