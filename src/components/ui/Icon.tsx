@@ -18,6 +18,7 @@ export const icons = {
   chevron: { ios: 'chevron.right', md: 'chevron_right' },
   pdf: { ios: 'doc.richtext.fill', md: 'picture_as_pdf' },
   link: { ios: 'link', md: 'link' },
+  globe: { ios: 'globe', md: 'language' },
   video: { ios: 'video.fill', md: 'videocam' },
   download: { ios: 'arrow.down.circle', md: 'download' },
   share: { ios: 'square.and.arrow.up', md: 'share' },

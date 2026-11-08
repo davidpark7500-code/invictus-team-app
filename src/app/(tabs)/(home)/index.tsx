@@ -9,23 +9,20 @@ import { Pill } from '@/components/ui/Pill';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Text } from '@/components/ui/Text';
-import { formatDateTime, formatDuration, formatRelativeDay, greeting } from '@/data/format';
-import { announcements, audios, events } from '@/data/mock';
-import { usePlayer } from '@/features/audio/PlayerProvider';
+import { formatDateTime, formatRelativeDay, greeting } from '@/data/format';
+import { events, resources, WELCOME } from '@/data/mock';
 import { useTheme } from '@/theme/ThemeProvider';
 import { Radius, Spacing } from '@/theme/tokens';
 
 export default function HomeScreen() {
   const { colors } = useTheme();
   const router = useRouter();
-  const { play } = usePlayer();
 
   const now = Date.now();
   const nextEvent = events
     .filter((e) => new Date(e.startsAt).getTime() > now)
     .sort((a, b) => a.startsAt.localeCompare(b.startsAt))[0];
-  const pinned = announcements.find((a) => a.pinned);
-  const latest = audios.slice(0, 3);
+  const talks = resources.filter((r) => r.section === 'Onboarding Talks');
 
   return (
     <Screen>
@@ -35,6 +32,14 @@ export default function HomeScreen() {
           {greeting()}
         </Text>
       </View>
+
+      <Card>
+        {WELCOME.map((para) => (
+          <Text key={para.slice(0, 16)} variant="callout" style={styles.welcome}>
+            {para}
+          </Text>
+        ))}
+      </Card>
 
       {nextEvent ? (
         <Card onPress={() => router.push(`/events/${nextEvent.id}`)} tintColor={colors.brandSoft}>
@@ -62,33 +67,18 @@ export default function HomeScreen() {
         </Card>
       ) : null}
 
-      {pinned ? (
-        <Card>
-          <View style={styles.inlineHead}>
-            <Icon name="bell" size={16} color={colors.warning} />
-            <Text variant="headline" style={styles.inlineTitle}>
-              {pinned.title}
-            </Text>
-          </View>
-          <Text variant="subheadline" color="textSecondary">
-            {pinned.body}
-          </Text>
-        </Card>
-      ) : null}
-
-      <SectionHeader title="New audio" action="See all" onAction={() => router.push('/audio')} />
-      {latest.map((a) => (
+      <SectionHeader title="Onboarding Talks" action="All resources" onAction={() => router.push('/resources')} />
+      {talks.map((t) => (
         <ListRow
-          key={a.id}
-          title={a.title}
-          subtitle={`${a.speaker} · ${a.series}`}
-          meta={formatDuration(a.durationSec)}
+          key={t.id}
+          title={t.title}
+          subtitle={t.speaker}
           leading={
             <View style={[styles.play, { backgroundColor: colors.brand }]}>
               <Icon name="play" size={16} color={colors.onBrand} />
             </View>
           }
-          onPress={() => play(a)}
+          onPress={() => router.push(`/resources/${t.id}`)}
         />
       ))}
     </Screen>
@@ -96,9 +86,9 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  welcome: { lineHeight: 23, marginBottom: 12 },
   brand: { alignItems: 'center', gap: Spacing.sm, paddingVertical: Spacing.sm },
   cardHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: Spacing.sm },
-  inlineHead: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, marginBottom: Spacing.xs },
   inlineTitle: { flex: 1 },
   cardTitle: { marginTop: Spacing.sm, marginBottom: Spacing.xs },
   metaRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.xs, marginTop: Spacing.xxs },

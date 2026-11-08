@@ -1,16 +1,16 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react';
 
-import type { Audio } from '@/data/types';
+import type { Resource } from '@/data/types';
 
 /**
  * Playback state only. Real playback (expo-audio, lock-screen controls,
  * background mode) lands once the audio catalogue has real URLs.
  */
 type PlayerState = {
-  track: Audio | null;
+  track: Resource | null;
   playing: boolean;
   positionSec: number;
-  play: (track: Audio) => void;
+  play: (track: Resource) => void;
   toggle: () => void;
   seekBy: (deltaSec: number) => void;
   clear: () => void;
@@ -19,11 +19,11 @@ type PlayerState = {
 const PlayerContext = createContext<PlayerState | null>(null);
 
 export function PlayerProvider({ children }: { children: React.ReactNode }) {
-  const [track, setTrack] = useState<Audio | null>(null);
+  const [track, setTrack] = useState<Resource | null>(null);
   const [playing, setPlaying] = useState(false);
   const [positionSec, setPosition] = useState(0);
 
-  const play = useCallback((next: Audio) => {
+  const play = useCallback((next: Resource) => {
     setTrack((current) => {
       if (current?.id !== next.id) setPosition(0);
       return next;
@@ -34,7 +34,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
   const toggle = useCallback(() => setPlaying((p) => (track ? !p : p)), [track]);
   const seekBy = useCallback(
     (delta: number) =>
-      setPosition((p) => Math.max(0, Math.min(track?.durationSec ?? 0, p + delta))),
+      setPosition((p) => Math.max(0, Math.min(track?.durationSec ?? Number.MAX_SAFE_INTEGER, p + delta))),
     [track],
   );
   const clear = useCallback(() => {

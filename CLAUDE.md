@@ -13,7 +13,14 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
 ## Decisions already made (do not re-litigate)
 
 - **Stack:** Expo SDK 58 + Expo Router, React Native, Supabase. One codebase for iOS, Android, web.
-- **Tabs shipped:** Home, Audio, Resources, Events. No fifth tab.
+- **Tabs shipped:** Home, Events, Profiles, Resources. No Audio tab: PDFs, audio, video and
+  links all live in Resources. No More tab: sign-out is in Settings.
+- **Content vs design:** screenshots of the current app say what content goes where; they are
+  NOT a design reference. Keep our design and placeholder gold. Files come from the owner's
+  "Invictus Team App" Dropbox folder. See `docs/03-content-map.md`.
+- **Loehr and Sitzman** are no longer on the team: no profiles, no videos.
+- **Profile sharing:** expiring (7-day) private links per profile, revocable by admin
+  (migration 0003, `profile_shares`). Not built yet beyond the schema and a disabled button.
 - **List Builder is parked**, not shipped. Code lives in `src/features/list/parked/` (not routed);
   types and DB tables stay. List-building ideas ship as a PDF under Resources instead.
 - **Two logins only:** a shared `team` login everyone uses, and an `admin` login. No sign-up.
@@ -27,7 +34,13 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
   text shade of it (≥ 4.5:1 contrast on white).
 - **Style sheet:** `docs/style-sheet.html`, regenerated from the values in tokens.ts by hand.
 
-## First task when the owner says "start"
+## Status
+
+Content titles, sections, names and pins are in from the screenshots. Waiting on the owner for:
+video hosting choice, three unconfirmed talk matches, which extra Dropbox files to include,
+the missing PDFs, profile photos and bios. Ask before importing anything.
+
+## Capture task (only if the owner asks for more of the old app)
 
 Capture the current Invictus Team app so the new one has the right content.
 
@@ -61,7 +74,8 @@ must come from Haufler or Invictus leadership; list what's needed in the capture
 
 ## Placeholder content to replace
 
-`src/data/mock.ts` is invented, including leader names, pin levels and bios. Never ship it.
+In `src/data/mock.ts`, resource titles, profile names/pins and the welcome text are real.
+Events and announcements are still invented; never ship those.
 
 ## Still open
 

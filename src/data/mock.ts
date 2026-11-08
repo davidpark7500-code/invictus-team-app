@@ -2,7 +2,7 @@
  * Placeholder content so every screen renders before the Supabase
  * project exists. Nothing here is real team content.
  */
-import type { Announcement, Audio, Customer, Leader, Prospect, Resource, TeamEvent } from './types';
+import type { Announcement, Customer, Profile, Prospect, Resource, TeamEvent } from './types';
 
 const day = 24 * 60 * 60 * 1000;
 const iso = (offsetDays: number, hour = 19, minute = 30) => {
@@ -11,22 +11,35 @@ const iso = (offsetDays: number, hour = 19, minute = 30) => {
   return d.toISOString();
 };
 
-export const audios: Audio[] = [
-  { id: 'a1', title: 'Own the Tools', speaker: 'David Park', series: 'Team Meeting 2026', durationSec: 2143, recordedAt: iso(-3), url: '' },
-  { id: 'a2', title: 'Leveraging the System', speaker: 'Charles M.', series: 'Team Meeting 2026', durationSec: 1870, recordedAt: iso(-10), url: '' },
-  { id: 'a3', title: 'Winter Conference Opening', speaker: 'Invictus Leadership', series: 'Winter Conference 2026', durationSec: 3412, recordedAt: iso(-40), url: '' },
-  { id: 'a4', title: 'Building Your List', speaker: 'Samantha Park', series: 'Fundamentals', durationSec: 1502, recordedAt: iso(-60), url: '' },
-  { id: 'a5', title: 'The Customer Needs Assessment', speaker: 'Paul K.', series: 'Fundamentals', durationSec: 1655, recordedAt: iso(-75), url: '' },
-];
-
+// Titles and sections from the current app's Resources tab, in its order.
+// `source` = matched file in the "Invictus Team App" Dropbox folder (likely matches only).
+// Unconfirmed matches and items with no Dropbox file have no source yet.
 export const resources: Resource[] = [
-  { id: 'r1', title: 'CNA Guide', category: 'CNA', kind: 'pdf', summary: 'How to run a Customer Needs Assessment, with the question flow.', updatedAt: iso(-12), url: '' },
-  { id: 'r2', title: 'CNA Worksheet', category: 'CNA', kind: 'pdf', summary: 'Printable worksheet to fill in during the assessment.', updatedAt: iso(-12), url: '' },
-  { id: 'r3', title: 'Roadmap: 9 Core', category: 'Roadmap', kind: 'pdf', summary: 'The nine core habits and the order to build them.', updatedAt: iso(-30), url: '' },
-  { id: 'r4', title: 'The Plan (English)', category: 'Plan', kind: 'pdf', summary: 'Current plan deck.', updatedAt: iso(-45), url: '' },
-  { id: 'r5', title: 'El Plan (Español)', category: 'Plan', kind: 'pdf', summary: 'Plan deck, Spanish.', updatedAt: iso(-45), url: '' },
-  { id: 'r6', title: 'Launch / Onboarding Checklist', category: 'Training', kind: 'link', summary: 'Shared checklist for a new IBO’s first 30 days.', updatedAt: iso(-5), url: '' },
-  { id: 'r7', title: 'Ideas for Building Your List', category: 'Training', kind: 'pdf', summary: 'Prompts and memory joggers for writing out your list of names.', updatedAt: iso(-20), url: '' },
+  { id: 'r-levelup', section: 'Quick Links', title: '\u2B06\uFE0F Level Up!', kind: 'pdf', url: '' },
+  { id: 'r-phases', section: 'Quick Links', title: 'Phases of Progression', kind: 'pdf', url: '' },
+  { id: 't-resources', section: 'Onboarding Talks', title: 'Know Your Resources', kind: 'video', speaker: 'Park', url: '', source: 'Activation Videos/2022-03-19_Resources_Park.mp4' },
+  { id: 't-owner', section: 'Onboarding Talks', title: 'Business Owner Mentality', kind: 'video', speaker: 'McCann', url: '' },
+  { id: 't-sales', section: 'Onboarding Talks', title: 'Sales Basics 101', kind: 'video', speaker: 'Lutz', url: '', source: 'Activation Videos/2023-10-17_Training_LutzSalesMindset.mp4' },
+  { id: 't-networking', section: 'Onboarding Talks', title: 'Networking Basics', kind: 'video', speaker: 'Brown & Jordan', url: '' },
+  { id: 't-core', section: 'Onboarding Talks', title: 'Core Run', kind: 'video', speaker: 'Brown', url: '' },
+  { id: 't-financial', section: 'Onboarding Talks', title: 'Financial Principles', kind: 'video', speaker: 'McCann', url: '', source: 'Activation Videos/2023-06-11_Finances_McCann.mp4' },
+  { id: 't-blueprint', section: 'Onboarding Talks', title: 'Power of Blueprint', kind: 'video', speaker: 'Park', url: '', source: 'Activation Videos/2025-04-16_Blueprint_David.mp4' },
+  { id: 'r-cna-course', section: 'CNA Resources', title: 'NEW - LTD Maximize VCS with CNA Course!', kind: 'link', url: '' },
+  { id: 'r-cna-template', section: 'CNA Resources', title: 'CNA Template', kind: 'pdf', url: '', source: 'CNA/4. CNA PDF Template' },
+  { id: 'r-launch-checklist', section: 'Onboarding', title: '1 - Launch Checklist', kind: 'pdf', url: '' },
+  { id: 'r-curriculum', section: 'Onboarding', title: '2 - Onboarding Curriculum', kind: 'pdf', url: '' },
+  { id: 'r-launch-orders', section: 'Onboarding', title: '3 - Launch Orders', kind: 'pdf', url: '' },
+  { id: 'r-income', section: 'Onboarding', title: 'Income Estimator', kind: 'link', url: '' },
+  { id: 'r-guest', section: 'Onboarding', title: 'Guest Registration Link', kind: 'link', url: '' },
+  { id: 'r-list-builder', section: 'Onboarding', title: 'NEW - List Builder Template', kind: 'link', url: '' },
+  { id: 'r-scalable', section: 'Onboarding', title: 'It\'s All Scalable', kind: 'pdf', url: '' },
+  { id: 'r-booklist', section: 'Onboarding', title: 'First Year Booklist', kind: 'pdf', url: '' },
+  { id: 'r-roadmap', section: 'Onboarding', title: 'Roadmap & 9 Core Steps', kind: 'pdf', url: '' },
+  { id: 'r-budget', section: 'Onboarding', title: 'Budget Sheet', kind: 'pdf', url: '' },
+  { id: 'r-reference', section: 'Onboarding', title: 'Invictus Team Reference Guide', kind: 'pdf', url: '' },
+  { id: 'r-terminology', section: 'Onboarding', title: 'Invictus Team Terminology', kind: 'pdf', url: '' },
+  { id: 'r-whats-next', section: 'Onboarding', title: 'Invictus Team "What\'s Next"', kind: 'pdf', url: '' },
+  { id: 'r-onboarding-guide', section: 'Onboarding', title: 'Onboarding Guide', kind: 'pdf', url: '' },
 ];
 
 export const events: TeamEvent[] = [
@@ -37,10 +50,38 @@ export const events: TeamEvent[] = [
   { id: 'e5', title: 'Group Evaluation', type: 'group_evaluation', startsAt: iso(-5), endsAt: iso(-5, 21, 0), location: 'Zoom', isVirtual: true, recordingUrl: '', description: 'Recording available until next year.' },
 ];
 
-export const leaders: Leader[] = [
-  { id: 'l1', name: 'David & Samantha Park', pin: 'Platinum', location: 'Kansas City, MO', story: 'Started in 2015. Built the business alongside full-time careers.' },
-  { id: 'l2', name: 'Paul & Angie Kopecky', pin: 'Diamond', location: 'Overland Park, KS', story: 'Founders of the Invictus team.' },
-  { id: 'l3', name: 'Blake Harris', pin: 'Emerald', location: 'Kansas City, MO', story: 'Leads the Harris team within Invictus.' },
+// Names and pins from the current app's Profiles tab, in its order.
+// Photos and bios are still to be supplied. `videoSource` = file in Dropbox ProfileVideos/.
+export const profiles: Profile[] = [
+  { id: 'kopecky', firstNames: 'Paul and Morgan', lastName: 'Kopecky', pin: 'EDC', founders: false, videoSource: 'ProfileVideos/Kopecky Profile Video.MOV' },
+  { id: 'brown', firstNames: 'Kyle and Austin', lastName: 'Brown', pin: 'Emerald', founders: true, videoSource: 'ProfileVideos/Brown Profile Video.mov' },
+  { id: 'jordan', firstNames: 'Lucas and Madison', lastName: 'Jordan', pin: 'Emerald', founders: true },
+  { id: 'wyatt', firstNames: 'Courtney and Paige', lastName: 'Wyatt', pin: 'Emerald', founders: true, videoSource: 'ProfileVideos/Wyatt Profile Video.mov' },
+  { id: 'jahnke', firstNames: 'Kalen and Melissa', lastName: 'Jahnke', pin: 'Sapphire', founders: false, videoSource: 'ProfileVideos/Jahnke Profile Video.MOV' },
+  { id: 'raniolo', firstNames: 'Dominic and Katlyn', lastName: 'Raniolo', pin: 'Ruby', founders: true, qualifying: true, videoSource: 'ProfileVideos/Raniolo Profile Video.MOV' },
+  { id: 'brite', firstNames: 'Jared and Brooke', lastName: 'Brite', pin: 'Ruby', founders: false, videoSource: 'ProfileVideos/Brite Profile Video.mov' },
+  { id: 'greene', firstNames: 'Justin and Jordann', lastName: 'Greene', pin: 'Ruby', founders: false, videoSource: 'ProfileVideos/Greene Profile Video.mov' },
+  { id: 'park', firstNames: 'David and Samantha', lastName: 'Park', pin: 'Ruby', founders: false, videoSource: 'ProfileVideos/Park Profile Video.mov' },
+  { id: 'smith', firstNames: 'Ryan and Veronica', lastName: 'Smith', pin: 'Ruby', founders: false },
+  { id: 'arceneaux', firstNames: 'Allen', lastName: 'Arceneaux', pin: 'Platinum', founders: true },
+  { id: 'burns', firstNames: 'Ryan and Berenice', lastName: 'Burns', pin: 'Platinum', founders: true },
+  { id: 'calahan', firstNames: 'Xavier and Lourdes', lastName: 'Calahan', pin: 'Platinum', founders: true, videoSource: 'ProfileVideos/Calahan Profile Video.mov' },
+  { id: 'jackson', firstNames: 'Cameron and Sheila', lastName: 'Jackson', pin: 'Platinum', founders: true },
+  { id: 'mccann', firstNames: 'Chad and Chelsea', lastName: 'McCann', pin: 'Platinum', founders: true, videoSource: 'ProfileVideos/McCann Profile Video.MOV' },
+  { id: 'mercer', firstNames: 'Chase and Anna', lastName: 'Mercer', pin: 'Platinum', founders: true },
+  { id: 'meyer', firstNames: 'Justin and Courtney', lastName: 'Meyer', pin: 'Platinum', founders: true },
+  { id: 'osuala', firstNames: 'Chuk', lastName: 'Osuala', pin: 'Platinum', founders: true },
+  { id: 'quinn', firstNames: 'Ethan and Abreale', lastName: 'Quinn', pin: 'Platinum', founders: true, videoSource: 'ProfileVideos/Quinn Profile Video.mov' },
+  { id: 'sanner', firstNames: 'Patrick and Ruthie', lastName: 'Sanner', pin: 'Platinum', founders: true },
+  { id: 'streff', firstNames: 'Jeff and Carla', lastName: 'Streff', pin: 'Platinum', founders: false },
+  { id: 'nguyen', firstNames: 'Vy', lastName: 'Nguyen', pin: 'Platinum', founders: false },
+  { id: 'pugliese', firstNames: 'Chris and Jordan', lastName: 'Pugliese', pin: 'Platinum', founders: false, videoSource: 'ProfileVideos/Pugliese Profile Video.MOV' },
+];
+
+/** Welcome text from the current app's Home tab, verbatim. */
+export const WELCOME = [
+  "INVICTUS has always been more than just a catchy Team Name to us... it truly is a Lifestyle & a Culture that we are Proud to live out. It is fundamentally established on an Attitude of Winning & that's what matters most to us... seeing others Win in All areas of their Life.",
+  'We have found that Influence is Everything & we are excited for your Lives to be Positively influenced in the same way that ours have been. Welcome to a Movement. Welcome to our Culture. Welcome to The INVICTUS Team.',
 ];
 
 export const announcements: Announcement[] = [

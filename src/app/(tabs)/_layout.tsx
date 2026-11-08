@@ -7,9 +7,9 @@ import { useTheme } from '@/theme/ThemeProvider';
 
 const tabs = [
   { name: '(home)', label: 'Home', icon: icons.home },
-  { name: 'audio', label: 'Audio', icon: icons.audio },
-  { name: 'resources', label: 'Resources', icon: icons.resources },
   { name: 'events', label: 'Events', icon: icons.events },
+  { name: 'profiles', label: 'Profiles', icon: icons.list },
+  { name: 'resources', label: 'Resources', icon: icons.resources },
 ] as const;
 
 export default function TabsLayout() {

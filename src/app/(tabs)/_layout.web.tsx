@@ -11,9 +11,9 @@ import { MaxContentWidth, Radius, Spacing } from '@/theme/tokens';
 
 const tabs: { name: string; href: string; label: string; icon: IconName }[] = [
   { name: '(home)', href: '/', label: 'Home', icon: 'home' },
-  { name: 'audio', href: '/audio', label: 'Audio', icon: 'audio' },
-  { name: 'resources', href: '/resources', label: 'Resources', icon: 'resources' },
   { name: 'events', href: '/events', label: 'Events', icon: 'events' },
+  { name: 'profiles', href: '/profiles', label: 'Profiles', icon: 'list' },
+  { name: 'resources', href: '/resources', label: 'Resources', icon: 'resources' },
 ];
 
 /** Web: a floating glass tab bar at the bottom, mirroring the native one. */

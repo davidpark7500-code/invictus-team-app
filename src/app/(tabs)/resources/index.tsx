@@ -5,12 +5,11 @@ import { StyleSheet, View } from 'react-native';
 import { ListRow } from '@/components/ui/ListRow';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
-import { formatDate } from '@/data/format';
 import { resources } from '@/data/mock';
-import type { ResourceCategory, ResourceKind } from '@/data/types';
+import { KIND_ICON, KIND_LABEL } from '@/features/resources/kinds';
 
-const ORDER: ResourceCategory[] = ['CNA', 'Roadmap', 'Plan', 'Training', 'Forms'];
-const KIND_ICON: Record<ResourceKind, 'pdf' | 'link' | 'video'> = { pdf: 'pdf', link: 'link', video: 'video' };
+/** Section order follows the order items appear in the data. */
+const SECTIONS = [...new Set(resources.map((r) => r.section))];
 
 export default function ResourcesScreen() {
   const router = useRouter();
@@ -18,8 +17,10 @@ export default function ResourcesScreen() {
 
   const grouped = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const items = q ? resources.filter((r) => `${r.title} ${r.summary}`.toLowerCase().includes(q)) : resources;
-    return ORDER.map((cat) => [cat, items.filter((r) => r.category === cat)] as const).filter(([, list]) => list.length);
+    const items = q
+      ? resources.filter((r) => `${r.title} ${r.speaker ?? ''} ${r.section}`.toLowerCase().includes(q))
+      : resources;
+    return SECTIONS.map((s) => [s, items.filter((r) => r.section === s)] as const).filter(([, list]) => list.length);
   }, [query]);
 
   return (
@@ -34,16 +35,16 @@ export default function ResourcesScreen() {
         }}
       />
       <Screen>
-        {grouped.map(([cat, list]) => (
-          <View key={cat} style={styles.group}>
-            <SectionHeader title={cat} />
+        {grouped.map(([section, list]) => (
+          <View key={section} style={styles.group}>
+            <SectionHeader title={section} />
             {list.map((r) => (
               <ListRow
                 key={r.id}
                 icon={KIND_ICON[r.kind]}
                 title={r.title}
-                subtitle={r.summary}
-                meta={`Updated ${formatDate(r.updatedAt)}`}
+                subtitle={r.speaker}
+                meta={KIND_LABEL[r.kind]}
                 onPress={() => router.push(`/resources/${r.id}`)}
               />
             ))}

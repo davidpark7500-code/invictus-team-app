@@ -1,26 +1,23 @@
 /** Domain model reverse-engineered from the current Invictus Team app. */
 
-export type Audio = {
-  id: string;
-  title: string;
-  speaker: string;
-  series: string;
-  durationSec: number;
-  recordedAt: string; // ISO date
-  url: string;
-};
+export type ResourceKind = 'pdf' | 'audio' | 'video' | 'link';
 
-export type ResourceCategory = 'CNA' | 'Roadmap' | 'Plan' | 'Training' | 'Forms';
-export type ResourceKind = 'pdf' | 'link' | 'video';
-
+/**
+ * Everything on the Resources tab: PDFs, audio, video and web links,
+ * grouped into sections in the order the current app shows them.
+ */
 export type Resource = {
   id: string;
   title: string;
-  category: ResourceCategory;
+  section: string;
   kind: ResourceKind;
-  summary: string;
-  updatedAt: string;
+  /** Talks credit the speaker by last name. */
+  speaker?: string;
+  /** Playable or openable URL once the file is hosted. Empty until then. */
   url: string;
+  /** Where the original lives in the "Invictus Team App" Dropbox folder, if matched. */
+  source?: string;
+  durationSec?: number;
 };
 
 export type EventType = 'group_evaluation' | 'team_training' | 'conference' | 'social';
@@ -38,13 +35,22 @@ export type TeamEvent = {
   description: string;
 };
 
-export type Leader = {
+/** A leader on the Profiles tab. */
+export type Profile = {
   id: string;
-  name: string;
+  /** "Paul and Morgan" */
+  firstNames: string;
+  lastName: string;
+  /** EDC, Emerald, Sapphire, Ruby, Platinum. */
   pin: string;
-  location: string;
-  story: string;
+  founders: boolean;
+  /** Shown as "Qual": qualifying for the pin. */
+  qualifying?: boolean;
+  bio?: string;
   photoUrl?: string;
+  videoUrl?: string;
+  /** Profile video in Dropbox ProfileVideos/, if one exists. */
+  videoSource?: string;
 };
 
 export type Announcement = {
