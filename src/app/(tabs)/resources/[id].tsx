@@ -13,6 +13,7 @@ import { formatDuration } from '@/data/format';
 import { resources } from '@/data/mock';
 import type { Resource } from '@/data/types';
 import { usePlayer } from '@/features/audio/PlayerProvider';
+import { InlineVideo } from '@/features/media/InlineVideo';
 import { KIND_ICON, KIND_LABEL } from '@/features/resources/kinds';
 import { useTheme } from '@/theme/ThemeProvider';
 import { Radius, Spacing } from '@/theme/tokens';
@@ -33,12 +34,7 @@ export default function ResourceDetailScreen() {
   return (
     <Screen contentContainerStyle={styles.content}>
       {resource.kind === 'video' ? (
-        <View style={[styles.video, { backgroundColor: colors.fill }]}>
-          <Icon name="video" size={40} color={colors.textSecondary} />
-          <Text variant="footnote" color="textSecondary">
-            {resource.url ? 'Tap to play' : 'Video plays here once hosting is set up.'}
-          </Text>
-        </View>
+        <InlineVideo url={resource.url} title={resource.title} pendingLabel="Video link not connected yet." />
       ) : (
         <View style={[styles.hero, { backgroundColor: colors.brandSoft }]}>
           <Icon name={KIND_ICON[resource.kind]} size={44} color={colors.brandText} />
@@ -125,7 +121,6 @@ function Control({ icon, large, onPress }: { icon: 'play' | 'pause' | 'rewind' |
 const styles = StyleSheet.create({
   content: { paddingTop: Spacing.lg },
   hero: { width: 96, height: 96, borderRadius: Radius.xl, alignItems: 'center', justifyContent: 'center' },
-  video: { aspectRatio: 16 / 9, borderRadius: Radius.lg, alignItems: 'center', justifyContent: 'center', gap: Spacing.sm, padding: Spacing.lg },
   pills: { flexDirection: 'row', gap: Spacing.sm, flexWrap: 'wrap' },
   actions: { gap: Spacing.sm },
   audio: { gap: Spacing.sm, marginTop: Spacing.sm },

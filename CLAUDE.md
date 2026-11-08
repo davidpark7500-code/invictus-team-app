@@ -39,10 +39,13 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
 Stream the **original** files straight from the owner's Dropbox. No compression for now.
 Dropbox Essentials allows ~1 TB/day of shared-link traffic; expected use is 200–300 plays/day,
 about 270 GB/day at ~1 GB per talk.
-1. Ask the owner, then create one **view-only** shared link per file listed in `source` /
-   `videoSource` in `src/data/mock.ts`, and store its direct-file form (`raw=1`) in `url` /
-   `videoUrl`.
-2. Play with `expo-video` (`npx expo install expo-video`).
+1. The owner approved creating links. They must be **public "anyone with the link can view"**
+   links (the Dropbox MCP tool can only make private links, so it can't do this). Either the owner
+   makes them in Dropbox and pastes them, or uses a Dropbox API token with `sharing.write`.
+   Paste each link as-is into `url` (resources) / `videoUrl` (profiles) in `src/data/mock.ts`;
+   `toDirectMediaUrl` (src/features/media/dropbox.ts) converts it to the `raw=1` direct file.
+2. In-app playback is built: `InlineVideo` (expo-video) plays inside the app with native controls,
+   full screen, picture-in-picture and background audio. It never opens Dropbox.
 3. Test "Know Your Resources" (2.8 GB) and one .MOV profile video on a phone over cellular,
    and on Android if available.
 If start-up is slow or a .MOV won't play: preferred fallback is **Bunny Stream** (auto-encodes

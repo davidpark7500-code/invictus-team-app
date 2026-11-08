@@ -50,6 +50,13 @@
             "image": "./assets/images/splash-icon-dark.png"
           }
         }
+      ],
+      [
+        "expo-video",
+        {
+          "supportsBackgroundPlayback": true,
+          "supportsPictureInPicture": true
+        }
       ]
     ],
     "experiments": {
