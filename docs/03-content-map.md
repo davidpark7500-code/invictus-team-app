@@ -37,8 +37,9 @@ Jahnke, Raniolo, Brite, Greene, Park, Calahan, McCann, Quinn, Pugliese. No photo
 Dropbox yet. Rows between Greene and Park may have been missed in the screenshots.
 
 ## Hosting
-Decided: compressed 720p copies in Dropbox `App Videos/`, streamed via view-only links.
-Essentials allows ~1 TB/day of shared-link traffic. `scripts/convert-videos.sh` makes the copies.
+Decided for now: stream the original files from Dropbox via view-only links (Essentials,
+~1 TB/day; expected ~270 GB/day). Fallback if playback is poor: Bunny Stream (~$35–40/month at
+300 plays/day). Compression script exists but is optional.
 
 ## Sharing profiles
 Plan: `profile_shares` table (migration 0003) issues a random token that expires after
