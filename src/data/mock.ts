@@ -12,16 +12,16 @@ const iso = (offsetDays: number, hour = 19, minute = 30) => {
 };
 
 // Titles and sections from the current app's Resources tab, in its order.
-// `source` = matched file in the "Invictus Team App" Dropbox folder (likely matches only).
-// Unconfirmed matches and items with no Dropbox file have no source yet.
+// `source` = matched file in the "Invictus Team App" Dropbox folder (all talks confirmed by the owner).
+// Items with no Dropbox file have no source yet.
 export const resources: Resource[] = [
   { id: 'r-levelup', section: 'Quick Links', title: '\u2B06\uFE0F Level Up!', kind: 'pdf', url: '' },
   { id: 'r-phases', section: 'Quick Links', title: 'Phases of Progression', kind: 'pdf', url: '' },
   { id: 't-resources', section: 'Onboarding Talks', title: 'Know Your Resources', kind: 'video', speaker: 'Park', url: '', source: 'Activation Videos/2022-03-19_Resources_Park.mp4' },
-  { id: 't-owner', section: 'Onboarding Talks', title: 'Business Owner Mentality', kind: 'video', speaker: 'McCann', url: '' },
+  { id: 't-owner', section: 'Onboarding Talks', title: 'Business Owner Mentality', kind: 'video', speaker: 'McCann', url: '', source: 'Activation Videos/(01) 2021-11-06 Chad and Chelsea.mp4' },
   { id: 't-sales', section: 'Onboarding Talks', title: 'Sales Basics 101', kind: 'video', speaker: 'Lutz', url: '', source: 'Activation Videos/2023-10-17_Training_LutzSalesMindset.mp4' },
-  { id: 't-networking', section: 'Onboarding Talks', title: 'Networking Basics', kind: 'video', speaker: 'Brown & Jordan', url: '' },
-  { id: 't-core', section: 'Onboarding Talks', title: 'Core Run', kind: 'video', speaker: 'Brown', url: '' },
+  { id: 't-networking', section: 'Onboarding Talks', title: 'Networking Basics', kind: 'video', speaker: 'Brown & Jordan', url: '', source: 'Activation Videos/(03) 2021-11-06 Kyle and Lucas.mp4' },
+  { id: 't-core', section: 'Onboarding Talks', title: 'Core Run', kind: 'video', speaker: 'Brown', url: '', source: 'Activation Videos/(04) 2021-11-23 Brown Training Shortened.mp4' },
   { id: 't-financial', section: 'Onboarding Talks', title: 'Financial Principles', kind: 'video', speaker: 'McCann', url: '', source: 'Activation Videos/2023-06-11_Finances_McCann.mp4' },
   { id: 't-blueprint', section: 'Onboarding Talks', title: 'Power of Blueprint', kind: 'video', speaker: 'Park', url: '', source: 'Activation Videos/2025-04-16_Blueprint_David.mp4' },
   { id: 'r-cna-course', section: 'CNA Resources', title: 'NEW - LTD Maximize VCS with CNA Course!', kind: 'link', url: '' },

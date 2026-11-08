@@ -11,20 +11,20 @@ Home · Events · Profiles · Resources. No Audio tab (audio lives in Resources)
 | Item | Dropbox file | Confidence |
 |---|---|---|
 | Know Your Resources (Park) | Activation Videos/2022-03-19_Resources_Park.mp4 | Likely |
-| Business Owner Mentality (McCann) | Activation Videos/(01) 2021-11-06 Chad and Chelsea.mp4 ? | Guess — confirm |
+| Business Owner Mentality (McCann) | Activation Videos/(01) 2021-11-06 Chad and Chelsea.mp4 | Confirmed |
 | Sales Basics 101 (Lutz) | Activation Videos/2023-10-17_Training_LutzSalesMindset.mp4 | Likely |
-| Networking Basics (Brown & Jordan) | (03) 2021-11-06 Kyle and Lucas.mp4 **or** (03) 2025-02-25_Training_Brown_Networking.mp4 ? | Guess — confirm |
-| Core Run (Brown) | Activation Videos/(04) 2021-11-23 Brown Training Shortened.mp4 ? | Guess — confirm |
+| Networking Basics (Brown & Jordan) | Activation Videos/(03) 2021-11-06 Kyle and Lucas.mp4 | Confirmed |
+| Core Run (Brown) | Activation Videos/(04) 2021-11-23 Brown Training Shortened.mp4 | Confirmed (for now) |
 | Financial Principles (McCann) | Activation Videos/2023-06-11_Finances_McCann.mp4 | Likely |
 | Power of Blueprint (Park) | Activation Videos/2025-04-16_Blueprint_David.mp4 | Likely |
 | CNA Template | CNA/4. CNA PDF Template (no extension) | Likely |
 
-Only "Likely" matches are recorded as `source` in `src/data/mock.ts`.
+All seven talks and the CNA Template are recorded as `source` in `src/data/mock.ts`.
 
 **Not in Dropbox:** Level Up!, Phases of Progression, LTD Maximize VCS with CNA Course link,
 all Onboarding PDFs and links, any audio (Archived Audios folders are empty).
 
-**In Dropbox, not on the screenshots (decision pending):** 7 more CNA items, Amway
+**In Dropbox, not on the screenshots (left out for now, owner's call):** 7 more CNA items, Amway
 Compensation Plan video, 10 onboarding videos in ProfileVideos/Onboarding, unmatched
 Activation Videos (Hunt, Allison and Jared, HuntJordan, Pfeifer, 2025 Brown Networking).
 
@@ -37,8 +37,8 @@ Jahnke, Raniolo, Brite, Greene, Park, Calahan, McCann, Quinn, Pugliese. No photo
 Dropbox yet. Rows between Greene and Park may have been missed in the screenshots.
 
 ## Hosting
-Videos are 0.2–7 GB each (~160 GB total incl. unused). They need a streaming service that
-transcodes to phone-sized HLS (Mux / Cloudflare Stream / Vimeo). Not decided.
+Decided: compressed 720p copies in Dropbox `App Videos/`, streamed via view-only links.
+Essentials allows ~1 TB/day of shared-link traffic. `scripts/convert-videos.sh` makes the copies.
 
 ## Sharing profiles
 Plan: `profile_shares` table (migration 0003) issues a random token that expires after

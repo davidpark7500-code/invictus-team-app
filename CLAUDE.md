@@ -34,11 +34,24 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
   text shade of it (≥ 4.5:1 contrast on white).
 - **Style sheet:** `docs/style-sheet.html`, regenerated from the values in tokens.ts by hand.
 
+## Video hosting (decided)
+
+Stream compressed copies from the owner's Dropbox (Essentials plan: ~1 TB/day shared-link
+traffic, roughly 2,500 plays of a ~400 MB talk). Steps on the Mac:
+1. `brew install ffmpeg`, then run `scripts/convert-videos.sh "<path to Invictus Team App folder>"`.
+   It writes 19 copies (7 talks, 12 profile videos) to `Invictus Team App/App Videos/` and never
+   touches originals. Expect hours for the full set.
+2. Once Dropbox has synced the copies, create one **view-only** shared link per copy and put it in
+   `url` (resources) / `videoUrl` (profiles) in `src/data/mock.ts`, using the direct-file form
+   (`raw=1`). Ask the owner before creating links.
+3. Play video with `expo-video` (install via `npx expo install expo-video`).
+If daily views ever approach the limit, move the same copies to Cloudflare Stream.
+
 ## Status
 
 Content titles, sections, names and pins are in from the screenshots. Waiting on the owner for:
-video hosting choice, three unconfirmed talk matches, which extra Dropbox files to include,
-the missing PDFs, profile photos and bios. Ask before importing anything.
+the missing PDFs (Quick Links and Onboarding), profile photos and bios, the original team photo,
+and running the video conversion. All seven talk matches are confirmed. Only on-screen CNA items. Ask before importing anything.
 
 ## Capture task (only if the owner asks for more of the old app)
 
