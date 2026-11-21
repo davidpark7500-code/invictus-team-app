@@ -39,11 +39,11 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
 Stream the **original** files straight from the owner's Dropbox. No compression for now.
 Dropbox Essentials allows ~1 TB/day of shared-link traffic; expected use is 200–300 plays/day,
 about 270 GB/day at ~1 GB per talk.
-1. The owner approved creating links. They must be **public "anyone with the link can view"**
-   links (the Dropbox MCP tool can only make private links, so it can't do this). Either the owner
-   makes them in Dropbox and pastes them, or uses a Dropbox API token with `sharing.write`.
-   Paste each link as-is into `url` (resources) / `videoUrl` (profiles) in `src/data/mock.ts`;
-   `toDirectMediaUrl` (src/features/media/dropbox.ts) converts it to the `raw=1` direct file.
+1. **Done:** all 19 video URLs point at the files' own addresses inside the owner's public
+   "Invictus Team App" shared-folder link (no per-file links needed). `toDirectMediaUrl` turns each
+   into a direct stream (`raw=1`). If that folder link is deleted or regenerated, every video breaks;
+   switching it from edit to view-only should keep the same URLs. Not yet tested on a phone: the
+   cloud container's network blocks dropbox.com.
 2. In-app playback is built: `InlineVideo` (expo-video) plays inside the app with native controls,
    full screen, picture-in-picture and background audio. It never opens Dropbox.
 3. Test "Know Your Resources" (2.8 GB) and one .MOV profile video on a phone over cellular,
