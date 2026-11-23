@@ -1,5 +1,6 @@
 // Supabase Edge Function: push a notification when someone logs a sale.
-// Triggered by a Database Webhook on INSERT into public.sales (see docs/04-leaderboard-backend.md).
+// Called by a database trigger on INSERT into public.sales (migration 0007), with the
+// same { type, table, record } payload a Database Webhook would send.
 //
 // Rules ported from Pulse Board:
 // - notify everyone who opted in to that kind of sale (profiles.notify_membership / notify_order)
@@ -7,8 +8,9 @@
 // - send at most once per sale (claims sales.notified_at atomically)
 // - prune device tokens Expo reports as no longer registered
 //
-// Secrets: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are provided by Supabase.
-// Set WEBHOOK_SECRET yourself and send it from the webhook as the "x-webhook-secret" header.
+// The caller proves itself with the shared secret in "x-notify-secret", checked by
+// public.notify_secret_ok() (service role only). SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY
+// are provided by Supabase.
 import { createClient } from 'npm:@supabase/supabase-js@2';
 
 type SaleRecord = { id: string; user_id: string; kind: 'membership' | 'order'; created_at: string };
@@ -16,9 +18,12 @@ type SaleRecord = { id: string; user_id: string; kind: 'membership' | 'order'; c
 const EXPO_PUSH_URL = 'https://exp.host/--/api/v2/push/send';
 
 Deno.serve(async (req) => {
-  if (req.headers.get('x-webhook-secret') !== Deno.env.get('WEBHOOK_SECRET')) {
-    return new Response('forbidden', { status: 403 });
-  }
+  const db = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!, {
+    auth: { persistSession: false },
+  });
+  const { data: ok } = await db.rpc('notify_secret_ok', { secret: req.headers.get('x-notify-secret') ?? '' });
+  if (ok !== true) return new Response('forbidden', { status: 403 });
+
   const body = await req.json().catch(() => null);
   const sale: SaleRecord | undefined = body?.record;
   if (body?.type !== 'INSERT' || body?.table !== 'sales' || !sale?.id) {
@@ -28,10 +33,6 @@ Deno.serve(async (req) => {
   if (Date.now() - new Date(sale.created_at).getTime() > 2 * 60 * 1000) {
     return Response.json({ skipped: 'not fresh' });
   }
-
-  const db = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!, {
-    auth: { persistSession: false },
-  });
 
   // Claim the sale exactly once, even if the webhook is retried.
   const { data: claimed } = await db

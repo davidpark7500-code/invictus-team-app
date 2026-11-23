@@ -9,7 +9,7 @@ import { Pressable } from '@/components/ui/Pressable';
 import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
 import { useAccount } from '@/features/account/useAccount';
-import { SaleAlertsSettings } from '@/features/leaderboard/SaleAlertsSettings';
+import { NotificationSettings } from '@/features/account/NotificationSettings';
 import { useAuth } from '@/lib/AuthProvider';
 import { type ThemePreference, useTheme } from '@/theme/ThemeProvider';
 import { Radius, Spacing } from '@/theme/tokens';
@@ -56,7 +56,7 @@ export default function AccountScreen() {
         NOTIFICATIONS
       </Text>
       <Card>
-        <SaleAlertsSettings />
+        <NotificationSettings />
       </Card>
 
       <Text variant="footnote" color="textSecondary" style={styles.label}>

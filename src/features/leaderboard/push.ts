@@ -29,8 +29,8 @@ export async function enablePushAlerts(): Promise<PushResult> {
 
   try {
     if (Platform.OS === 'android') {
-      await Notifications.setNotificationChannelAsync('sales', {
-        name: 'Sales',
+      await Notifications.setNotificationChannelAsync('default', {
+        name: 'Team updates',
         // eslint-disable-next-line import/namespace -- re-exported via export *, which this rule misses
         importance: Notifications.AndroidImportance.DEFAULT,
       });
@@ -49,8 +49,35 @@ export async function enablePushAlerts(): Promise<PushResult> {
   }
 }
 
-/** Which kinds of sale this person wants alerts for (stored on their profile). */
-export async function saveAlertPrefs(prefs: { notify_membership: boolean; notify_order: boolean }) {
+export type AlertPrefs = {
+  notify_events: boolean;
+  notify_resources: boolean;
+  notify_membership: boolean;
+  notify_order: boolean;
+};
+
+export const DEFAULT_ALERT_PREFS: AlertPrefs = {
+  notify_events: true,
+  notify_resources: true,
+  notify_membership: true,
+  notify_order: true,
+};
+
+/** What this person wants alerts for, as saved on their profile. */
+export async function loadAlertPrefs(): Promise<AlertPrefs | null> {
+  if (!supabase) return null;
+  const { data: auth } = await supabase.auth.getUser();
+  if (!auth.user) return null;
+  const { data } = await supabase
+    .from('profiles')
+    .select('notify_events, notify_resources, notify_membership, notify_order')
+    .eq('id', auth.user.id)
+    .single();
+  return (data as AlertPrefs | null) ?? null;
+}
+
+/** Save one or more alert choices to this person's profile. */
+export async function saveAlertPrefs(prefs: Partial<AlertPrefs>) {
   if (!supabase) return;
   const { data } = await supabase.auth.getUser();
   if (!data.user) return;

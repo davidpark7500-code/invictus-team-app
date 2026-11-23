@@ -11,6 +11,7 @@ import { GlowBackground } from '@/features/leaderboard/GlowBackground';
 import { FloatingMiniPlayer } from '@/features/audio/MiniPlayer';
 import { PlayerProvider } from '@/features/audio/PlayerProvider';
 import { ContentProvider } from '@/data/content';
+import { useNotificationTaps } from '@/features/account/useNotificationTaps';
 import { AuthProvider, useAuth } from '@/lib/AuthProvider';
 import { ThemeProvider, useTheme } from '@/theme/ThemeProvider';
 
@@ -34,6 +35,7 @@ function RootNavigator() {
   const { session, loading, demoMode } = useAuth();
   const { scheme, colors } = useTheme();
   const signedIn = demoMode || !!session;
+  useNotificationTaps(signedIn && !loading);
 
   useEffect(() => {
     if (!loading) SplashScreen.hideAsync();

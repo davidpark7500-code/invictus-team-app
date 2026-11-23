@@ -73,6 +73,12 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
   each time the app comes to the front, keeps the last copy on the phone, and falls back to
   `mock.ts`. Code changes reach phones with `eas update --channel production --environment
   production` (EAS Update); bump `version` in app.json whenever native modules change.
+- **Notifications (owner, Nov 2026):** Account sheet > Notifications: New events, New resources
+  (team updates) and the two sale alerts, saved per person on `profiles.notify_*`. Database
+  triggers (migration 0007, pg_net) call the Edge Functions `notify-content` and `notify-sale`
+  with a shared secret checked by `notify_secret_ok()`; no dashboard webhooks. An event or
+  resource notifies once, when it's added published or first published. Tapping a notification
+  opens its screen (`data.url`). iOS delivery needs an APNs key in the project's EAS credentials.
 - **One account button (owner, Nov 2026):** the person's initials, top right on every tab (same
   spot on Home), open `/account`: profile, Notifications (sale alerts), Appearance, sign out. It
   replaced Home's settings gear and Leaderboard's bell. Sign-in covers the whole app, not just the
