@@ -26,7 +26,6 @@ export function PdfViewer({ url, title }: Props) {
   useEffect(() => {
     let cancelled = false;
     let destroy: (() => Promise<void>) | undefined;
-    setState('loading');
 
     (async () => {
       try {

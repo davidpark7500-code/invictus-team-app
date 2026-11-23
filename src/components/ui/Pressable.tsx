@@ -19,11 +19,11 @@ export function Pressable({ haptic = true, scaleTo = 0.97, onPressIn, onPressOut
       {...rest}
       style={[animated, typeof style === 'function' ? undefined : style]}
       onPressIn={(e) => {
-        scale.value = withSpring(scaleTo, { damping: 18, stiffness: 320 });
+        scale.set(withSpring(scaleTo, { damping: 18, stiffness: 320 }));
         onPressIn?.(e);
       }}
       onPressOut={(e) => {
-        scale.value = withSpring(1, { damping: 16, stiffness: 260 });
+        scale.set(withSpring(1, { damping: 16, stiffness: 260 }));
         onPressOut?.(e);
       }}
       onPress={(e) => {

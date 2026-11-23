@@ -62,12 +62,12 @@ export function SaleButton({ kind, count, onTap }: { kind: SaleKind; count: numb
       style={[styles.hit, pressStyle]}
       onPressIn={() => {
         if (reduceMotion) return;
-        press.value = withTiming(0.92, { duration: 90 });
-        chip.value = withTiming(1, { duration: 120 });
+        press.set(withTiming(0.92, { duration: 90 }));
+        chip.set(withTiming(1, { duration: 120 }));
       }}
       onPressOut={() => {
-        press.value = reduceMotion ? 1 : withSpring(1, SPRING);
-        chip.value = reduceMotion ? 0 : withSpring(0, SPRING);
+        press.set(reduceMotion ? 1 : withSpring(1, SPRING));
+        chip.set(reduceMotion ? 0 : withSpring(0, SPRING));
       }}
       onPress={() => {
         if (Platform.OS !== 'web') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});

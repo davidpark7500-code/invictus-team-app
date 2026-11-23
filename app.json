@@ -63,11 +63,24 @@
         {
           "color": "#C9A227"
         }
-      ]
+      ],
+      "expo-status-bar",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "6353d449-25e8-4a2b-bca5-1a97a4bcbfab"
+      }
+    },
+    "owner": "davidwillpark"
   }
 }

@@ -51,7 +51,7 @@ export default function ResourceDetailScreen() {
             ),
           }}
         />
-        <PdfViewer url={resource.url} title={resource.title} />
+        <PdfViewer key={resource.url} url={resource.url} title={resource.title} />
       </View>
     );
   }

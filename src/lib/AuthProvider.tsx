@@ -28,7 +28,9 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(supabaseConfigured);
-  const [role, setRole] = useState<Role>('member');
+  // Role as loaded for one user; anyone else (or signed out) is a member until theirs loads.
+  const [loadedRole, setLoadedRole] = useState<{ userId: string; role: Role } | null>(null);
+  const role: Role = loadedRole && loadedRole.userId === session?.user.id ? loadedRole.role : 'member';
 
   useEffect(() => {
     if (!supabase) return;
@@ -42,16 +44,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const userId = session?.user.id;
-    if (!supabase || !userId) {
-      setRole('member');
-      return;
-    }
+    if (!supabase || !userId) return;
     supabase
       .from('profiles')
       .select('role')
       .eq('id', userId)
       .single()
-      .then(({ data }) => setRole(data?.role === 'admin' ? 'admin' : 'member'));
+      .then(({ data }) => setLoadedRole({ userId, role: data?.role === 'admin' ? 'admin' : 'member' }));
   }, [session?.user.id]);
 
   const value = useMemo<AuthContextValue>(

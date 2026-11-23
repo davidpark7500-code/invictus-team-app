@@ -21,7 +21,7 @@ export default function ListScreen() {
   const { colors } = useTheme();
   const router = useRouter();
   const [tab, setTab] = useState<Tab>('prospects');
-  const now = Date.now();
+  const [now] = useState(() => Date.now());
 
   const sortedProspects = [...prospects].sort((a, b) => stageProgress(b.checkpoints) - stageProgress(a.checkpoints));
 
