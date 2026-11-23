@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Glass, GlassGroup } from '@/components/glass/Glass';
 import { Icon } from '@/components/ui/Icon';
-import { TabHeader } from '@/components/ui/TabHeader';
+import { HeaderButton, TAB_HEADER_TOP, TabHeader } from '@/components/ui/TabHeader';
 import { Text } from '@/components/ui/Text';
 import { AlertsSheet } from '@/features/leaderboard/AlertsSheet';
 import { currentWeek, formatWeekEnd, formatWeekRange, LAUNCH_WEEK, shiftWeek } from '@/features/leaderboard/period';
@@ -54,15 +54,11 @@ export default function LeaderboardScreen() {
         style={styles.scroll}
         contentContainerStyle={[
           styles.content,
-          { paddingTop: insets.top + Spacing.md, paddingBottom: insets.bottom + (Platform.OS === 'ios' ? 72 : 120) },
+          { paddingTop: insets.top + TAB_HEADER_TOP, paddingBottom: insets.bottom + (Platform.OS === 'ios' ? 72 : 120) },
         ]}>
         <View style={styles.column}>
           <TabHeader title="Pulse" subtitle="Membership Leaderboard">
-            <Pressable accessibilityLabel="Alerts" hitSlop={8} onPress={() => setAlertsOpen(true)}>
-              <Glass interactive radius={Radius.pill} style={styles.round}>
-                <Icon name="bell" size={18} />
-              </Glass>
-            </Pressable>
+            <HeaderButton icon="bell" accessibilityLabel="Alerts" onPress={() => setAlertsOpen(true)} />
             <Pressable accessibilityLabel="Account" hitSlop={8}>
               <View style={[styles.round, { backgroundColor: colors.fillStrong }]}>
                 <Text style={styles.meInitials}>{initialsOf(me?.fullName ?? '')}</Text>

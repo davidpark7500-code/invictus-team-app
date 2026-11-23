@@ -29,7 +29,7 @@ export default function ResourcesScreen() {
   }, [query]);
 
   return (
-    <Screen keyboardShouldPersistTaps="handled">
+    <Screen tabRoot keyboardShouldPersistTaps="handled">
       <TabHeader title="Resources" />
       <View style={[styles.search, { backgroundColor: colors.fill }]}>
         <Icon name="search" size={16} color={colors.textTertiary} />

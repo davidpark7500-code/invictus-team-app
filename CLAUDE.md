@@ -50,6 +50,17 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
 - **Tab headers (owner, Nov 2026):** every tab except Home starts with the Invictus logo at top
   left and the tab title beside it (`src/components/ui/TabHeader.tsx`), matching Leaderboard.
   Those tab stacks hide the native header on their first screen; detail screens keep it.
+  The row is a fixed 44pt high and every tab pads its top the same way (`<Screen tabRoot>`,
+  Leaderboard uses the same constants), so the logo lands on the same spot on every tab.
+  Home has no "Home" title bar: big centred logo, Settings as a round glass button where
+  Leaderboard's bell sits.
+- **Glass on the web (Nov 2026):** a translucent panel only reads as glass with a lit top rim,
+  a faint sheen and a soft shadow (`Glass.web.tsx`). Content cards don't blur (they sit on the
+  smooth glow, where blur shows nothing, and a blur per card stutters on iPhone); the tab bar
+  and header buttons do.
+- **Web shell (`public/index.html`):** app-coloured background and logo before the JS loads,
+  Safari bars in the app's colour, full-screen "Add to Home Screen" app (`manifest.json`,
+  `public/icons/`).
 - **Style sheet:** `docs/style-sheet.html`, regenerated from the values in tokens.ts by hand.
 
 ## Video hosting (decided: Dropbox originals for now)

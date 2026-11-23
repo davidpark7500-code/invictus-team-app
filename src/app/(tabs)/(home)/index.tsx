@@ -1,5 +1,5 @@
-import { useRouter } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
+import { Link, useRouter } from 'expo-router';
+import { Platform, StyleSheet, View } from 'react-native';
 
 import { BrandLogo } from '@/components/ui/BrandLogo';
 import { Card } from '@/components/ui/Card';
@@ -8,6 +8,7 @@ import { ListRow } from '@/components/ui/ListRow';
 import { Pill } from '@/components/ui/Pill';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { HeaderButton, TAB_HEADER_HEIGHT } from '@/components/ui/TabHeader';
 import { Text } from '@/components/ui/Text';
 import { TeamHero } from '@/features/home/TeamHero';
 import { eventDay, formatEventPlace, formatEventWhen, formatRelativeDay, greeting, isUpcoming } from '@/data/format';
@@ -23,12 +24,20 @@ export default function HomeScreen() {
   const talks = resources.filter((r) => r.section === 'Onboarding Talks');
 
   return (
-    <Screen>
-      <View style={styles.brand}>
-        <BrandLogo width={150} />
-        <Text variant="title3" color="textSecondary">
-          {greeting()}
-        </Text>
+    <Screen tabRoot>
+      <View style={styles.top}>
+        <View style={styles.brand}>
+          <BrandLogo width={150} />
+          <Text variant="title3" color="textSecondary">
+            {greeting()}
+          </Text>
+        </View>
+        {/* Same height and spot as the buttons in Leaderboard's header row. */}
+        <View style={styles.topBar}>
+          <Link href="/settings" asChild>
+            <HeaderButton icon="settings" accessibilityLabel="Settings" />
+          </Link>
+        </View>
       </View>
 
       <TeamHero />
@@ -87,7 +96,9 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   welcome: { lineHeight: 23, marginBottom: 12 },
-  brand: { alignItems: 'center', gap: Spacing.sm, paddingVertical: Spacing.sm },
+  top: { marginTop: Platform.OS === 'ios' ? Spacing.md : 0 },
+  topBar: { position: 'absolute', top: 0, right: 0, height: TAB_HEADER_HEIGHT, justifyContent: 'center' },
+  brand: { alignItems: 'center', gap: Spacing.sm, paddingHorizontal: 48 },
   cardHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: Spacing.sm },
   inlineTitle: { flex: 1 },
   cardTitle: { marginTop: Spacing.sm, marginBottom: Spacing.xs },

@@ -20,6 +20,12 @@ export type GlassProps = ViewProps & {
   radius?: number;
   /** Force a non-blurred solid surface (e.g. inside long lists on Android). */
   solid?: boolean;
+  /**
+   * Web only: blur what's behind. Off for content cards, which only ever sit on
+   * the soft glow (blurring it changes nothing you can see, and a blur per card
+   * makes scrolling stutter on iPhone). Floating bars and buttons keep it.
+   */
+  blur?: boolean;
 };
 
 export const hasNativeGlass =
@@ -38,6 +44,7 @@ export function Glass({
   tintColor,
   radius = Radius.lg,
   solid = false,
+  blur: _blur,
   style,
   children,
   ...rest

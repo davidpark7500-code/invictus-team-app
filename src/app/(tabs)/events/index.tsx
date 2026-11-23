@@ -29,7 +29,7 @@ export default function EventsScreen() {
   const past = events.filter((e) => !isUpcoming(e)).sort((a, b) => b.date.localeCompare(a.date));
 
   return (
-    <Screen>
+    <Screen tabRoot>
       <TabHeader title="Events" />
       <SectionHeader title="Upcoming" />
       {upcoming.map((e) => {

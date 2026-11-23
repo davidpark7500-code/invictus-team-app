@@ -24,7 +24,7 @@ export function Card({ onPress, padded = true, style, children, tintColor, ...re
         {children}
       </View>
     ) : (
-      <Glass radius={Radius.lg} interactive={!!onPress} tintColor={tintColor ?? colors.cardGlass} style={shell} {...rest}>
+      <Glass radius={Radius.lg} interactive={!!onPress} blur={false} tintColor={tintColor ?? colors.cardGlass} style={shell} {...rest}>
         {children}
       </Glass>
     );

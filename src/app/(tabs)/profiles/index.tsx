@@ -15,7 +15,7 @@ const PINS = ['EDC', 'Emerald', 'Sapphire', 'Ruby', 'Platinum'];
 export default function ProfilesScreen() {
   const router = useRouter();
   return (
-    <Screen>
+    <Screen tabRoot>
       <TabHeader title="Profiles" />
       {PINS.map((pin) => {
         const list = profiles.filter((p) => p.pin === pin);

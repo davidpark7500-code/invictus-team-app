@@ -1,7 +1,5 @@
-import { Link, Stack } from 'expo-router';
+import { Stack } from 'expo-router';
 
-import { Icon } from '@/components/ui/Icon';
-import { Pressable } from '@/components/ui/Pressable';
 import { stackScreenOptions } from '@/lib/stackOptions';
 import { useTheme } from '@/theme/ThemeProvider';
 
@@ -11,16 +9,8 @@ export default function HomeStack() {
     <Stack screenOptions={stackScreenOptions(colors)}>
       <Stack.Screen
         name="index"
-        options={{
-          title: 'Home',
-          headerRight: () => (
-            <Link href="/settings" asChild>
-              <Pressable hitSlop={12} accessibilityLabel="Settings" haptic={false}>
-                <Icon name="settings" size={22} color={colors.accent} />
-              </Pressable>
-            </Link>
-          ),
-        }}
+        // No "Home" title bar: the screen draws its own top row, lined up with the other tabs.
+        options={{ title: 'Home', headerShown: false }}
       />
     </Stack>
   );

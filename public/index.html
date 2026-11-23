@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="%LANG_ISO_CODE%">
+  <head>
+    <meta charset="utf-8" />
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+    <!-- viewport-fit=cover: draw under the notch and home indicator; the app pads with the safe-area insets. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>%WEB_TITLE%</title>
+    <!-- Safari's bars match the app instead of staying white. -->
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F2F2F7" />
+    <meta name="color-scheme" content="dark light" />
+    <!-- "Add to Home Screen" opens it full screen, like an app, with its own icon. -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Invictus" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
+    <style id="expo-reset">
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        overflow: hidden;
+        /* No rubber-band of the whole page, no double-tap zoom, no grey tap flash. */
+        overscroll-behavior: none;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-text-size-adjust: 100%;
+        background: #f2f2f7;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: #000;
+        }
+      }
+      #root {
+        display: flex;
+        height: 100%;
+        flex: 1;
+      }
+      /* Shown until the app draws its first screen (React replaces #root's contents). */
+      .boot {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .boot img {
+        width: 150px;
+        height: auto;
+        animation: boot-in 0.4s ease-out both;
+      }
+      @keyframes boot-in {
+        from {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <noscript> You need to enable JavaScript to run this app. </noscript>
+    <div id="root">
+      <div class="boot">
+        <picture>
+          <source srcset="/icons/logo-white.png" media="(prefers-color-scheme: dark)" />
+          <img src="/icons/logo-black.png" alt="Invictus" />
+        </picture>
+      </div>
+    </div>
+  </body>
+</html>

@@ -95,7 +95,7 @@ export const palettes = {
     rank2: '#A8ABB3',
     rank3: '#CD8F4A',
     badgeBg: '#4A4A54',
-    cardGlass: 'rgba(44,44,52,0.5)',
+    cardGlass: 'rgba(44,44,52,0.4)',
     glowGold: 'rgba(224,188,78,0.42)',
     glowBlue: 'rgba(47,107,255,0.58)',
     glowViolet: 'rgba(139,92,246,0.42)',

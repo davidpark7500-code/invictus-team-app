@@ -1,6 +1,7 @@
 import type { Href } from 'expo-router';
 import { TabList, type TabListProps, TabSlot, TabTrigger, type TabTriggerSlotProps, Tabs } from 'expo-router/ui';
 import { StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Glass } from '@/components/glass/Glass';
 import { Icon, type IconName } from '@/components/ui/Icon';
@@ -40,9 +41,12 @@ export default function TabsLayoutWeb() {
 }
 
 function GlassTabBar({ children, style: _style, ...rest }: TabListProps) {
+  const { scheme } = useTheme();
+  const insets = useSafeAreaInsets();
   return (
-    <View {...rest} style={styles.list} pointerEvents="box-none">
-      <Glass radius={Radius.pill} style={styles.bar}>
+    // Clear of the iPhone home indicator when opened from the Home Screen.
+    <View {...rest} style={[styles.list, { bottom: Math.max(insets.bottom, Spacing.lg) }]} pointerEvents="box-none">
+      <Glass radius={Radius.pill} tintColor={BAR_TINT[scheme]} style={styles.bar}>
         {children}
       </Glass>
     </View>
@@ -63,13 +67,15 @@ function TabButton({ label, icon, isFocused, ...props }: TabTriggerSlotProps & {
   );
 }
 
+/** Thinner than a card, so what scrolls underneath shows through, blurred. */
+const BAR_TINT = { dark: 'rgba(28,28,34,0.48)', light: 'rgba(255,255,255,0.55)' } as const;
+
 const styles = StyleSheet.create({
   slot: { flex: 1 },
   list: {
     position: 'absolute',
     left: 0,
     right: 0,
-    bottom: Spacing.lg,
     alignItems: 'center',
   },
   bar: {
