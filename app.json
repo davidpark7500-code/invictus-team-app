@@ -20,6 +20,9 @@
           "audio"
         ],
         "ITSAppUsesNonExemptEncryption": false
+      },
+      "runtimeVersion": {
+        "policy": "appVersion"
       }
     },
     "android": {
@@ -81,6 +84,9 @@
         "projectId": "6353d449-25e8-4a2b-bca5-1a97a4bcbfab"
       }
     },
-    "owner": "davidwillpark"
+    "owner": "davidwillpark",
+    "updates": {
+      "url": "https://u.expo.dev/6353d449-25e8-4a2b-bca5-1a97a4bcbfab"
+    }
   }
 }
