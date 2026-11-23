@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { StatusBarFade } from '@/components/ui/StatusBarFade';
 import { GlowBackground } from '@/features/leaderboard/GlowBackground';
 import { FloatingMiniPlayer } from '@/features/audio/MiniPlayer';
 import { PlayerProvider } from '@/features/audio/PlayerProvider';
@@ -61,6 +62,7 @@ function RootNavigator() {
         </Stack.Protected>
       </Stack>
       <FloatingMiniPlayer />
+      <StatusBarFade />
     </View>
   );
 }

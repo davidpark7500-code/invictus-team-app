@@ -42,6 +42,15 @@
         height: 100%;
         flex: 1;
       }
+      /* Opened from the Home Screen, iOS measures 100% short by the status bar's height and
+         leaves a black band at the bottom; 100vh is the whole screen there. Safari itself
+         keeps 100%, so the tab bar never hides under Safari's own toolbar. */
+      @media (display-mode: standalone) {
+        html,
+        body {
+          height: 100vh;
+        }
+      }
       /* Shown until the app draws its first screen (React replaces #root's contents). */
       .boot {
         flex: 1;

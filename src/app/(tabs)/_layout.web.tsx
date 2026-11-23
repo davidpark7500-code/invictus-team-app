@@ -3,9 +3,12 @@ import { TabList, type TabListProps, TabSlot, TabTrigger, type TabTriggerSlotPro
 import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { LinearGradient } from 'expo-linear-gradient';
+
 import { Glass } from '@/components/glass/Glass';
 import { Icon, type IconName } from '@/components/ui/Icon';
 import { Pressable } from '@/components/ui/Pressable';
+import { withAlpha } from '@/components/ui/StatusBarFade';
 import { Text } from '@/components/ui/Text';
 import { FloatingMiniPlayer } from '@/features/audio/MiniPlayer';
 import { useTheme } from '@/theme/ThemeProvider';
@@ -24,6 +27,7 @@ export default function TabsLayoutWeb() {
   return (
     <Tabs>
       <TabSlot style={styles.slot} />
+      <BottomFade />
       <FloatingMiniPlayer />
       {/* The router only finds TabTriggers that are direct children of TabList
           (or of its single asChild wrapper), so the glass bar must be that wrapper. */}
@@ -40,12 +44,29 @@ export default function TabsLayoutWeb() {
   );
 }
 
+/** Fades the page out behind and below the tab bar, so text doesn't run on under it to the screen edge. */
+function BottomFade() {
+  const { colors } = useTheme();
+  const insets = useSafeAreaInsets();
+  return (
+    <LinearGradient
+      pointerEvents="none"
+      colors={[withAlpha(colors.background, 0), withAlpha(colors.background, 0.85), colors.background]}
+      locations={[0, 0.45, 0.75]}
+      style={[styles.bottomFade, { height: tabBarBottom(insets.bottom) + BAR_HEIGHT + Spacing.xl }]}
+    />
+  );
+}
+
+/** Clear of the iPhone home indicator when opened from the Home Screen. */
+const tabBarBottom = (insetBottom: number) => Math.max(insetBottom, Spacing.lg);
+const BAR_HEIGHT = 60;
+
 function GlassTabBar({ children, style: _style, ...rest }: TabListProps) {
   const { scheme } = useTheme();
   const insets = useSafeAreaInsets();
   return (
-    // Clear of the iPhone home indicator when opened from the Home Screen.
-    <View {...rest} style={[styles.list, { bottom: Math.max(insets.bottom, Spacing.lg) }]} pointerEvents="box-none">
+    <View {...rest} style={[styles.list, { bottom: tabBarBottom(insets.bottom) }]} pointerEvents="box-none">
       <Glass radius={Radius.pill} tintColor={BAR_TINT[scheme]} style={styles.bar}>
         {children}
       </Glass>
@@ -72,6 +93,7 @@ const BAR_TINT = { dark: 'rgba(28,28,34,0.48)', light: 'rgba(255,255,255,0.55)' 
 
 const styles = StyleSheet.create({
   slot: { flex: 1 },
+  bottomFade: { position: 'absolute', left: 0, right: 0, bottom: 0 },
   list: {
     position: 'absolute',
     left: 0,

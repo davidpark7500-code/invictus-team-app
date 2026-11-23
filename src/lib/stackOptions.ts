@@ -11,9 +11,15 @@ type StackScreenOptions = NonNullable<ComponentProps<typeof Stack>['screenOption
  * Shared native-stack header: large title, content scrolls underneath.
  * iOS 26 draws its own scroll-edge glass; older iOS gets a material blur.
  */
-export function stackScreenOptions(colors: Colors): Exclude<StackScreenOptions, (...args: never[]) => unknown> {
+export function stackScreenOptions(
+  colors: Colors,
+  /** Safe-area top. The web header doesn't add it by itself, so its back button hid behind the clock. */
+  topInset = 0,
+): Exclude<StackScreenOptions, (...args: never[]) => unknown> {
   if (Platform.OS === 'web') {
     return {
+      // Passed straight through to the web header.
+      ...({ headerStatusBarHeight: topInset } as object),
       headerShown: true,
       headerShadowVisible: false,
       headerTintColor: colors.accent,
