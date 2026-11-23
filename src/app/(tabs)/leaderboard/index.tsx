@@ -8,6 +8,7 @@ import { TabHeader, useTabRootScroll } from '@/components/ui/TabHeader';
 import { Text } from '@/components/ui/Text';
 import { currentWeek, formatWeekEnd, formatWeekRange, LAUNCH_WEEK, shiftWeek } from '@/features/leaderboard/period';
 import { allTimeRows, ME_ID, placeholderFeed, weekRows } from '@/features/leaderboard/placeholder';
+import { ScreenGlow } from '@/features/leaderboard/GlowBackground';
 import { RankingCard } from '@/features/leaderboard/RankingCard';
 import { rankRows, type SaleKind } from '@/features/leaderboard/rank';
 import { SaleButton } from '@/features/leaderboard/SaleButton';
@@ -48,6 +49,7 @@ export default function LeaderboardScreen() {
 
   return (
     <View style={styles.root}>
+      <ScreenGlow />
       <ScrollView
         style={styles.scroll}
         contentInsetAdjustmentBehavior={tabTop.contentInsetAdjustmentBehavior}

@@ -2,6 +2,7 @@ import { Platform, ScrollView, type ScrollViewProps, StyleSheet, View } from 're
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useTabRootScroll } from '@/components/ui/TabHeader';
+import { ScreenGlow } from '@/features/leaderboard/GlowBackground';
 import { MaxContentWidth, Spacing } from '@/theme/tokens';
 
 type Props = ScrollViewProps & {
@@ -24,28 +25,32 @@ export function Screen({ children, contentContainerStyle, playerInset = true, ta
   const bottom = (Platform.OS === 'ios' ? 0 : insets.bottom + 80) + (playerInset ? 72 : 0);
 
   return (
-    <ScrollView
-      contentInsetAdjustmentBehavior={tabRoot ? tabTop.contentInsetAdjustmentBehavior : 'automatic'}
-      keyboardDismissMode="on-drag"
-      style={styles.scroll}
-      contentContainerStyle={[
-        styles.content,
-        tabRoot
-          ? { paddingTop: tabTop.paddingTop }
-          : [
-              Platform.OS === 'android' && { paddingTop: insets.top + Spacing.lg },
-              Platform.OS === 'web' && { paddingTop: Spacing.xl },
-            ],
-        { paddingBottom: bottom + Spacing.xl },
-        contentContainerStyle,
-      ]}
-      {...rest}>
-      <View style={styles.column}>{children}</View>
-    </ScrollView>
+    <View style={styles.screen}>
+      <ScreenGlow />
+      <ScrollView
+        contentInsetAdjustmentBehavior={tabRoot ? tabTop.contentInsetAdjustmentBehavior : 'automatic'}
+        keyboardDismissMode="on-drag"
+        style={styles.scroll}
+        contentContainerStyle={[
+          styles.content,
+          tabRoot
+            ? { paddingTop: tabTop.paddingTop }
+            : [
+                Platform.OS === 'android' && { paddingTop: insets.top + Spacing.lg },
+                Platform.OS === 'web' && { paddingTop: Spacing.xl },
+              ],
+          { paddingBottom: bottom + Spacing.xl },
+          contentContainerStyle,
+        ]}
+        {...rest}>
+        <View style={styles.column}>{children}</View>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  screen: { flex: 1 },
   scroll: { flex: 1 },
   content: { alignItems: 'center', paddingHorizontal: Spacing.lg },
   column: { width: '100%', maxWidth: MaxContentWidth, gap: Spacing.lg },

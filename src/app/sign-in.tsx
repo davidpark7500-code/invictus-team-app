@@ -9,6 +9,7 @@ import { Text } from '@/components/ui/Text';
 import { useAuth } from '@/lib/AuthProvider';
 import { useTheme } from '@/theme/ThemeProvider';
 import { MaxContentWidth, Radius, Spacing } from '@/theme/tokens';
+import { ScreenGlow } from '@/features/leaderboard/GlowBackground';
 
 type Mode = 'sign-in' | 'sign-up';
 
@@ -40,6 +41,7 @@ export default function SignInScreen() {
 
   return (
     <SafeAreaView style={styles.safe}>
+      <ScreenGlow />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.flex}>
         <ScrollView contentContainerStyle={styles.center} keyboardShouldPersistTaps="handled">
           <View style={styles.column}>

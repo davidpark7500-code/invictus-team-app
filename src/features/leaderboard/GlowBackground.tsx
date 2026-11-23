@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { StyleSheet, useWindowDimensions, View } from 'react-native';
+import { Platform, StyleSheet, useWindowDimensions, View } from 'react-native';
 import Svg, { Circle, Defs, RadialGradient, Stop } from 'react-native-svg';
 
 import { useTheme } from '@/theme/ThemeProvider';
@@ -52,6 +52,15 @@ export function GlowBackground() {
       />
     </View>
   );
+}
+
+/**
+ * The glow behind one screen, for the iPhone and Android app. There, the native
+ * tab bar and screen containers paint a solid background over the app-wide glow,
+ * so each screen draws its own. The web shows the app-wide one, so this is empty.
+ */
+export function ScreenGlow() {
+  return Platform.OS === 'web' ? null : <GlowBackground />;
 }
 
 function withAlpha(hex: string, a: number) {
