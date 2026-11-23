@@ -7,7 +7,6 @@ import { BrandLogo } from '@/components/ui/BrandLogo';
 import { Icon } from '@/components/ui/Icon';
 import { Text } from '@/components/ui/Text';
 import { AlertsSheet } from '@/features/leaderboard/AlertsSheet';
-import { GlowBackground } from '@/features/leaderboard/GlowBackground';
 import { currentWeek, formatWeekEnd, formatWeekRange, LAUNCH_WEEK, shiftWeek } from '@/features/leaderboard/period';
 import { allTimeRows, ME_ID, placeholderFeed, weekRows } from '@/features/leaderboard/placeholder';
 import { RankingCard } from '@/features/leaderboard/RankingCard';
@@ -49,8 +48,7 @@ export default function LeaderboardScreen() {
   const tap = (kind: SaleKind) => setExtra((e) => ({ ...e, [kind]: e[kind] + 1 }));
 
   return (
-    <View style={[styles.root, { backgroundColor: colors.background }]}>
-      <GlowBackground />
+    <View style={styles.root}>
       <AlertsSheet visible={alertsOpen} onClose={() => setAlertsOpen(false)} />
       <ScrollView
         style={styles.scroll}

@@ -36,6 +36,7 @@ export function rankRows(rows: BoardRow[]): RankedRow[] {
 
 export function initialsOf(name: string): string {
   const parts = name
+    .replace(/\(.*?\)/g, ' ')
     .replace(/&/g, ' ')
     .trim()
     .split(/\s+/)

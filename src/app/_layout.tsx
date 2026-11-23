@@ -4,7 +4,9 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
 
+import { GlowBackground } from '@/features/leaderboard/GlowBackground';
 import { FloatingMiniPlayer } from '@/features/audio/MiniPlayer';
 import { PlayerProvider } from '@/features/audio/PlayerProvider';
 import { AuthProvider, useAuth } from '@/lib/AuthProvider';
@@ -36,15 +38,18 @@ function RootNavigator() {
   if (loading) return null;
 
   return (
-    <>
+    <View style={[styles.root, { backgroundColor: colors.background }]}>
       <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
-      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.background } }}>
+      {/* Colour glow behind every screen, so the glass has something to refract. */}
+      <GlowBackground />
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: 'transparent' } }}>
         <Stack.Protected guard={signedIn}>
           <Stack.Screen name="(tabs)" />
           <Stack.Screen
             name="settings"
             options={{
               presentation: 'formSheet',
+              contentStyle: { backgroundColor: colors.backgroundElevated },
               sheetAllowedDetents: [0.6, 1],
               sheetGrabberVisible: true,
               sheetCornerRadius: 28,
@@ -56,6 +61,8 @@ function RootNavigator() {
         </Stack.Protected>
       </Stack>
       <FloatingMiniPlayer />
-    </>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({ root: { flex: 1 } });

@@ -123,8 +123,14 @@ export const Radius = {
   xs: 8,
   sm: 12,
   md: 16,
-  lg: 20,
+  /** Cards (leaderboard design). */
+  lg: 22,
+  /** Sale buttons and other big tinted buttons. */
+  button: 26,
+  /** Sheets and modals. */
   xl: 28,
+  /** Text inputs. */
+  input: 14,
 } as const;
 
 /** Apple HIG text styles, mapped to system fonts. */

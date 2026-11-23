@@ -24,7 +24,7 @@ export default function TabsLayout() {
       indicatorColor={colors.brandSoft}
       rippleColor={colors.brandSoft}>
       {tabs.map((tab) => (
-        <NativeTabs.Trigger key={tab.name} name={tab.name}>
+        <NativeTabs.Trigger key={tab.name} name={tab.name} contentStyle={{ backgroundColor: 'transparent' }}>
           <NativeTabs.Trigger.Label>{tab.label}</NativeTabs.Trigger.Label>
           <NativeTabs.Trigger.Icon sf={tab.icon.ios} md={tab.icon.md} />
         </NativeTabs.Trigger>

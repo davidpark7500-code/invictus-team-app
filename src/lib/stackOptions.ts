@@ -18,8 +18,8 @@ export function stackScreenOptions(colors: Colors): Exclude<StackScreenOptions, 
       headerShadowVisible: false,
       headerTintColor: colors.accent,
       headerTitleStyle: { color: colors.text },
-      headerStyle: { backgroundColor: colors.background },
-      contentStyle: { backgroundColor: colors.background },
+      headerStyle: { backgroundColor: 'transparent' },
+      contentStyle: { backgroundColor: 'transparent' },
     };
   }
   return {
@@ -32,6 +32,6 @@ export function stackScreenOptions(colors: Colors): Exclude<StackScreenOptions, 
     headerTitleStyle: { color: colors.text },
     headerLargeTitleStyle: { color: colors.text },
     headerStyle: { backgroundColor: 'transparent' },
-    contentStyle: { backgroundColor: colors.background },
+    contentStyle: { backgroundColor: 'transparent' },
   };
 }

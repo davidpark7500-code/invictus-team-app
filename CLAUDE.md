@@ -37,7 +37,11 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
 - **(Superseded by personal accounts, see above.) Two logins only:** a shared `team` login everyone uses, and an `admin` login. No sign-up.
   Username maps to `<username>@EXPO_PUBLIC_LOGIN_DOMAIN`. See `supabase/migrations/0002_two_accounts.sql`.
   Because the login is shared, anything per-person (e.g. listening position) must be stored on-device.
-- **Design:** Apple Liquid Glass on iOS 26 (`src/components/glass/Glass.tsx`), blur fallback,
+- **Design = the leaderboard's design, app-wide (owner, Nov 2026):** colour glow behind every
+  screen (`GlowBackground` at the root layout, screens transparent), translucent glass cards
+  (`colors.cardGlass`, radius 22, hairline border), inputs 14, sheets 28, gold = memberships,
+  blue = orders. The leaderboard ranks every team member; never fill it from the Profiles leaders.
+- **Design (base):** Apple Liquid Glass on iOS 26 (`src/components/glass/Glass.tsx`), blur fallback,
   solid under Reduce Transparency. System / light / dark theme, persisted.
 - **Brand:** the VI monogram (`assets/brand/`), ink-and-paper palette, black primary buttons in
   light mode and white in dark. One signature highlight colour, currently **placeholder gold**,

@@ -39,7 +39,7 @@ export default function SignInScreen() {
   const placeholder = colors.textTertiary;
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: colors.background }]}>
+    <SafeAreaView style={styles.safe}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.flex}>
         <ScrollView contentContainerStyle={styles.center} keyboardShouldPersistTaps="handled">
           <View style={styles.column}>
@@ -146,5 +146,5 @@ const styles = StyleSheet.create({
   centerText: { textAlign: 'center' },
   form: { padding: Spacing.lg, gap: Spacing.md },
   hint: { marginTop: -Spacing.xs, paddingHorizontal: Spacing.xs },
-  input: { height: 48, borderRadius: Radius.sm, paddingHorizontal: Spacing.lg, fontSize: 17 },
+  input: { height: 48, borderRadius: Radius.input, paddingHorizontal: Spacing.lg, fontSize: 17 },
 });

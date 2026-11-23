@@ -74,7 +74,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       colors: {
         ...base.colors,
         primary: c.accent,
-        background: c.background,
+        // Screens are transparent so the app-wide glow shows through.
+        background: 'transparent',
         card: c.backgroundElevated,
         text: c.text,
         border: c.border,

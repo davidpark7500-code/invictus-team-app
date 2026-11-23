@@ -1,7 +1,6 @@
 import { Platform, ScrollView, type ScrollViewProps, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { useTheme } from '@/theme/ThemeProvider';
 import { MaxContentWidth, Spacing } from '@/theme/tokens';
 
 type Props = ScrollViewProps & {
@@ -14,7 +13,6 @@ type Props = ScrollViewProps & {
  * tab bar manage insets, so content scrolls under glass automatically.
  */
 export function Screen({ children, contentContainerStyle, playerInset = true, ...rest }: Props) {
-  const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const bottom = (Platform.OS === 'ios' ? 0 : insets.bottom + 80) + (playerInset ? 72 : 0);
 
@@ -22,7 +20,7 @@ export function Screen({ children, contentContainerStyle, playerInset = true, ..
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
       keyboardDismissMode="on-drag"
-      style={[styles.scroll, { backgroundColor: colors.background }]}
+      style={styles.scroll}
       contentContainerStyle={[
         styles.content,
         Platform.OS === 'android' && { paddingTop: insets.top + Spacing.lg },
