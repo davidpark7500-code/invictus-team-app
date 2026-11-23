@@ -1,4 +1,4 @@
-import { TabList, TabSlot, TabTrigger, type TabTriggerSlotProps, Tabs } from 'expo-router/ui';
+import { TabList, type TabListProps, TabSlot, TabTrigger, type TabTriggerSlotProps, Tabs } from 'expo-router/ui';
 import { StyleSheet, View } from 'react-native';
 
 import { Glass } from '@/components/glass/Glass';
@@ -22,16 +22,28 @@ export default function TabsLayoutWeb() {
     <Tabs>
       <TabSlot style={styles.slot} />
       <FloatingMiniPlayer />
-      <TabList style={styles.list}>
-        <Glass radius={Radius.pill} style={styles.bar}>
+      {/* The router only finds TabTriggers that are direct children of TabList
+          (or of its single asChild wrapper), so the glass bar must be that wrapper. */}
+      <TabList asChild>
+        <GlassTabBar>
           {tabs.map((tab) => (
             <TabTrigger key={tab.name} name={tab.name} href={tab.href} asChild>
               <TabButton label={tab.label} icon={tab.icon} />
             </TabTrigger>
           ))}
-        </Glass>
+        </GlassTabBar>
       </TabList>
     </Tabs>
+  );
+}
+
+function GlassTabBar({ children, style: _style, ...rest }: TabListProps) {
+  return (
+    <View {...rest} style={styles.list} pointerEvents="box-none">
+      <Glass radius={Radius.pill} style={styles.bar}>
+        {children}
+      </Glass>
+    </View>
   );
 }
 
@@ -57,7 +69,6 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: Spacing.lg,
     alignItems: 'center',
-    pointerEvents: 'box-none',
   },
   bar: {
     flexDirection: 'row',

@@ -112,7 +112,7 @@ Events and announcements are still invented; never ship those.
 - PDF viewer and share sheet on Resources.
 - Admin content management (who uploads audio, PDFs, events).
 - A vector version of the logo (current source is 512 px; icons are upscaled).
-- Web build: the selected tab in the custom web tab bar doesn't highlight.
+
 - Written sign-off from Invictus leadership / LTD on distributing team materials.
 - GitHub repo `davidpark7500-code/invictus-team-app` doesn't exist yet; create it and push.
 
