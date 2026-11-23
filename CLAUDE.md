@@ -62,6 +62,10 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
   Safari bars in the app's colour, full-screen "Add to Home Screen" app (`manifest.json`,
   `public/icons/`).
 - **Style sheet:** `docs/style-sheet.html`, regenerated from the values in tokens.ts by hand.
+- **Guest registration (owner, Nov 2026):** one Eventbrite page (`GUEST_REGISTRATION_URL` in
+  `src/data/mock.ts`). It's the "Guest Registration Link" resource, the Register button on every
+  Group Evaluation, and a "Register a guest" button on Home's card for the next Group Evaluation
+  (shown even when another event is sooner).
 
 ## Video hosting (decided: Dropbox originals for now)
 

@@ -12,6 +12,14 @@ const iso = (offsetDays: number, hour = 19, minute = 30) => {
   return d.toISOString();
 };
 
+/** The team's guest registration page for Group Evaluations (owner, Nov 2026). */
+export const GUEST_REGISTRATION_URL = 'https://www.eventbrite.com/e/kansas-city-group-evaluation-tickets-152259709891';
+
+/** Where to register for an event: its own link, else the guest page for every Group Evaluation. */
+export function registrationUrlOf(e: TeamEvent) {
+  return e.registrationUrl || (e.type === 'group_evaluation' ? GUEST_REGISTRATION_URL : undefined);
+}
+
 // Titles and sections from the current app's Resources tab, in its order.
 // `source` = matched file in the "Invictus Team App" Dropbox folder (all talks confirmed by the owner).
 // `url` = that file's address inside the owner's public shared-folder link; the player converts it
@@ -33,7 +41,7 @@ export const resources: Resource[] = [
   { id: 'r-curriculum', section: 'Onboarding', title: '2 - Onboarding Curriculum', kind: 'pdf', url: '' },
   { id: 'r-launch-orders', section: 'Onboarding', title: '3 - Launch Orders', kind: 'pdf', url: '' },
   { id: 'r-income', section: 'Onboarding', title: 'Income Estimator', kind: 'link', url: '' },
-  { id: 'r-guest', section: 'Onboarding', title: 'Guest Registration Link', kind: 'link', url: '' },
+  { id: 'r-guest', section: 'Onboarding', title: 'Guest Registration Link', kind: 'link', url: GUEST_REGISTRATION_URL },
   { id: 'r-list-builder', section: 'Onboarding', title: 'NEW - List Builder Template', kind: 'link', url: '' },
   { id: 'r-scalable', section: 'Onboarding', title: 'It\'s All Scalable', kind: 'pdf', url: '' },
   { id: 'r-booklist', section: 'Onboarding', title: 'First Year Booklist', kind: 'pdf', url: '' },

@@ -8,7 +8,8 @@ import { Pill } from '@/components/ui/Pill';
 import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
 import { formatEventPlace, formatEventWhen, isUpcoming } from '@/data/format';
-import { events } from '@/data/mock';
+import { events, registrationUrlOf } from '@/data/mock';
+import { openDocument } from '@/features/media/openDocument';
 import { useTheme } from '@/theme/ThemeProvider';
 import { Spacing } from '@/theme/tokens';
 
@@ -28,6 +29,8 @@ export default function EventDetailScreen() {
   }
 
   const past = !isUpcoming(event);
+  const registerUrl = registrationUrlOf(event);
+  const registerLabel = event.type === 'group_evaluation' ? 'Register a guest' : event.isVirtual ? 'Join / Register' : 'Register';
   const endTime = event.endsAt
     ? new Date(event.endsAt).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })
     : undefined;
@@ -53,7 +56,7 @@ export default function EventDetailScreen() {
           <Button label="Watch recording" icon="play" disabled={!event.recordingUrl} />
         ) : (
           <>
-            <Button label={event.isVirtual ? 'Join / Register' : 'Register'} icon="link" disabled={!event.registrationUrl} />
+            <Button label={registerLabel} icon="link" disabled={!registerUrl} onPress={() => registerUrl && openDocument(registerUrl)} />
             <Button label="Add to calendar" icon="events" variant="glass" />
           </>
         )}
