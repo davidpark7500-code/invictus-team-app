@@ -72,7 +72,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           options: { data: { full_name: fullName.trim(), team_code: teamCode.trim() } },
         });
         if (!error) return null;
-        if (/team code/i.test(error.message)) return 'That team code isn\u2019t right. Ask your upline for it.';
+        // Supabase reports any refusal by the sign-up check as a generic database error; a wrong
+        // team code is by far the likeliest (reserved test email domains are the only other one).
+        if (/team code|database error saving new user/i.test(error.message)) return 'That team code isn\u2019t right. Ask your upline for it.';
         if (/cannot be used/i.test(error.message)) return 'That email address can\u2019t be used.';
         if (/registered|exists/i.test(error.message)) return 'There\u2019s already an account with that email. Sign in instead.';
         return error.message;
