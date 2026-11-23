@@ -21,12 +21,12 @@ Home · Events · Profiles · Resources. No Audio tab (audio lives in Resources)
 
 All seven talks and the CNA Template are recorded as `source` in `src/data/mock.ts`.
 
-**PDF status:** only "CNA Template" is connected. Its Dropbox file has no ".pdf" extension, so
-Dropbox's viewer says "add the file extension" and only offers Download; rename it in Dropbox to
-`4. CNA PDF Template.pdf` and update its URL. Possible matches found elsewhere in the owner's
-Dropbox (outside the shared folder, unconfirmed): `/Pfeifer GE Recordings/2018/Phases of Progression
-4.10.18.pdf`, `/The Selection Process/Process Docs/Business Full Monthly Budget .pdf`,
-`/Moving from Zoom/Follow Up Material/LTD Onboarding Guide.pdf`.
+**PDF status:** connected: CNA Template (renamed in Dropbox to `4. CNA PDF Template.pdf`),
+Budget Sheet and Onboarding Guide (copied by owner approval from `/The Selection Process/Process
+Docs/Business Full Monthly Budget .pdf` and `/Moving from Zoom/Follow Up Material/LTD Onboarding
+Guide.pdf` into `Invictus Team App/Resources/`). Phases of Progression candidate
+(`/Pfeifer GE Recordings/2018/Phases of Progression 4.10.18.pdf`) not yet confirmed.
+Bios: owner wants them transferred from the old app (via screenshots of each profile page).
 
 **Not in Dropbox:** Level Up!, Phases of Progression, LTD Maximize VCS with CNA Course link,
 all Onboarding PDFs and links, any audio (Archived Audios folders are empty).

@@ -27,7 +27,7 @@ export const resources: Resource[] = [
   { id: 't-financial', section: 'Onboarding Talks', title: 'Financial Principles', kind: 'video', speaker: 'McCann', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/ABwVkK2tZTBdU8TSElR1CEI/Activation%20Videos/2023-06-11_Finances_McCann.mp4?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'Activation Videos/2023-06-11_Finances_McCann.mp4' },
   { id: 't-blueprint', section: 'Onboarding Talks', title: 'Power of Blueprint', kind: 'video', speaker: 'Park', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/ALEYrysRv2f8eEN1RkPpLrI/Activation%20Videos/2025-04-16_Blueprint_David.mp4?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'Activation Videos/2025-04-16_Blueprint_David.mp4' },
   { id: 'r-cna-course', section: 'CNA Resources', title: 'NEW - LTD Maximize VCS with CNA Course!', kind: 'link', url: '' },
-  { id: 'r-cna-template', section: 'CNA Resources', title: 'CNA Template', kind: 'pdf', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/ANI7vUS9PxFprwYjckzT_OA/CNA/4.%20CNA%20PDF%20Template?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'CNA/4. CNA PDF Template' },
+  { id: 'r-cna-template', section: 'CNA Resources', title: 'CNA Template', kind: 'pdf', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/ABksbm79hyalldzYwo5DWek/CNA/4.%20CNA%20PDF%20Template.pdf?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'CNA/4. CNA PDF Template.pdf' },
   { id: 'r-launch-checklist', section: 'Onboarding', title: '1 - Launch Checklist', kind: 'pdf', url: '' },
   { id: 'r-curriculum', section: 'Onboarding', title: '2 - Onboarding Curriculum', kind: 'pdf', url: '' },
   { id: 'r-launch-orders', section: 'Onboarding', title: '3 - Launch Orders', kind: 'pdf', url: '' },
@@ -37,11 +37,11 @@ export const resources: Resource[] = [
   { id: 'r-scalable', section: 'Onboarding', title: 'It\'s All Scalable', kind: 'pdf', url: '' },
   { id: 'r-booklist', section: 'Onboarding', title: 'First Year Booklist', kind: 'pdf', url: '' },
   { id: 'r-roadmap', section: 'Onboarding', title: 'Roadmap & 9 Core Steps', kind: 'pdf', url: '' },
-  { id: 'r-budget', section: 'Onboarding', title: 'Budget Sheet', kind: 'pdf', url: '' },
+  { id: 'r-budget', section: 'Onboarding', title: 'Budget Sheet', kind: 'pdf', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/AFv0k7BjKRFoVTTA4pSiHd4/Resources/Budget%20Sheet.pdf?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'Resources/Budget Sheet.pdf' },
   { id: 'r-reference', section: 'Onboarding', title: 'Invictus Team Reference Guide', kind: 'pdf', url: '' },
   { id: 'r-terminology', section: 'Onboarding', title: 'Invictus Team Terminology', kind: 'pdf', url: '' },
   { id: 'r-whats-next', section: 'Onboarding', title: 'Invictus Team "What\'s Next"', kind: 'pdf', url: '' },
-  { id: 'r-onboarding-guide', section: 'Onboarding', title: 'Onboarding Guide', kind: 'pdf', url: '' },
+  { id: 'r-onboarding-guide', section: 'Onboarding', title: 'Onboarding Guide', kind: 'pdf', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/AKPOEC4jvc2blI0zkLdn_FM/Resources/Onboarding%20Guide.pdf?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'Resources/Onboarding Guide.pdf' },
 ];
 
 export const events: TeamEvent[] = [
