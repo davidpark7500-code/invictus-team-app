@@ -27,7 +27,7 @@ export const resources: Resource[] = [
   { id: 't-financial', section: 'Onboarding Talks', title: 'Financial Principles', kind: 'video', speaker: 'McCann', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/ABwVkK2tZTBdU8TSElR1CEI/Activation%20Videos/2023-06-11_Finances_McCann.mp4?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'Activation Videos/2023-06-11_Finances_McCann.mp4' },
   { id: 't-blueprint', section: 'Onboarding Talks', title: 'Power of Blueprint', kind: 'video', speaker: 'Park', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/ALEYrysRv2f8eEN1RkPpLrI/Activation%20Videos/2025-04-16_Blueprint_David.mp4?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'Activation Videos/2025-04-16_Blueprint_David.mp4' },
   { id: 'r-cna-course', section: 'CNA Resources', title: 'NEW - LTD Maximize VCS with CNA Course!', kind: 'link', url: '' },
-  { id: 'r-cna-template', section: 'CNA Resources', title: 'CNA Template', kind: 'pdf', url: '', source: 'CNA/4. CNA PDF Template' },
+  { id: 'r-cna-template', section: 'CNA Resources', title: 'CNA Template', kind: 'pdf', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/ANI7vUS9PxFprwYjckzT_OA/CNA/4.%20CNA%20PDF%20Template?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'CNA/4. CNA PDF Template' },
   { id: 'r-launch-checklist', section: 'Onboarding', title: '1 - Launch Checklist', kind: 'pdf', url: '' },
   { id: 'r-curriculum', section: 'Onboarding', title: '2 - Onboarding Curriculum', kind: 'pdf', url: '' },
   { id: 'r-launch-orders', section: 'Onboarding', title: '3 - Launch Orders', kind: 'pdf', url: '' },

@@ -14,6 +14,7 @@ import { resources } from '@/data/mock';
 import type { Resource } from '@/data/types';
 import { usePlayer } from '@/features/audio/PlayerProvider';
 import { InlineVideo } from '@/features/media/InlineVideo';
+import { openDocument, shareDocument } from '@/features/media/openDocument';
 import { KIND_ICON, KIND_LABEL } from '@/features/resources/kinds';
 import { useTheme } from '@/theme/ThemeProvider';
 import { Radius, Spacing } from '@/theme/tokens';
@@ -61,8 +62,15 @@ export default function ResourceDetailScreen() {
               label={resource.kind === 'pdf' ? 'View PDF' : 'Open link'}
               icon={KIND_ICON[resource.kind]}
               disabled={!resource.url}
+              onPress={() => openDocument(resource.url)}
             />
-            <Button label="Share" icon="share" variant="glass" disabled={!resource.url} />
+            <Button
+              label="Share"
+              icon="share"
+              variant="glass"
+              disabled={!resource.url}
+              onPress={() => shareDocument(resource.title, resource.url)}
+            />
           </View>
         </Card>
       ) : null}
