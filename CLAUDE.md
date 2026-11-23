@@ -20,8 +20,13 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
   Built (merged to main): Leaderboard UI with placeholder data (`src/features/leaderboard/`),
   personal-account sign-in / sign-up with team code, migration 0004, push (`push.ts` +
   `supabase/functions/notify-sale`), data-copy script (`scripts/copy-pulse-data.mjs`).
-  Setup and cutover steps: `docs/04-leaderboard-backend.md`. The new Supabase project is NOT
-  created yet (creation was blocked from the cloud session).
+  Setup and cutover steps: `docs/04-leaderboard-backend.md`.
+  **Supabase project (created Nov 2026):** "Invictus Team", ref `yvhwqwtjrmwgudtbmgdf`, in the
+  owner's paid org (~$10/month). Migrations 0001, 0003-0006 applied; content seeded from mock.ts.
+  Team code set (hashed in `private.team_settings`; never write the code in this public repo).
+  Email confirmation is OFF on purpose (the team code is the gate). Public URL and publishable key
+  are in Vercel (production) and EAS (production) env, and in `.env.local` (not committed).
+  Pulse Board data not copied yet; the Leaderboard still shows sample members.
 
 - **Stack:** Expo SDK 58 + Expo Router, React Native, Supabase. One codebase for iOS, Android, web.
 - **Tabs shipped:** Home, Events, Profiles, Resources. No Audio tab: PDFs, audio, video and
@@ -61,6 +66,13 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
 - **Web shell (`public/index.html`):** app-coloured background and logo before the JS loads,
   Safari bars in the app's colour, full-screen "Add to Home Screen" app (`manifest.json`,
   `public/icons/`).
+- **Editing content without an app update (owner, Nov 2026):** resources, events, team profiles
+  (bios) and the Home welcome text (`app_text.welcome`) live in Supabase; admins edit them in the
+  dashboard's Table Editor. New PDFs go in the private `resources` Storage bucket, then the file
+  name goes in that resource's `storage_path`. `src/data/content.tsx` loads it on sign-in and
+  each time the app comes to the front, keeps the last copy on the phone, and falls back to
+  `mock.ts`. Code changes reach phones with `eas update --channel production --environment
+  production` (EAS Update); bump `version` in app.json whenever native modules change.
 - **One account button (owner, Nov 2026):** the person's initials, top right on every tab (same
   spot on Home), open `/account`: profile, Notifications (sale alerts), Appearance, sign out. It
   replaced Home's settings gear and Leaderboard's bell. Sign-in covers the whole app, not just the
