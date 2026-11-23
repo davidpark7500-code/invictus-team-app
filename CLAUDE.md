@@ -47,6 +47,9 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
   light mode and white in dark. One signature highlight colour, currently **placeholder gold**,
   set in the `BRAND` constant at the top of `src/theme/tokens.ts`. Light mode needs a darker
   text shade of it (≥ 4.5:1 contrast on white).
+- **Tab headers (owner, Nov 2026):** every tab except Home starts with the Invictus logo at top
+  left and the tab title beside it (`src/components/ui/TabHeader.tsx`), matching Leaderboard.
+  Those tab stacks hide the native header on their first screen; detail screens keep it.
 - **Style sheet:** `docs/style-sheet.html`, regenerated from the values in tokens.ts by hand.
 
 ## Video hosting (decided: Dropbox originals for now)
@@ -124,7 +127,10 @@ Events and announcements are still invented; never ship those.
 - Real Supabase project (`.env.example`), storage buckets for audio / PDFs / leader photos.
 - Audio playback (expo-audio, background mode is already in app.json), lock-screen controls,
   on-device resume position.
-- PDF viewer and share sheet on Resources.
+- PDFs (done for web, Nov 2026): the web app draws every page in the app with pdf.js, loaded at
+  runtime from `public/pdfjs/` (copied by `scripts/copy-pdfjs.mjs` on `npm install`, not
+  committed). iPhone and Android still open the PDF file in the in-app browser sheet; an in-app
+  native viewer would need react-native-webview or similar and a new native build.
 - Admin content management (who uploads audio, PDFs, events).
 - A vector version of the logo (current source is 512 px; icons are upscaled).
 

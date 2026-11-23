@@ -1,5 +1,5 @@
-import { useLocalSearchParams } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
+import { Stack, useLocalSearchParams } from 'expo-router';
+import { Platform, StyleSheet, View } from 'react-native';
 
 import { Glass, GlassGroup } from '@/components/glass/Glass';
 import { Button } from '@/components/ui/Button';
@@ -13,8 +13,10 @@ import { formatDuration } from '@/data/format';
 import { resources } from '@/data/mock';
 import type { Resource } from '@/data/types';
 import { usePlayer } from '@/features/audio/PlayerProvider';
+import { toDirectMediaUrl } from '@/features/media/dropbox';
 import { InlineVideo } from '@/features/media/InlineVideo';
 import { openDocument, shareDocument } from '@/features/media/openDocument';
+import { PdfViewer, showsPdfInline } from '@/features/media/PdfViewer';
 import { KIND_ICON, KIND_LABEL } from '@/features/resources/kinds';
 import { useTheme } from '@/theme/ThemeProvider';
 import { Radius, Spacing } from '@/theme/tokens';
@@ -29,6 +31,28 @@ export default function ResourceDetailScreen() {
       <Screen>
         <Text color="textSecondary">Resource not found.</Text>
       </Screen>
+    );
+  }
+
+  if (resource.kind === 'pdf' && resource.url && showsPdfInline) {
+    return (
+      <View style={styles.pdfScreen}>
+        <Stack.Screen
+          options={{
+            title: resource.title,
+            headerRight: () => (
+              <Pressable
+                hitSlop={12}
+                accessibilityLabel="Share"
+                haptic={false}
+                onPress={() => shareDocument(resource.title, resource.url)}>
+                <Icon name="share" size={20} color={colors.accent} />
+              </Pressable>
+            ),
+          }}
+        />
+        <PdfViewer url={resource.url} title={resource.title} />
+      </View>
     );
   }
 
@@ -62,7 +86,7 @@ export default function ResourceDetailScreen() {
               label={resource.kind === 'pdf' ? 'View PDF' : 'Open link'}
               icon={KIND_ICON[resource.kind]}
               disabled={!resource.url}
-              onPress={() => openDocument(resource.url)}
+              onPress={() => openDocument(resource.kind === 'pdf' ? toDirectMediaUrl(resource.url) : resource.url)}
             />
             <Button
               label="Share"
@@ -128,6 +152,8 @@ function Control({ icon, large, onPress }: { icon: 'play' | 'pause' | 'rewind' |
 
 const styles = StyleSheet.create({
   content: { paddingTop: Spacing.lg },
+  // Leaves room for the floating web tab bar.
+  pdfScreen: { flex: 1, paddingBottom: Platform.OS === 'web' ? 96 : 0 },
   hero: { width: 96, height: 96, borderRadius: Radius.xl, alignItems: 'center', justifyContent: 'center' },
   pills: { flexDirection: 'row', gap: Spacing.sm, flexWrap: 'wrap' },
   actions: { gap: Spacing.sm },

@@ -7,7 +7,8 @@ export default function ResourcesStack() {
   const { colors } = useTheme();
   return (
     <Stack screenOptions={stackScreenOptions(colors)}>
-      <Stack.Screen name="index" options={{ title: 'Resources' }} />
+      {/* The screen draws the logo header itself, like Leaderboard. */}
+      <Stack.Screen name="index" options={{ title: 'Resources', headerShown: false }} />
       <Stack.Screen name="[id]" options={{ title: '', headerLargeTitle: false }} />
     </Stack>
   );

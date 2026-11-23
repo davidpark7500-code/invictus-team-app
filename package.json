@@ -24,6 +24,7 @@
     "expo-system-ui": "~58.0.7",
     "expo-video": "~58.0.13",
     "expo-web-browser": "~58.0.7",
+    "pdfjs-dist": "^6.5.438",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-native": "0.88.1",
@@ -43,6 +44,7 @@
   },
   "scripts": {
     "start": "expo start",
+    "postinstall": "node scripts/copy-pdfjs.mjs",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",

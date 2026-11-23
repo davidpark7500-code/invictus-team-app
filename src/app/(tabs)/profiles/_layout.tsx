@@ -7,7 +7,8 @@ export default function ProfilesStack() {
   const { colors } = useTheme();
   return (
     <Stack screenOptions={stackScreenOptions(colors)}>
-      <Stack.Screen name="index" options={{ title: 'Profiles' }} />
+      {/* The screen draws the logo header itself, like Leaderboard. */}
+      <Stack.Screen name="index" options={{ title: 'Profiles', headerShown: false }} />
       <Stack.Screen name="[id]" options={{ title: '', headerLargeTitle: false }} />
     </Stack>
   );

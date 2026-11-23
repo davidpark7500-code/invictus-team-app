@@ -1,18 +1,23 @@
-import { Stack, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 
+import { Icon } from '@/components/ui/Icon';
 import { ListRow } from '@/components/ui/ListRow';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { TabHeader } from '@/components/ui/TabHeader';
 import { resources } from '@/data/mock';
 import { KIND_ICON, KIND_LABEL } from '@/features/resources/kinds';
+import { useTheme } from '@/theme/ThemeProvider';
+import { Radius, Spacing } from '@/theme/tokens';
 
 /** Section order follows the order items appear in the data. */
 const SECTIONS = [...new Set(resources.map((r) => r.section))];
 
 export default function ResourcesScreen() {
   const router = useRouter();
+  const { colors } = useTheme();
   const [query, setQuery] = useState('');
 
   const grouped = useMemo(() => {
@@ -24,35 +29,43 @@ export default function ResourcesScreen() {
   }, [query]);
 
   return (
-    <>
-      <Stack.Screen
-        options={{
-          headerSearchBarOptions: {
-            placeholder: 'Search resources',
-            onChangeText: (e) => setQuery(e.nativeEvent.text),
-            hideWhenScrolling: true,
-          },
-        }}
-      />
-      <Screen>
-        {grouped.map(([section, list]) => (
-          <View key={section} style={styles.group}>
-            <SectionHeader title={section} />
-            {list.map((r) => (
-              <ListRow
-                key={r.id}
-                icon={KIND_ICON[r.kind]}
-                title={r.title}
-                subtitle={r.speaker}
-                meta={KIND_LABEL[r.kind]}
-                onPress={() => router.push(`/resources/${r.id}`)}
-              />
-            ))}
-          </View>
-        ))}
-      </Screen>
-    </>
+    <Screen keyboardShouldPersistTaps="handled">
+      <TabHeader title="Resources" />
+      <View style={[styles.search, { backgroundColor: colors.fill }]}>
+        <Icon name="search" size={16} color={colors.textTertiary} />
+        <TextInput
+          style={[styles.searchInput, { color: colors.text }]}
+          placeholder="Search resources"
+          placeholderTextColor={colors.textTertiary}
+          value={query}
+          onChangeText={setQuery}
+          autoCorrect={false}
+          clearButtonMode="while-editing"
+          returnKeyType="search"
+          accessibilityLabel="Search resources"
+        />
+      </View>
+      {grouped.map(([section, list]) => (
+        <View key={section} style={styles.group}>
+          <SectionHeader title={section} />
+          {list.map((r) => (
+            <ListRow
+              key={r.id}
+              icon={KIND_ICON[r.kind]}
+              title={r.title}
+              subtitle={r.speaker}
+              meta={KIND_LABEL[r.kind]}
+              onPress={() => router.push(`/resources/${r.id}`)}
+            />
+          ))}
+        </View>
+      ))}
+    </Screen>
   );
 }
 
-const styles = StyleSheet.create({ group: { gap: 12 } });
+const styles = StyleSheet.create({
+  group: { gap: 12 },
+  search: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, height: 44, borderRadius: Radius.input, paddingHorizontal: Spacing.md },
+  searchInput: { flex: 1, height: '100%', fontSize: 17 },
+});

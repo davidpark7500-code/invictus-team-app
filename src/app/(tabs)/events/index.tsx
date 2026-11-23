@@ -7,6 +7,7 @@ import { ListRow } from '@/components/ui/ListRow';
 import { Pill } from '@/components/ui/Pill';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { TabHeader } from '@/components/ui/TabHeader';
 import { Text } from '@/components/ui/Text';
 import { formatDateTime } from '@/data/format';
 import { events } from '@/data/mock';
@@ -30,6 +31,7 @@ export default function EventsScreen() {
 
   return (
     <Screen>
+      <TabHeader title="Events" />
       <SectionHeader title="Upcoming" />
       {upcoming.map((e) => {
         const d = new Date(e.startsAt);

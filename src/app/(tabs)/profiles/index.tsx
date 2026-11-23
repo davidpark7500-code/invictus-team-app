@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { ListRow } from '@/components/ui/ListRow';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { TabHeader } from '@/components/ui/TabHeader';
 import { profiles } from '@/data/mock';
 import { pinLabel, ProfileAvatar } from '@/features/profiles/ProfileAvatar';
 import { Spacing } from '@/theme/tokens';
@@ -15,6 +16,7 @@ export default function ProfilesScreen() {
   const router = useRouter();
   return (
     <Screen>
+      <TabHeader title="Profiles" />
       {PINS.map((pin) => {
         const list = profiles.filter((p) => p.pin === pin);
         if (!list.length) return null;

@@ -3,8 +3,8 @@ import { Platform, Pressable, ScrollView, StyleSheet, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Glass, GlassGroup } from '@/components/glass/Glass';
-import { BrandLogo } from '@/components/ui/BrandLogo';
 import { Icon } from '@/components/ui/Icon';
+import { TabHeader } from '@/components/ui/TabHeader';
 import { Text } from '@/components/ui/Text';
 import { AlertsSheet } from '@/features/leaderboard/AlertsSheet';
 import { currentWeek, formatWeekEnd, formatWeekRange, LAUNCH_WEEK, shiftWeek } from '@/features/leaderboard/period';
@@ -57,14 +57,7 @@ export default function LeaderboardScreen() {
           { paddingTop: insets.top + Spacing.md, paddingBottom: insets.bottom + (Platform.OS === 'ios' ? 72 : 120) },
         ]}>
         <View style={styles.column}>
-          <View style={styles.header}>
-            <BrandLogo width={54} />
-            <View style={styles.headerText}>
-              <Text variant="title3">Pulse</Text>
-              <Text variant="footnote" color="textSecondary">
-                Membership Leaderboard
-              </Text>
-            </View>
+          <TabHeader title="Pulse" subtitle="Membership Leaderboard">
             <Pressable accessibilityLabel="Alerts" hitSlop={8} onPress={() => setAlertsOpen(true)}>
               <Glass interactive radius={Radius.pill} style={styles.round}>
                 <Icon name="bell" size={18} />
@@ -75,7 +68,7 @@ export default function LeaderboardScreen() {
                 <Text style={styles.meInitials}>{initialsOf(me?.fullName ?? '')}</Text>
               </View>
             </Pressable>
-          </View>
+          </TabHeader>
 
           <View style={styles.buttons}>
             <SaleButton kind="membership" count={me?.memberships ?? 0} onTap={() => tap('membership')} />
@@ -160,8 +153,6 @@ const styles = StyleSheet.create({
   scroll: { flex: 1, backgroundColor: 'transparent' },
   content: { alignItems: 'center', paddingHorizontal: Spacing.lg },
   column: { width: '100%', maxWidth: MaxContentWidth, gap: Spacing.lg },
-  header: { flexDirection: 'row', alignItems: 'center', gap: Spacing.md },
-  headerText: { flex: 1 },
   round: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center' },
   meInitials: { fontSize: 14, fontWeight: '700' },
   buttons: { flexDirection: 'row', gap: Spacing.md },

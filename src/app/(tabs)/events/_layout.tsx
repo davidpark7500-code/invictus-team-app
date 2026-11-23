@@ -7,7 +7,8 @@ export default function EventsStack() {
   const { colors } = useTheme();
   return (
     <Stack screenOptions={stackScreenOptions(colors)}>
-      <Stack.Screen name="index" options={{ title: 'Events' }} />
+      {/* The screen draws the logo header itself, like Leaderboard. */}
+      <Stack.Screen name="index" options={{ title: 'Events', headerShown: false }} />
       <Stack.Screen name="[id]" options={{ title: '', headerLargeTitle: false }} />
     </Stack>
   );

@@ -1,3 +1,4 @@
+import type { Href } from 'expo-router';
 import { TabList, type TabListProps, TabSlot, TabTrigger, type TabTriggerSlotProps, Tabs } from 'expo-router/ui';
 import { StyleSheet, View } from 'react-native';
 
@@ -9,7 +10,7 @@ import { FloatingMiniPlayer } from '@/features/audio/MiniPlayer';
 import { useTheme } from '@/theme/ThemeProvider';
 import { MaxContentWidth, Radius, Spacing } from '@/theme/tokens';
 
-const tabs: { name: string; href: string; label: string; icon: IconName }[] = [
+const tabs: { name: string; href: Href; label: string; icon: IconName }[] = [
   { name: '(home)', href: '/', label: 'Home', icon: 'home' },
   { name: 'leaderboard', href: '/leaderboard', label: 'Leaderboard', icon: 'trophy' },
   { name: 'events', href: '/events', label: 'Events', icon: 'events' },

@@ -2,9 +2,10 @@ import { openBrowserAsync, WebBrowserPresentationStyle } from 'expo-web-browser'
 import { Platform, Share } from 'react-native';
 
 /**
- * Open a PDF or web link inside the app (an in-app browser sheet on iPhone and
- * Android; a new tab on the web). Dropbox share links open Dropbox's document
- * viewer, which renders PDFs even when the file has no ".pdf" extension.
+ * Open a web link, or a PDF on iPhone and Android, in an in-app browser sheet
+ * (a new tab on the web). Pass PDFs through `toDirectMediaUrl` first so the
+ * sheet shows the file itself, not Dropbox's page; that relies on the file
+ * name ending in ".pdf". On the web, PDFs show in the page (`PdfViewer`).
  */
 export async function openDocument(url: string) {
   if (!url) return;
