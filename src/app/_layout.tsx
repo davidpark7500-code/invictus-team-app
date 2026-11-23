@@ -65,6 +65,8 @@ function RootNavigator() {
         <Stack.Protected guard={!signedIn}>
           <Stack.Screen name="sign-in" />
         </Stack.Protected>
+        {/* Profiles shared with prospects: open to anyone with a live link, signed in or not. */}
+        <Stack.Screen name="p/[token]" />
       </Stack>
       <FloatingMiniPlayer />
       <StatusBarFade />
