@@ -26,10 +26,8 @@ Budget Sheet and Onboarding Guide (copied by owner approval from `/The Selection
 Docs/Business Full Monthly Budget .pdf` and `/Moving from Zoom/Follow Up Material/LTD Onboarding
 Guide.pdf` into `Invictus Team App/Resources/`). Phases of Progression candidate
 (`/Pfeifer GE Recordings/2018/Phases of Progression 4.10.18.pdf`) not yet confirmed.
-Bios: transferred word for word from the old app's profile screenshots for Kopecky, Brown,
-Jordan, Wyatt, Jahnke, Raniolo, Brite, Greene, Park, Smith, Arceneaux, Burns, Calahan, Jackson
-(Jackson is cut off mid-sentence; needs the rest). Still missing: McCann, Mercer, Meyer, Osuala,
-Quinn, Sanner, Streff, Nguyen, Pugliese. Possible typos kept as written pending owner decision:
+Bios: all 23 transferred word for word from the old app's profile screenshots.
+Possible typos kept as written pending owner decision:
 Raniolo "married since 2026"; Jahnke "have and 11 year old"; Arceneaux "I'm charge of",
 "a goals to", "I my career"; Wyatt "Overland, KS"; Greene "has lead to"; Burns "We build this".
 
