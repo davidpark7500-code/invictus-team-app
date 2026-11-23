@@ -7,15 +7,15 @@ import { ListRow } from '@/components/ui/ListRow';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { TabHeader } from '@/components/ui/TabHeader';
-import { resources } from '@/data/mock';
+import { useContent } from '@/data/content';
 import { KIND_ICON, KIND_LABEL } from '@/features/resources/kinds';
 import { useTheme } from '@/theme/ThemeProvider';
 import { Radius, Spacing } from '@/theme/tokens';
 
 /** Section order follows the order items appear in the data. */
-const SECTIONS = [...new Set(resources.map((r) => r.section))];
 
 export default function ResourcesScreen() {
+  const { resources } = useContent();
   const router = useRouter();
   const { colors } = useTheme();
   const [query, setQuery] = useState('');
@@ -25,8 +25,9 @@ export default function ResourcesScreen() {
     const items = q
       ? resources.filter((r) => `${r.title} ${r.speaker ?? ''} ${r.section}`.toLowerCase().includes(q))
       : resources;
-    return SECTIONS.map((s) => [s, items.filter((r) => r.section === s)] as const).filter(([, list]) => list.length);
-  }, [query]);
+    const sections = [...new Set(resources.map((r) => r.section))];
+    return sections.map((s) => [s, items.filter((r) => r.section === s)] as const).filter(([, list]) => list.length);
+  }, [query, resources]);
 
   return (
     <Screen tabRoot keyboardShouldPersistTaps="handled">

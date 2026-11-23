@@ -10,7 +10,7 @@ import { SectionHeader } from '@/components/ui/SectionHeader';
 import { TabHeader } from '@/components/ui/TabHeader';
 import { Text } from '@/components/ui/Text';
 import { eventDay, formatEventPlace, formatEventWhen, isUpcoming } from '@/data/format';
-import { events } from '@/data/mock';
+import { useContent } from '@/data/content';
 import type { EventType } from '@/data/types';
 import { useTheme } from '@/theme/ThemeProvider';
 import { Radius, Spacing } from '@/theme/tokens';
@@ -25,6 +25,7 @@ export const EVENT_LABEL: Record<EventType, string> = {
 export default function EventsScreen() {
   const { colors } = useTheme();
   const router = useRouter();
+  const { events } = useContent();
   const upcoming = events.filter((e) => isUpcoming(e)).sort((a, b) => a.date.localeCompare(b.date));
   const past = events.filter((e) => !isUpcoming(e)).sort((a, b) => b.date.localeCompare(a.date));
 

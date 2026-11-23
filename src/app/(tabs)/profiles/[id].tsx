@@ -6,13 +6,14 @@ import { Card } from '@/components/ui/Card';
 import { Pill } from '@/components/ui/Pill';
 import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
-import { profiles } from '@/data/mock';
+import { useContent } from '@/data/content';
 import { InlineVideo } from '@/features/media/InlineVideo';
 import { pinLabel, ProfileAvatar } from '@/features/profiles/ProfileAvatar';
 import { Spacing } from '@/theme/tokens';
 
 export default function ProfileDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const { profiles } = useContent();
   const profile = profiles.find((p) => p.id === id);
 
   if (!profile) {

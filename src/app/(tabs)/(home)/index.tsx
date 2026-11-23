@@ -14,7 +14,8 @@ import { Text } from '@/components/ui/Text';
 import { AccountButton } from '@/features/account/AccountButton';
 import { TeamHero } from '@/features/home/TeamHero';
 import { eventDay, formatEventPlace, formatEventWhen, formatRelativeDay, greeting, isUpcoming } from '@/data/format';
-import { events, registrationUrlOf, resources, WELCOME } from '@/data/mock';
+import { useContent } from '@/data/content';
+import { registrationUrlOf } from '@/data/mock';
 import type { TeamEvent } from '@/data/types';
 import { openDocument } from '@/features/media/openDocument';
 import { useTheme } from '@/theme/ThemeProvider';
@@ -23,6 +24,7 @@ import { Radius, Spacing } from '@/theme/tokens';
 export default function HomeScreen() {
   const { colors } = useTheme();
   const router = useRouter();
+  const { events, resources, welcome } = useContent();
 
   const upcoming = events.filter((e) => isUpcoming(e)).sort((a, b) => a.date.localeCompare(b.date));
   const nextEvent = upcoming[0];
@@ -47,7 +49,7 @@ export default function HomeScreen() {
       <TeamHero />
 
       <Card>
-        {WELCOME.map((para) => (
+        {welcome.map((para) => (
           <Text key={para.slice(0, 16)} variant="callout" style={styles.welcome}>
             {para}
           </Text>

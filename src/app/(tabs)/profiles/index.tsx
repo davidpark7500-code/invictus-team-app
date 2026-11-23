@@ -5,7 +5,7 @@ import { ListRow } from '@/components/ui/ListRow';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { TabHeader } from '@/components/ui/TabHeader';
-import { profiles } from '@/data/mock';
+import { useContent } from '@/data/content';
 import { pinLabel, ProfileAvatar } from '@/features/profiles/ProfileAvatar';
 import { Spacing } from '@/theme/tokens';
 
@@ -13,6 +13,7 @@ import { Spacing } from '@/theme/tokens';
 const PINS = ['EDC', 'Emerald', 'Sapphire', 'Ruby', 'Platinum'];
 
 export default function ProfilesScreen() {
+  const { profiles } = useContent();
   const router = useRouter();
   return (
     <Screen tabRoot>

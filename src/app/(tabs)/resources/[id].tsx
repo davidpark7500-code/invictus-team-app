@@ -10,7 +10,7 @@ import { Pressable } from '@/components/ui/Pressable';
 import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
 import { formatDuration } from '@/data/format';
-import { resources } from '@/data/mock';
+import { useContent } from '@/data/content';
 import type { Resource } from '@/data/types';
 import { usePlayer } from '@/features/audio/PlayerProvider';
 import { toDirectMediaUrl } from '@/features/media/dropbox';
@@ -23,6 +23,7 @@ import { Radius, Spacing } from '@/theme/tokens';
 
 export default function ResourceDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const { resources } = useContent();
   const resource = resources.find((r) => r.id === id);
   const { colors } = useTheme();
 

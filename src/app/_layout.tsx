@@ -10,6 +10,7 @@ import { StatusBarFade } from '@/components/ui/StatusBarFade';
 import { GlowBackground } from '@/features/leaderboard/GlowBackground';
 import { FloatingMiniPlayer } from '@/features/audio/MiniPlayer';
 import { PlayerProvider } from '@/features/audio/PlayerProvider';
+import { ContentProvider } from '@/data/content';
 import { AuthProvider, useAuth } from '@/lib/AuthProvider';
 import { ThemeProvider, useTheme } from '@/theme/ThemeProvider';
 
@@ -19,9 +20,11 @@ export default function RootLayout() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <PlayerProvider>
-          <RootNavigator />
-        </PlayerProvider>
+        <ContentProvider>
+          <PlayerProvider>
+            <RootNavigator />
+          </PlayerProvider>
+        </ContentProvider>
       </AuthProvider>
     </ThemeProvider>
   );

@@ -8,7 +8,8 @@ import { Pill } from '@/components/ui/Pill';
 import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
 import { formatEventPlace, formatEventWhen, isUpcoming } from '@/data/format';
-import { events, registrationUrlOf } from '@/data/mock';
+import { useContent } from '@/data/content';
+import { registrationUrlOf } from '@/data/mock';
 import { openDocument } from '@/features/media/openDocument';
 import { useTheme } from '@/theme/ThemeProvider';
 import { Spacing } from '@/theme/tokens';
@@ -17,6 +18,7 @@ import { EVENT_LABEL } from './index';
 
 export default function EventDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const { events } = useContent();
   const event = events.find((e) => e.id === id);
   const { colors } = useTheme();
 
