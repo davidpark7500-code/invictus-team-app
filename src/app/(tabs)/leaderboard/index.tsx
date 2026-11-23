@@ -6,6 +6,7 @@ import { Glass, GlassGroup } from '@/components/glass/Glass';
 import { BrandLogo } from '@/components/ui/BrandLogo';
 import { Icon } from '@/components/ui/Icon';
 import { Text } from '@/components/ui/Text';
+import { AlertsSheet } from '@/features/leaderboard/AlertsSheet';
 import { GlowBackground } from '@/features/leaderboard/GlowBackground';
 import { currentWeek, formatWeekEnd, formatWeekRange, LAUNCH_WEEK, shiftWeek } from '@/features/leaderboard/period';
 import { allTimeRows, ME_ID, placeholderFeed, weekRows } from '@/features/leaderboard/placeholder';
@@ -23,6 +24,7 @@ export default function LeaderboardScreen() {
   const thisWeek = currentWeek();
   const [period, setPeriod] = useState<Period>('week');
   const [week, setWeek] = useState(thisWeek);
+  const [alertsOpen, setAlertsOpen] = useState(false);
   // Taps are local only until the backend exists.
   const [extra, setExtra] = useState<Record<SaleKind, number>>({ membership: 0, order: 0 });
 
@@ -49,6 +51,7 @@ export default function LeaderboardScreen() {
   return (
     <View style={[styles.root, { backgroundColor: colors.background }]}>
       <GlowBackground />
+      <AlertsSheet visible={alertsOpen} onClose={() => setAlertsOpen(false)} />
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={[
@@ -64,7 +67,7 @@ export default function LeaderboardScreen() {
                 Membership Leaderboard
               </Text>
             </View>
-            <Pressable accessibilityLabel="Alerts" hitSlop={8}>
+            <Pressable accessibilityLabel="Alerts" hitSlop={8} onPress={() => setAlertsOpen(true)}>
               <Glass interactive radius={Radius.pill} style={styles.round}>
                 <Icon name="bell" size={18} />
               </Glass>

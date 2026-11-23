@@ -4,16 +4,11 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { supabase, supabaseConfigured } from './supabase';
 
 /**
- * Two accounts only: a shared team login and an admin login.
- * People type a plain username; Supabase Auth needs an email, so a bare
- * username is mapped to `<username>@<EXPO_PUBLIC_LOGIN_DOMAIN>`.
+ * Personal accounts. Sign-up needs the shared team code, which the database
+ * checks (migration 0004), so outsiders can't create an account.
+ * Couples share one account: "David & Samantha Park".
  */
-const LOGIN_DOMAIN = process.env.EXPO_PUBLIC_LOGIN_DOMAIN ?? 'invictus.app';
-
-export function usernameToEmail(username: string) {
-  const u = username.trim().toLowerCase();
-  return u.includes('@') ? u : `${u}@${LOGIN_DOMAIN}`;
-}
+export type SignUpInput = { fullName: string; email: string; password: string; teamCode: string };
 
 export type Role = 'member' | 'admin';
 
@@ -23,7 +18,8 @@ type AuthContextValue = {
   role: Role;
   /** No Supabase env configured: let everyone in on mock data. */
   demoMode: boolean;
-  signIn: (username: string, password: string) => Promise<string | null>;
+  signIn: (email: string, password: string) => Promise<string | null>;
+  signUp: (input: SignUpInput) => Promise<string | null>;
   signOut: () => Promise<void>;
 };
 
@@ -64,13 +60,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       loading,
       role,
       demoMode: !supabaseConfigured,
-      async signIn(username, password) {
+      async signIn(email, password) {
         if (!supabase) return 'Supabase is not configured.';
-        const { error } = await supabase.auth.signInWithPassword({
-          email: usernameToEmail(username),
+        const { error } = await supabase.auth.signInWithPassword({ email: email.trim().toLowerCase(), password });
+        return error ? 'That email and password didn\u2019t match.' : null;
+      },
+      async signUp({ fullName, email, password, teamCode }) {
+        if (!supabase) return 'Supabase is not configured.';
+        const { error } = await supabase.auth.signUp({
+          email: email.trim().toLowerCase(),
           password,
+          options: { data: { full_name: fullName.trim(), team_code: teamCode.trim() } },
         });
-        return error ? 'That username and password didn\u2019t match.' : null;
+        if (!error) return null;
+        if (/team code/i.test(error.message)) return 'That team code isn\u2019t right. Ask your upline for it.';
+        if (/cannot be used/i.test(error.message)) return 'That email address can\u2019t be used.';
+        if (/registered|exists/i.test(error.message)) return 'There\u2019s already an account with that email. Sign in instead.';
+        return error.message;
       },
       async signOut() {
         await supabase?.auth.signOut();

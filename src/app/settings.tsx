@@ -20,7 +20,7 @@ const options: { value: ThemePreference; label: string; icon: IconName }[] = [
 
 export default function SettingsScreen() {
   const { preference, setPreference, colors, reduceTransparency } = useTheme();
-  const { demoMode, role, signOut } = useAuth();
+  const { demoMode, role, session, signOut } = useAuth();
   const router = useRouter();
 
   return (
@@ -62,13 +62,13 @@ export default function SettingsScreen() {
         ACCOUNT
       </Text>
       <Card>
-        <Text variant="headline">{demoMode ? 'Demo mode' : role === 'admin' ? 'Admin' : 'Team account'}</Text>
+        <Text variant="headline">{demoMode ? 'Demo mode' : (session?.user.email ?? 'Signed in')}</Text>
         <Text variant="subheadline" color="textSecondary">
           {demoMode
             ? 'No Supabase project configured. Showing placeholder content.'
             : role === 'admin'
-              ? 'Signed in as admin. You can manage content.'
-              : 'Signed in with the shared team login.'}
+              ? 'Admin. You can manage content and the leaderboard.'
+              : 'Team member.'}
         </Text>
         {!demoMode ? (
           <View style={styles.signOut}>

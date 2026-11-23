@@ -57,6 +57,12 @@
           "supportsBackgroundPlayback": true,
           "supportsPictureInPicture": true
         }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#C9A227"
+        }
       ]
     ],
     "experiments": {

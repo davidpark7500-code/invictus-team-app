@@ -27,7 +27,7 @@ alter table public.team_profiles add column if not exists video_path text;
 -- One row per link sent to a prospect. The public page looks up the token,
 -- checks it hasn't expired or been revoked, and shows that profile only.
 create table public.profile_shares (
-  token text primary key default encode(gen_random_bytes(16), 'hex'),
+  token text primary key default encode(extensions.gen_random_bytes(16), 'hex'),
   profile_id uuid not null references public.team_profiles (id) on delete cascade,
   created_at timestamptz not null default now(),
   expires_at timestamptz not null default now() + interval '7 days',
