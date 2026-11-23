@@ -27,9 +27,7 @@ Docs/Business Full Monthly Budget .pdf` and `/Moving from Zoom/Follow Up Materia
 Guide.pdf` into `Invictus Team App/Resources/`). Phases of Progression candidate
 (`/Pfeifer GE Recordings/2018/Phases of Progression 4.10.18.pdf`) not yet confirmed.
 Bios: all 23 transferred word for word from the old app's profile screenshots.
-Possible typos kept as written pending owner decision:
-Raniolo "married since 2026"; Jahnke "have and 11 year old"; Arceneaux "I'm charge of",
-"a goals to", "I my career"; Wyatt "Overland, KS"; Greene "has lead to"; Burns "We build this".
+Typos fixed with owner approval (Jahnke, Arceneaux x3, Wyatt, Greene, Burns); Raniolo's 2026 marriage year is correct.
 
 **Not in Dropbox:** Level Up!, Phases of Progression, LTD Maximize VCS with CNA Course link,
 all Onboarding PDFs and links, any audio (Archived Audios folders are empty).
