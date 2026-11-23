@@ -39,7 +39,7 @@ export function registrationUrlOf(e: TeamEvent) {
 // to a direct stream (raw=1). If that folder link is deleted or regenerated, every video URL breaks.
 // Items with no Dropbox file have no source yet.
 export const resources: Resource[] = [
-  { id: 'r-levelup', section: 'Quick Links', title: 'Level Up!', kind: 'pdf', url: '' },
+  { id: 'r-levelup', section: 'Quick Links', title: 'Level Up!', kind: 'pdf', url: appDoc('level-up.pdf') },
   { id: 'r-phases', section: 'Quick Links', title: 'Phases of Progression', kind: 'pdf', url: appDoc('phases-of-progression.pdf') },
   { id: 't-resources', section: 'Onboarding Talks', title: 'Know Your Resources', kind: 'video', speaker: 'Park', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/AA448VozsGbPsvReGzHoHtA/Activation%20Videos/2022-03-19_Resources_Park.mp4?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'Activation Videos/2022-03-19_Resources_Park.mp4' },
   { id: 't-owner', section: 'Onboarding Talks', title: 'Business Owner Mentality', kind: 'video', speaker: 'McCann', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/APdN3WJyv-15TF8Rl0WYX_c/Activation%20Videos/%2801%29%202021-11-06%20Chad%20and%20Chelsea.mp4?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'Activation Videos/(01) 2021-11-06 Chad and Chelsea.mp4' },
