@@ -47,7 +47,7 @@ function RootNavigator() {
         <Stack.Protected guard={signedIn}>
           <Stack.Screen name="(tabs)" />
           <Stack.Screen
-            name="settings"
+            name="account"
             options={{
               presentation: 'formSheet',
               contentStyle: { backgroundColor: colors.backgroundElevated },

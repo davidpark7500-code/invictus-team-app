@@ -1,13 +1,11 @@
 import type { ReactNode } from 'react';
-import { Platform, type PressableProps, type ScrollViewProps, StyleSheet, View } from 'react-native';
+import { Platform, type ScrollViewProps, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Glass } from '@/components/glass/Glass';
 import { BrandLogo } from '@/components/ui/BrandLogo';
-import { Icon, type IconName } from '@/components/ui/Icon';
-import { Pressable } from '@/components/ui/Pressable';
 import { Text } from '@/components/ui/Text';
-import { Radius, Spacing } from '@/theme/tokens';
+import { AccountButton } from '@/features/account/AccountButton';
+import { Spacing } from '@/theme/tokens';
 
 /**
  * Fixed row height, so the logo sits in exactly the same spot on every tab
@@ -35,13 +33,14 @@ export function useTabRootScroll(): { contentInsetAdjustmentBehavior: ScrollView
 type Props = {
   title: string;
   subtitle?: string;
-  /** Buttons on the right, such as alerts or account. */
+  /** Extra buttons, shown just before the account button. */
   children?: ReactNode;
 };
 
 /**
- * Top row of every tab except Home: the Invictus logo at top left, then the
- * tab's title. Screens that use it hide the native stack header.
+ * Top row of every tab except Home: the Invictus logo at top left, the tab's
+ * title, and the account button at top right (the same spot on Home).
+ * Screens that use it hide the native stack header.
  */
 export function TabHeader({ title, subtitle, children }: Props) {
   return (
@@ -58,23 +57,8 @@ export function TabHeader({ title, subtitle, children }: Props) {
         ) : null}
       </View>
       {children}
+      <AccountButton />
     </View>
-  );
-}
-
-type HeaderButtonProps = Omit<PressableProps, 'children'> & {
-  icon: IconName;
-  accessibilityLabel: string;
-};
-
-/** Round glass button for the header row (alerts, settings). */
-export function HeaderButton({ icon, ...rest }: HeaderButtonProps) {
-  return (
-    <Pressable hitSlop={8} {...rest}>
-      <Glass interactive radius={Radius.pill} style={styles.round}>
-        <Icon name={icon} size={18} />
-      </Glass>
-    </Pressable>
   );
 }
 
@@ -86,5 +70,4 @@ const styles = StyleSheet.create({
     minHeight: TAB_HEADER_HEIGHT,
   },
   text: { flex: 1 },
-  round: { width: 40, height: 40, alignItems: 'center', justifyContent: 'center' },
 });

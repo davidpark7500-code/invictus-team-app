@@ -61,6 +61,10 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
 - **Web shell (`public/index.html`):** app-coloured background and logo before the JS loads,
   Safari bars in the app's colour, full-screen "Add to Home Screen" app (`manifest.json`,
   `public/icons/`).
+- **One account button (owner, Nov 2026):** the person's initials, top right on every tab (same
+  spot on Home), open `/account`: profile, Notifications (sale alerts), Appearance, sign out. It
+  replaced Home's settings gear and Leaderboard's bell. Sign-in covers the whole app, not just the
+  Leaderboard (demo mode lets everyone in until Supabase exists).
 - **Style sheet:** `docs/style-sheet.html`, regenerated from the values in tokens.ts by hand.
 - **Resource PDFs live in the app (owner, Nov 2026):** `public/docs/`, served by the app's website
   and linked with `appDoc()` in `src/data/mock.ts`; the iPhone app loads them from the live site,

@@ -4,13 +4,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Glass, GlassGroup } from '@/components/glass/Glass';
 import { Icon } from '@/components/ui/Icon';
-import { HeaderButton, TabHeader, useTabRootScroll } from '@/components/ui/TabHeader';
+import { TabHeader, useTabRootScroll } from '@/components/ui/TabHeader';
 import { Text } from '@/components/ui/Text';
-import { AlertsSheet } from '@/features/leaderboard/AlertsSheet';
 import { currentWeek, formatWeekEnd, formatWeekRange, LAUNCH_WEEK, shiftWeek } from '@/features/leaderboard/period';
 import { allTimeRows, ME_ID, placeholderFeed, weekRows } from '@/features/leaderboard/placeholder';
 import { RankingCard } from '@/features/leaderboard/RankingCard';
-import { initialsOf, rankRows, type SaleKind } from '@/features/leaderboard/rank';
+import { rankRows, type SaleKind } from '@/features/leaderboard/rank';
 import { SaleButton } from '@/features/leaderboard/SaleButton';
 import { useTheme } from '@/theme/ThemeProvider';
 import { MaxContentWidth, Radius, Spacing } from '@/theme/tokens';
@@ -24,7 +23,6 @@ export default function LeaderboardScreen() {
   const thisWeek = currentWeek();
   const [period, setPeriod] = useState<Period>('week');
   const [week, setWeek] = useState(thisWeek);
-  const [alertsOpen, setAlertsOpen] = useState(false);
   // Taps are local only until the backend exists.
   const [extra, setExtra] = useState<Record<SaleKind, number>>({ membership: 0, order: 0 });
 
@@ -50,7 +48,6 @@ export default function LeaderboardScreen() {
 
   return (
     <View style={styles.root}>
-      <AlertsSheet visible={alertsOpen} onClose={() => setAlertsOpen(false)} />
       <ScrollView
         style={styles.scroll}
         contentInsetAdjustmentBehavior={tabTop.contentInsetAdjustmentBehavior}
@@ -59,14 +56,7 @@ export default function LeaderboardScreen() {
           { paddingTop: tabTop.paddingTop, paddingBottom: insets.bottom + (Platform.OS === 'ios' ? 72 : 120) },
         ]}>
         <View style={styles.column}>
-          <TabHeader title="Pulse" subtitle="Membership Leaderboard">
-            <HeaderButton icon="bell" accessibilityLabel="Alerts" onPress={() => setAlertsOpen(true)} />
-            <Pressable accessibilityLabel="Account" hitSlop={8}>
-              <View style={[styles.round, { backgroundColor: colors.fillStrong }]}>
-                <Text style={styles.meInitials}>{initialsOf(me?.fullName ?? '')}</Text>
-              </View>
-            </Pressable>
-          </TabHeader>
+          <TabHeader title="Pulse" subtitle="Membership Leaderboard" />
 
           <View style={styles.buttons}>
             <SaleButton kind="membership" count={me?.memberships ?? 0} onTap={() => tap('membership')} />

@@ -8,6 +8,8 @@ import { Icon, type IconName } from '@/components/ui/Icon';
 import { Pressable } from '@/components/ui/Pressable';
 import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
+import { useAccount } from '@/features/account/useAccount';
+import { SaleAlertsSettings } from '@/features/leaderboard/SaleAlertsSettings';
 import { useAuth } from '@/lib/AuthProvider';
 import { type ThemePreference, useTheme } from '@/theme/ThemeProvider';
 import { Radius, Spacing } from '@/theme/tokens';
@@ -18,17 +20,44 @@ const options: { value: ThemePreference; label: string; icon: IconName }[] = [
   { value: 'dark', label: 'Dark', icon: 'moon' },
 ];
 
-export default function SettingsScreen() {
+/** Everything personal in one place, opened from the account button on every tab. */
+export default function AccountScreen() {
   const { preference, setPreference, colors, reduceTransparency } = useTheme();
-  const { demoMode, role, session, signOut } = useAuth();
+  const { demoMode, role, signOut } = useAuth();
+  const { name, initials, email } = useAccount();
   const router = useRouter();
 
   return (
     <Screen playerInset={false} contentContainerStyle={styles.content}>
       <View style={styles.header}>
-        <Text variant="title1">Settings</Text>
+        <Text variant="title1">Account</Text>
         {Platform.OS === 'web' ? <Button label="Close" variant="quiet" onPress={() => router.back()} /> : null}
       </View>
+
+      <Card>
+        <View style={styles.profile}>
+          <View style={[styles.avatar, { backgroundColor: colors.brandSoft }]}>
+            <Text style={[styles.avatarText, { color: colors.brandText }]}>{initials}</Text>
+          </View>
+          <View style={styles.profileText}>
+            <Text variant="headline" numberOfLines={1}>
+              {name}
+            </Text>
+            <Text variant="subheadline" color="textSecondary" numberOfLines={2}>
+              {demoMode
+                ? 'Demo mode \u00b7 sample data'
+                : [email, role === 'admin' ? 'Admin' : 'Team member'].filter(Boolean).join(' \u00b7 ')}
+            </Text>
+          </View>
+        </View>
+      </Card>
+
+      <Text variant="footnote" color="textSecondary" style={styles.label}>
+        NOTIFICATIONS
+      </Text>
+      <Card>
+        <SaleAlertsSettings />
+      </Card>
 
       <Text variant="footnote" color="textSecondary" style={styles.label}>
         APPEARANCE
@@ -58,24 +87,11 @@ export default function SettingsScreen() {
         </Text>
       ) : null}
 
-      <Text variant="footnote" color="textSecondary" style={styles.label}>
-        ACCOUNT
-      </Text>
-      <Card>
-        <Text variant="headline">{demoMode ? 'Demo mode' : (session?.user.email ?? 'Signed in')}</Text>
-        <Text variant="subheadline" color="textSecondary">
-          {demoMode
-            ? 'No Supabase project configured. Showing placeholder content.'
-            : role === 'admin'
-              ? 'Admin. You can manage content and the leaderboard.'
-              : 'Team member.'}
-        </Text>
-        {!demoMode ? (
-          <View style={styles.signOut}>
-            <Button label="Sign out" icon="signOut" variant="quiet" onPress={signOut} />
-          </View>
-        ) : null}
-      </Card>
+      {!demoMode ? (
+        <Card>
+          <Button label="Sign out" icon="signOut" variant="quiet" onPress={signOut} />
+        </Card>
+      ) : null}
 
       <Text variant="caption" color="textTertiary" style={styles.about}>
         Invictus Team · 0.1.0
@@ -91,6 +107,9 @@ const styles = StyleSheet.create({
   segment: { flexDirection: 'row', gap: Spacing.sm },
   segmentItem: { flex: 1 },
   segmentInner: { alignItems: 'center', gap: Spacing.xs, paddingVertical: Spacing.md },
-  signOut: { marginTop: Spacing.md, alignSelf: 'flex-start' },
+  profile: { flexDirection: 'row', alignItems: 'center', gap: Spacing.md },
+  avatar: { width: 56, height: 56, borderRadius: 28, alignItems: 'center', justifyContent: 'center' },
+  avatarText: { fontSize: 20, fontWeight: '700' },
+  profileText: { flex: 1, gap: 2 },
   about: { textAlign: 'center', marginTop: Spacing.lg },
 });

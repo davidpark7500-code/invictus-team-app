@@ -1,4 +1,4 @@
-import { Link, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 
 import { BrandLogo } from '@/components/ui/BrandLogo';
@@ -9,8 +9,9 @@ import { ListRow } from '@/components/ui/ListRow';
 import { Pill } from '@/components/ui/Pill';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
-import { HeaderButton, TAB_HEADER_HEIGHT } from '@/components/ui/TabHeader';
+import { TAB_HEADER_HEIGHT } from '@/components/ui/TabHeader';
 import { Text } from '@/components/ui/Text';
+import { AccountButton } from '@/features/account/AccountButton';
 import { TeamHero } from '@/features/home/TeamHero';
 import { eventDay, formatEventPlace, formatEventWhen, formatRelativeDay, greeting, isUpcoming } from '@/data/format';
 import { events, registrationUrlOf, resources, WELCOME } from '@/data/mock';
@@ -39,9 +40,7 @@ export default function HomeScreen() {
         </View>
         {/* Same height and spot as the buttons in Leaderboard's header row. */}
         <View style={styles.topBar}>
-          <Link href="/settings" asChild>
-            <HeaderButton icon="settings" accessibilityLabel="Settings" />
-          </Link>
+          <AccountButton />
         </View>
       </View>
 
