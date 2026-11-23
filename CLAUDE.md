@@ -150,10 +150,10 @@ ship those.
 - Real Supabase project (`.env.example`), storage buckets for audio / PDFs / leader photos.
 - Audio playback (expo-audio, background mode is already in app.json), lock-screen controls,
   on-device resume position.
-- PDFs (done for web, Nov 2026): the web app draws every page in the app with pdf.js, loaded at
-  runtime from `public/pdfjs/` (copied by `scripts/copy-pdfjs.mjs` on `npm install`, not
-  committed). iPhone and Android still open the PDF file in the in-app browser sheet; an in-app
-  native viewer would need react-native-webview or similar and a new native build.
+- PDFs (done, Nov 2026): open full screen inside the app with the title and a Share button, like
+  the old app. Web draws the pages with pdf.js (`PdfViewer.web.tsx`, loaded at runtime from
+  `public/pdfjs/`, copied by `scripts/copy-pdfjs.mjs` on `npm install`, not committed). iPhone and
+  Android use `react-native-webview`, which shows the system's own PDF viewer (`PdfViewer.tsx`).
 - Admin content management (who uploads audio, PDFs, events).
 - A vector version of the logo (current source is 512 px; icons are upscaled).
 
