@@ -7,6 +7,7 @@ import { useTheme } from '@/theme/ThemeProvider';
 
 const tabs = [
   { name: '(home)', label: 'Home', icon: icons.home },
+  { name: 'leaderboard', label: 'Leaderboard', icon: icons.trophy },
   { name: 'events', label: 'Events', icon: icons.events },
   { name: 'profiles', label: 'Profiles', icon: icons.list },
   { name: 'resources', label: 'Resources', icon: icons.resources },

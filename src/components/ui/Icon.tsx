@@ -16,6 +16,8 @@ export const icons = {
   forward: { ios: 'goforward.30', md: 'forward_30' },
   rewind: { ios: 'gobackward.15', md: 'replay_10' },
   chevron: { ios: 'chevron.right', md: 'chevron_right' },
+  chevronLeft: { ios: 'chevron.left', md: 'chevron_left' },
+  trophy: { ios: 'trophy.fill', md: 'leaderboard' },
   pdf: { ios: 'doc.richtext.fill', md: 'picture_as_pdf' },
   link: { ios: 'link', md: 'link' },
   globe: { ios: 'globe', md: 'language' },

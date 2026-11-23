@@ -12,6 +12,14 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
 
 ## Decisions already made (do not re-litigate)
 
+- **Leaderboard tab (Nov 2026):** Pulse Board's leaderboard moves into this app as a tab. Spec:
+  `docs/LEADERBOARD-TAB-HANDOFF.md` in github.com/davidpark7500-code/pulse-board. This supersedes
+  the "two shared logins" decision below: everyone gets a personal account, sign-up gated by a team
+  code. The combined app gets a NEW Supabase project (owner must approve the cost first); the live
+  Pulse Board project `popwjvdtkznhaudsogso` is never edited, only read at cutover.
+  UI so far is on branch `leaderboard-tab` with placeholder data (`src/features/leaderboard/`).
+  Push notifications and the data-copy script wait for the owner's go-ahead.
+
 - **Stack:** Expo SDK 58 + Expo Router, React Native, Supabase. One codebase for iOS, Android, web.
 - **Tabs shipped:** Home, Events, Profiles, Resources. No Audio tab: PDFs, audio, video and
   links all live in Resources. No More tab: sign-out is in Settings.

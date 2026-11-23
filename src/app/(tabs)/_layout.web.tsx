@@ -11,6 +11,7 @@ import { MaxContentWidth, Radius, Spacing } from '@/theme/tokens';
 
 const tabs: { name: string; href: string; label: string; icon: IconName }[] = [
   { name: '(home)', href: '/', label: 'Home', icon: 'home' },
+  { name: 'leaderboard', href: '/leaderboard', label: 'Leaderboard', icon: 'trophy' },
   { name: 'events', href: '/events', label: 'Events', icon: 'events' },
   { name: 'profiles', href: '/profiles', label: 'Profiles', icon: 'list' },
   { name: 'resources', href: '/resources', label: 'Resources', icon: 'resources' },
