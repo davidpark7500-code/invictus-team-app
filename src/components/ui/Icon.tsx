@@ -26,6 +26,8 @@ export const icons = {
   share: { ios: 'square.and.arrow.up', md: 'share' },
   add: { ios: 'plus', md: 'add' },
   check: { ios: 'checkmark', md: 'check' },
+  photo: { ios: 'photo', md: 'image' },
+  edit: { ios: 'pencil', md: 'edit' },
   phone: { ios: 'phone.fill', md: 'phone' },
   mail: { ios: 'envelope.fill', md: 'mail' },
   pin: { ios: 'mappin.and.ellipse', md: 'location_on' },

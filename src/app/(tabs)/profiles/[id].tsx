@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
@@ -18,7 +18,8 @@ export default function ProfileDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { profiles } = useContent();
   const profile = profiles.find((p) => p.id === id);
-  const { demoMode } = useAuth();
+  const { demoMode, role } = useAuth();
+  const router = useRouter();
   const [sharing, setSharing] = useState(false);
   const [result, setResult] = useState<ShareResult | null>(null);
 
@@ -46,6 +47,10 @@ export default function ProfileDetailScreen() {
           title={`${profile.firstNames} ${profile.lastName}`}
           pendingLabel="Profile video link not connected yet."
         />
+      ) : null}
+
+      {role === 'admin' ? (
+        <Button label="Edit profile" icon="edit" variant="glass" onPress={() => router.push(`/profiles/edit/${profile.id}`)} />
       ) : null}
 
       <Card>

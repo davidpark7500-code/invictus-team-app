@@ -12,6 +12,7 @@ export default function ProfilesStack() {
       {/* The screen draws the logo header itself, like Leaderboard. */}
       <Stack.Screen name="index" options={{ title: 'Profiles', headerShown: false }} />
       <Stack.Screen name="[id]" options={{ title: '', headerLargeTitle: false }} />
+      <Stack.Screen name="edit/[id]" options={{ title: 'Edit profile', headerLargeTitle: false }} />
     </Stack>
   );
 }

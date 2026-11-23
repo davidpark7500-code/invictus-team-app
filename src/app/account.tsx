@@ -1,3 +1,4 @@
+import Constants from 'expo-constants';
 import { useRouter } from 'expo-router';
 import { Platform, StyleSheet, View } from 'react-native';
 
@@ -94,7 +95,7 @@ export default function AccountScreen() {
       ) : null}
 
       <Text variant="caption" color="textTertiary" style={styles.about}>
-        Invictus Team · 0.1.0
+        Invictus Team · {Constants.expoConfig?.version ?? ''}
       </Text>
     </Screen>
   );

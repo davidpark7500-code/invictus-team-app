@@ -73,6 +73,13 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
   each time the app comes to the front, keeps the last copy on the phone, and falls back to
   `mock.ts`. Code changes reach phones with `eas update --channel production --environment
   production` (EAS Update); bump `version` in app.json whenever native modules change.
+- **Admin editing in the app (owner, Nov 2026):** admins see Edit profile on each profile
+  (photo, names, pin, Founders/Qual, bio). Photos go to the public `team-photos` bucket (admins
+  write; migrations 0009/0010), resized to 900px JPEG, a new file per upload. Saves update
+  `team_profiles`; everyone sees them on next open. Needs expo-image-picker (native, app 0.2.0+).
+- **Prospect share links:** Share with a prospect makes a 7-day link
+  (`create_profile_share`), opened at `/p/<token>` without sign-in (`shared_profile_page`).
+  Admins turn a link off by setting `revoked_at` in `profile_shares`.
 - **Notifications (owner, Nov 2026):** Account sheet > Notifications: New events, New resources
   (team updates) and the two sale alerts, saved per person on `profiles.notify_*`. Database
   triggers (migration 0007, pg_net) call the Edge Functions `notify-content` and `notify-sale`
