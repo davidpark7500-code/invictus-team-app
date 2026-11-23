@@ -3,6 +3,8 @@
  * Resources, profiles and events are real; announcements, prospects and
  * customers are still invented: never ship those.
  */
+import { Platform } from 'react-native';
+
 import type { Announcement, Customer, Profile, Prospect, Resource, TeamEvent } from './types';
 
 const day = 24 * 60 * 60 * 1000;
@@ -11,6 +13,17 @@ const iso = (offsetDays: number, hour = 19, minute = 30) => {
   d.setHours(hour, minute, 0, 0);
   return d.toISOString();
 };
+
+/**
+ * PDFs kept inside the app (public/docs/), served by the app's own website.
+ * The web app uses its own address, so it works on preview and local copies too;
+ * the iPhone and Android apps load them from the live site.
+ */
+const LIVE_SITE = 'https://invictus-team-app.vercel.app';
+function appDoc(file: string) {
+  const origin = Platform.OS === 'web' && typeof window !== 'undefined' ? window.location.origin : LIVE_SITE;
+  return `${origin}/docs/${file}`;
+}
 
 /** The team's guest registration page for Group Evaluations (owner, Nov 2026). */
 export const GUEST_REGISTRATION_URL = 'https://www.eventbrite.com/e/kansas-city-group-evaluation-tickets-152259709891';
@@ -27,7 +40,7 @@ export function registrationUrlOf(e: TeamEvent) {
 // Items with no Dropbox file have no source yet.
 export const resources: Resource[] = [
   { id: 'r-levelup', section: 'Quick Links', title: 'Level Up!', kind: 'pdf', url: '' },
-  { id: 'r-phases', section: 'Quick Links', title: 'Phases of Progression', kind: 'pdf', url: '' },
+  { id: 'r-phases', section: 'Quick Links', title: 'Phases of Progression', kind: 'pdf', url: appDoc('phases-of-progression.pdf') },
   { id: 't-resources', section: 'Onboarding Talks', title: 'Know Your Resources', kind: 'video', speaker: 'Park', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/AA448VozsGbPsvReGzHoHtA/Activation%20Videos/2022-03-19_Resources_Park.mp4?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'Activation Videos/2022-03-19_Resources_Park.mp4' },
   { id: 't-owner', section: 'Onboarding Talks', title: 'Business Owner Mentality', kind: 'video', speaker: 'McCann', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/APdN3WJyv-15TF8Rl0WYX_c/Activation%20Videos/%2801%29%202021-11-06%20Chad%20and%20Chelsea.mp4?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'Activation Videos/(01) 2021-11-06 Chad and Chelsea.mp4' },
   { id: 't-sales', section: 'Onboarding Talks', title: 'Sales Basics 101', kind: 'video', speaker: 'Lutz', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/AKcD_H0lNnDN4WEDcz79Few/Activation%20Videos/2023-10-17_Training_LutzSalesMindset.mp4?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'Activation Videos/2023-10-17_Training_LutzSalesMindset.mp4' },
@@ -37,18 +50,18 @@ export const resources: Resource[] = [
   { id: 't-blueprint', section: 'Onboarding Talks', title: 'Power of Blueprint', kind: 'video', speaker: 'Park', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/ALEYrysRv2f8eEN1RkPpLrI/Activation%20Videos/2025-04-16_Blueprint_David.mp4?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'Activation Videos/2025-04-16_Blueprint_David.mp4' },
   { id: 'r-cna-course', section: 'CNA Resources', title: 'NEW - LTD Maximize VCS with CNA Course!', kind: 'link', url: '' },
   { id: 'r-cna-template', section: 'CNA Resources', title: 'CNA Template', kind: 'pdf', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/ABksbm79hyalldzYwo5DWek/CNA/4.%20CNA%20PDF%20Template.pdf?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'CNA/4. CNA PDF Template.pdf' },
-  { id: 'r-launch-checklist', section: 'Onboarding', title: '1 - Launch Checklist', kind: 'pdf', url: '' },
-  { id: 'r-curriculum', section: 'Onboarding', title: '2 - Onboarding Curriculum', kind: 'pdf', url: '' },
-  { id: 'r-launch-orders', section: 'Onboarding', title: '3 - Launch Orders', kind: 'pdf', url: '' },
+  { id: 'r-launch-checklist', section: 'Onboarding', title: '1 - Launch Checklist', kind: 'pdf', url: appDoc('launch-checklist.pdf') },
+  { id: 'r-curriculum', section: 'Onboarding', title: '2 - Onboarding Curriculum', kind: 'pdf', url: appDoc('onboarding-curriculum.pdf') },
+  { id: 'r-launch-orders', section: 'Onboarding', title: '3 - Launch Orders', kind: 'pdf', url: appDoc('launch-orders.pdf') },
   { id: 'r-income', section: 'Onboarding', title: 'Income Estimator', kind: 'link', url: '' },
   { id: 'r-guest', section: 'Onboarding', title: 'Guest Registration Link', kind: 'link', url: GUEST_REGISTRATION_URL },
   { id: 'r-list-builder', section: 'Onboarding', title: 'NEW - List Builder Template', kind: 'link', url: 'https://docs.google.com/spreadsheets/d/1qut0EF7pKe563NL0Uebo3W1YWOC_Rh3lcgOAh4Rzsyo/copy' },
   { id: 'r-scalable', section: 'Onboarding', title: 'It\'s All Scalable', kind: 'pdf', url: '' },
-  { id: 'r-booklist', section: 'Onboarding', title: 'First Year Booklist', kind: 'pdf', url: '' },
-  { id: 'r-roadmap', section: 'Onboarding', title: 'Roadmap & 9 Core Steps', kind: 'pdf', url: '' },
-  { id: 'r-budget', section: 'Onboarding', title: 'Budget Sheet', kind: 'pdf', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/AFv0k7BjKRFoVTTA4pSiHd4/Resources/Budget%20Sheet.pdf?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'Resources/Budget Sheet.pdf' },
-  { id: 'r-reference', section: 'Onboarding', title: 'Invictus Team Reference Guide', kind: 'pdf', url: '' },
-  { id: 'r-terminology', section: 'Onboarding', title: 'Invictus Team Terminology', kind: 'pdf', url: '' },
+  { id: 'r-booklist', section: 'Onboarding', title: 'First Year Booklist', kind: 'pdf', url: appDoc('first-year-booklist.pdf') },
+  { id: 'r-roadmap', section: 'Onboarding', title: 'Roadmap & 9 Core Steps', kind: 'pdf', url: appDoc('roadmap-9-core-steps.pdf') },
+  { id: 'r-budget', section: 'Onboarding', title: 'Budget Sheet', kind: 'pdf', url: appDoc('budget-sheet.pdf') },
+  { id: 'r-reference', section: 'Onboarding', title: 'Invictus Team Reference Guide', kind: 'pdf', url: appDoc('team-reference-guide.pdf') },
+  { id: 'r-terminology', section: 'Onboarding', title: 'Invictus Team Terminology', kind: 'pdf', url: appDoc('team-terminology.pdf') },
   { id: 'r-whats-next', section: 'Onboarding', title: 'Invictus Team "What\'s Next"', kind: 'pdf', url: '' },
   { id: 'r-onboarding-guide', section: 'Onboarding', title: 'Onboarding Guide', kind: 'pdf', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/AKPOEC4jvc2blI0zkLdn_FM/Resources/Onboarding%20Guide.pdf?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'Resources/Onboarding Guide.pdf' },
 ];

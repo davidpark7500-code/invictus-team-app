@@ -62,6 +62,11 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
   Safari bars in the app's colour, full-screen "Add to Home Screen" app (`manifest.json`,
   `public/icons/`).
 - **Style sheet:** `docs/style-sheet.html`, regenerated from the values in tokens.ts by hand.
+- **Resource PDFs live in the app (owner, Nov 2026):** `public/docs/`, served by the app's website
+  and linked with `appDoc()` in `src/data/mock.ts`; the iPhone app loads them from the live site,
+  so a new or changed PDF needs a push to `main`. The repo is public, so these files are too.
+  Videos, the CNA Template and the Onboarding Guide still come from the owner's Dropbox. The
+  Launch Checklist still shows the old app's shared login; the owner will update these PDFs later.
 - **Guest registration (owner, Nov 2026):** one Eventbrite page (`GUEST_REGISTRATION_URL` in
   `src/data/mock.ts`). It's the "Guest Registration Link" resource, the Register button on every
   Group Evaluation, and a "Register a guest" button on Home's card for the next Group Evaluation
