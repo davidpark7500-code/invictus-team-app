@@ -83,7 +83,8 @@ volume. `scripts/convert-videos.sh` (720p copies) stays available but is optiona
   in-app; not yet tested on a phone.
 - Still waiting on the owner for: Quick Links and Onboarding PDFs, profile photos and bios, the
   original team photo. Only on-screen CNA items. Ask before importing anything.
-- Real events, sign-in (Supabase) and profile share links are not built yet.
+- Sign-in (Supabase) and profile share links are not built yet. Events are real but hand-entered
+  in `mock.ts` until Supabase holds them.
 
 ## Capture task (only if the owner asks for more of the old app)
 
@@ -119,8 +120,10 @@ must come from Haufler or Invictus leadership; list what's needed in the capture
 
 ## Placeholder content to replace
 
-In `src/data/mock.ts`, resource titles, profile names/pins and the welcome text are real.
-Events and announcements are still invented; never ship those.
+In `src/data/mock.ts`, resource titles, profile names/pins, the welcome text and the events are
+real. Events came from the old app's Events tab on 2026-11-23, which shows dates only, so they show
+"Time TBD" until times are added (`startsAt` / `endsAt`). Announcements are still invented; never
+ship those.
 
 ## Still open
 

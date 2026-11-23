@@ -1,6 +1,7 @@
 /**
- * Placeholder content so every screen renders before the Supabase
- * project exists. Nothing here is real team content.
+ * Content so every screen renders before the Supabase project exists.
+ * Resources, profiles and events are real; announcements, prospects and
+ * customers are still invented: never ship those.
  */
 import type { Announcement, Customer, Profile, Prospect, Resource, TeamEvent } from './types';
 
@@ -44,12 +45,12 @@ export const resources: Resource[] = [
   { id: 'r-onboarding-guide', section: 'Onboarding', title: 'Onboarding Guide', kind: 'pdf', url: 'https://www.dropbox.com/scl/fo/u82on05hhuttd7wpmkvl2/AKPOEC4jvc2blI0zkLdn_FM/Resources/Onboarding%20Guide.pdf?rlkey=0irnrzasq5ml33h0cinit2npl&dl=0', source: 'Resources/Onboarding Guide.pdf' },
 ];
 
+// From the old app's Events tab on 2026-11-23. It shows dates only, no times.
 export const events: TeamEvent[] = [
-  { id: 'e1', title: 'Group Evaluation', type: 'group_evaluation', startsAt: iso(2), endsAt: iso(2, 21, 0), location: 'Zoom', isVirtual: true, registrationUrl: '', description: 'Weekly group evaluation. Bring your guests.' },
-  { id: 'e2', title: 'Team Training', type: 'team_training', startsAt: iso(2, 21, 0), endsAt: iso(2, 23, 0), location: 'Zoom', isVirtual: true, registrationUrl: '', description: 'Training for IBOs, directly after Group Evaluation.' },
-  { id: 'e3', title: 'Breakthrough Winter Conference', type: 'conference', startsAt: iso(85, 9, 0), endsAt: iso(87, 17, 0), location: 'Kansas City Marriott Downtown', isVirtual: false, registrationUrl: '', description: 'Three-day team conference.' },
-  { id: 'e4', title: 'Estate Party', type: 'social', startsAt: iso(30, 18, 0), endsAt: iso(30, 22, 0), location: 'Overland Park, KS', isVirtual: false, description: 'Qualification: 500 Club, 2 new legs, or volume progression.' },
-  { id: 'e5', title: 'Group Evaluation', type: 'group_evaluation', startsAt: iso(-5), endsAt: iso(-5, 21, 0), location: 'Zoom', isVirtual: true, recordingUrl: '', description: 'Recording available until next year.' },
+  { id: 'e1', title: 'Group Evaluation - Kyle & Austin Brown', type: 'group_evaluation', date: '2026-11-24', venue: 'Overland Park Sheraton', city: 'Overland Park, KS', isVirtual: false, description: '' },
+  { id: 'e2', title: 'INVICTUS Fall Leadership', type: 'leadership', date: '2026-12-04', venue: 'St. Louis Union Station Hotel', city: 'St. Louis, MO', isVirtual: false, description: '' },
+  { id: 'e3', title: 'Invictus Team Meeting', type: 'team_meeting', date: '2027-01-09', isVirtual: false, description: '' },
+  { id: 'e4', title: 'Harris Team Breakthrough 2027', type: 'conference', date: '2027-01-29', isVirtual: false, description: '' },
 ];
 
 // Names and pins from the current app's Profiles tab, in its order.

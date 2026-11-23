@@ -7,7 +7,7 @@ import { Icon } from '@/components/ui/Icon';
 import { Pill } from '@/components/ui/Pill';
 import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
-import { formatDateTime } from '@/data/format';
+import { formatEventPlace, formatEventWhen, isUpcoming } from '@/data/format';
 import { events } from '@/data/mock';
 import { useTheme } from '@/theme/ThemeProvider';
 import { Spacing } from '@/theme/tokens';
@@ -27,7 +27,10 @@ export default function EventDetailScreen() {
     );
   }
 
-  const past = new Date(event.endsAt).getTime() < Date.now();
+  const past = !isUpcoming(event);
+  const endTime = event.endsAt
+    ? new Date(event.endsAt).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })
+    : undefined;
 
   return (
     <Screen contentContainerStyle={styles.content}>
@@ -35,27 +38,31 @@ export default function EventDetailScreen() {
       <Text variant="title1">{event.title}</Text>
 
       <Card>
-        <Row icon="clock" text={`${formatDateTime(event.startsAt)} – ${new Date(event.endsAt).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })}`} />
-        <Row icon={event.isVirtual ? 'video' : 'pin'} text={event.location} />
+        <Row icon="clock" text={event.startsAt && endTime ? `${formatEventWhen(event)} – ${endTime}` : formatEventWhen(event)} />
+        <Row icon={event.isVirtual ? 'video' : 'pin'} text={formatEventPlace(event)} />
       </Card>
 
-      <Text variant="body" color="textSecondary">
-        {event.description}
-      </Text>
+      {event.description ? (
+        <Text variant="body" color="textSecondary">
+          {event.description}
+        </Text>
+      ) : null}
 
       <View style={styles.actions}>
         {past ? (
-          <Button label="Watch recording" icon="play" disabled={event.recordingUrl === undefined} />
+          <Button label="Watch recording" icon="play" disabled={!event.recordingUrl} />
         ) : (
           <>
-            <Button label={event.isVirtual ? 'Join / Register' : 'Register'} icon="link" disabled={event.registrationUrl === undefined} />
+            <Button label={event.isVirtual ? 'Join / Register' : 'Register'} icon="link" disabled={!event.registrationUrl} />
             <Button label="Add to calendar" icon="events" variant="glass" />
           </>
         )}
       </View>
-      <Text variant="caption" color="textTertiary">
-        Times shown in your device time zone ({Intl.DateTimeFormat().resolvedOptions().timeZone}).
-      </Text>
+      {event.startsAt ? (
+        <Text variant="caption" color="textTertiary">
+          Times shown in your device time zone ({Intl.DateTimeFormat().resolvedOptions().timeZone}).
+        </Text>
+      ) : null}
       <View style={{ height: 0, borderColor: colors.border }} />
     </Screen>
   );

@@ -10,7 +10,7 @@ import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Text } from '@/components/ui/Text';
 import { TeamHero } from '@/features/home/TeamHero';
-import { formatDateTime, formatRelativeDay, greeting } from '@/data/format';
+import { eventDay, formatEventPlace, formatEventWhen, formatRelativeDay, greeting, isUpcoming } from '@/data/format';
 import { events, resources, WELCOME } from '@/data/mock';
 import { useTheme } from '@/theme/ThemeProvider';
 import { Radius, Spacing } from '@/theme/tokens';
@@ -19,10 +19,7 @@ export default function HomeScreen() {
   const { colors } = useTheme();
   const router = useRouter();
 
-  const now = Date.now();
-  const nextEvent = events
-    .filter((e) => new Date(e.startsAt).getTime() > now)
-    .sort((a, b) => a.startsAt.localeCompare(b.startsAt))[0];
+  const nextEvent = events.filter((e) => isUpcoming(e)).sort((a, b) => a.date.localeCompare(b.date))[0];
   const talks = resources.filter((r) => r.section === 'Onboarding Talks');
 
   return (
@@ -49,7 +46,7 @@ export default function HomeScreen() {
           <View style={styles.cardHead}>
             <Pill label="Next up" filled color={colors.brand} textColor={colors.onBrand} />
             <Text variant="caption" color="textSecondary">
-              {formatRelativeDay(nextEvent.startsAt)}
+              {formatRelativeDay(eventDay(nextEvent))}
             </Text>
           </View>
           <Text variant="title2" style={styles.cardTitle}>
@@ -58,13 +55,13 @@ export default function HomeScreen() {
           <View style={styles.metaRow}>
             <Icon name="clock" size={14} color={colors.textSecondary} />
             <Text variant="subheadline" color="textSecondary">
-              {formatDateTime(nextEvent.startsAt)}
+              {formatEventWhen(nextEvent)}
             </Text>
           </View>
           <View style={styles.metaRow}>
             <Icon name={nextEvent.isVirtual ? 'video' : 'pin'} size={14} color={colors.textSecondary} />
             <Text variant="subheadline" color="textSecondary">
-              {nextEvent.location}
+              {formatEventPlace(nextEvent)}
             </Text>
           </View>
         </Card>

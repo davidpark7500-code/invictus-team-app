@@ -20,15 +20,19 @@ export type Resource = {
   durationSec?: number;
 };
 
-export type EventType = 'group_evaluation' | 'team_training' | 'conference' | 'social';
+export type EventType = 'group_evaluation' | 'team_meeting' | 'conference' | 'leadership';
 
 export type TeamEvent = {
   id: string;
   title: string;
   type: EventType;
-  startsAt: string;
-  endsAt: string;
-  location: string;
+  /** Calendar date in the event's own city, `YYYY-MM-DD`. */
+  date: string;
+  /** Exact start and end, once known. The old app only ever showed the date. */
+  startsAt?: string;
+  endsAt?: string;
+  venue?: string;
+  city?: string;
   isVirtual: boolean;
   registrationUrl?: string;
   recordingUrl?: string;

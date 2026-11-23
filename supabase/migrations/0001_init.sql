@@ -57,10 +57,12 @@ create table public.resources (
 create table public.events (
   id uuid primary key default gen_random_uuid(),
   title text not null,
-  type text not null check (type in ('group_evaluation', 'team_training', 'conference', 'social')),
-  starts_at timestamptz not null,
-  ends_at timestamptz not null,
-  location text not null default '',
+  type text not null check (type in ('group_evaluation', 'team_meeting', 'conference', 'leadership')),
+  event_date date not null,   -- the old app only ever showed a date
+  starts_at timestamptz,      -- exact times, once known
+  ends_at timestamptz,
+  venue text not null default '',
+  city text not null default '',
   is_virtual boolean not null default false,
   registration_url text,
   recording_url text,
