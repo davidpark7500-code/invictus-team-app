@@ -42,7 +42,7 @@ export const resources: Resource[] = [
   { id: 'r-launch-orders', section: 'Onboarding', title: '3 - Launch Orders', kind: 'pdf', url: '' },
   { id: 'r-income', section: 'Onboarding', title: 'Income Estimator', kind: 'link', url: '' },
   { id: 'r-guest', section: 'Onboarding', title: 'Guest Registration Link', kind: 'link', url: GUEST_REGISTRATION_URL },
-  { id: 'r-list-builder', section: 'Onboarding', title: 'NEW - List Builder Template', kind: 'link', url: '' },
+  { id: 'r-list-builder', section: 'Onboarding', title: 'NEW - List Builder Template', kind: 'link', url: 'https://docs.google.com/spreadsheets/d/1qut0EF7pKe563NL0Uebo3W1YWOC_Rh3lcgOAh4Rzsyo/copy' },
   { id: 'r-scalable', section: 'Onboarding', title: 'It\'s All Scalable', kind: 'pdf', url: '' },
   { id: 'r-booklist', section: 'Onboarding', title: 'First Year Booklist', kind: 'pdf', url: '' },
   { id: 'r-roadmap', section: 'Onboarding', title: 'Roadmap & 9 Core Steps', kind: 'pdf', url: '' },
