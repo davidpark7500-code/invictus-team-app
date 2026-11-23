@@ -1,8 +1,6 @@
 import { NativeTabs } from 'expo-router/native-tabs';
 
-import { hasNativeGlass } from '@/components/glass/Glass';
 import { icons } from '@/components/ui/Icon';
-import { MiniPlayer } from '@/features/audio/MiniPlayer';
 import { useTheme } from '@/theme/ThemeProvider';
 
 const tabs = [
@@ -29,16 +27,6 @@ export default function TabsLayout() {
           <NativeTabs.Trigger.Icon sf={tab.icon.ios} md={tab.icon.md} />
         </NativeTabs.Trigger>
       ))}
-      {hasNativeGlass ? (
-        <NativeTabs.BottomAccessory>
-          <AccessoryPlayer />
-        </NativeTabs.BottomAccessory>
-      ) : null}
     </NativeTabs>
   );
-}
-
-function AccessoryPlayer() {
-  const placement = NativeTabs.BottomAccessory.usePlacement();
-  return <MiniPlayer placement={placement} />;
 }

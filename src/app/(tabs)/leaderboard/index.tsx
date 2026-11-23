@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Glass, GlassGroup } from '@/components/glass/Glass';
 import { Icon } from '@/components/ui/Icon';
-import { HeaderButton, TAB_HEADER_TOP, TabHeader } from '@/components/ui/TabHeader';
+import { HeaderButton, TabHeader, useTabRootScroll } from '@/components/ui/TabHeader';
 import { Text } from '@/components/ui/Text';
 import { AlertsSheet } from '@/features/leaderboard/AlertsSheet';
 import { currentWeek, formatWeekEnd, formatWeekRange, LAUNCH_WEEK, shiftWeek } from '@/features/leaderboard/period';
@@ -20,6 +20,7 @@ type Period = 'week' | 'all';
 export default function LeaderboardScreen() {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
+  const tabTop = useTabRootScroll();
   const thisWeek = currentWeek();
   const [period, setPeriod] = useState<Period>('week');
   const [week, setWeek] = useState(thisWeek);
@@ -52,9 +53,10 @@ export default function LeaderboardScreen() {
       <AlertsSheet visible={alertsOpen} onClose={() => setAlertsOpen(false)} />
       <ScrollView
         style={styles.scroll}
+        contentInsetAdjustmentBehavior={tabTop.contentInsetAdjustmentBehavior}
         contentContainerStyle={[
           styles.content,
-          { paddingTop: insets.top + TAB_HEADER_TOP, paddingBottom: insets.bottom + (Platform.OS === 'ios' ? 72 : 120) },
+          { paddingTop: tabTop.paddingTop, paddingBottom: insets.bottom + (Platform.OS === 'ios' ? 72 : 120) },
         ]}>
         <View style={styles.column}>
           <TabHeader title="Pulse" subtitle="Membership Leaderboard">

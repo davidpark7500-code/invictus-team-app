@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
-import { Platform, type PressableProps, StyleSheet, View } from 'react-native';
+import { Platform, type PressableProps, type ScrollViewProps, StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Glass } from '@/components/glass/Glass';
 import { BrandLogo } from '@/components/ui/BrandLogo';
@@ -14,8 +15,22 @@ import { Radius, Spacing } from '@/theme/tokens';
  */
 export const TAB_HEADER_HEIGHT = 44;
 
-/** Space above the header row. Every tab's scroll view adds the safe-area top to this. */
+/** Space above the header row, below the status bar. */
 export const TAB_HEADER_TOP = Spacing.md;
+
+/**
+ * Scroll-view settings for a tab's first screen, so the header row sits the
+ * same distance below the status bar on every tab.
+ * iPhone: iOS already insets a tab's scroll view below the status bar, so
+ * adding the safe-area top as well doubled the gap. Web and Android: nothing
+ * does it for us, so pad by the safe-area top.
+ */
+export function useTabRootScroll(): { contentInsetAdjustmentBehavior: ScrollViewProps['contentInsetAdjustmentBehavior']; paddingTop: number } {
+  const insets = useSafeAreaInsets();
+  return Platform.OS === 'ios'
+    ? { contentInsetAdjustmentBehavior: 'automatic', paddingTop: TAB_HEADER_TOP }
+    : { contentInsetAdjustmentBehavior: 'never', paddingTop: insets.top + TAB_HEADER_TOP };
+}
 
 type Props = {
   title: string;
@@ -33,11 +48,11 @@ export function TabHeader({ title, subtitle, children }: Props) {
     <View style={styles.header}>
       <BrandLogo width={54} />
       <View style={styles.text}>
-        <Text variant="title3" accessibilityRole="header">
+        <Text variant="title3" accessibilityRole="header" numberOfLines={1}>
           {title}
         </Text>
         {subtitle ? (
-          <Text variant="footnote" color="textSecondary">
+          <Text variant="footnote" color="textSecondary" numberOfLines={1}>
             {subtitle}
           </Text>
         ) : null}
@@ -64,13 +79,11 @@ export function HeaderButton({ icon, ...rest }: HeaderButtonProps) {
 }
 
 const styles = StyleSheet.create({
-  // iOS insets the scroll view only to the status bar once the stack header is hidden.
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.md,
     minHeight: TAB_HEADER_HEIGHT,
-    marginTop: Platform.OS === 'ios' ? Spacing.md : 0,
   },
   text: { flex: 1 },
   round: { width: 40, height: 40, alignItems: 'center', justifyContent: 'center' },

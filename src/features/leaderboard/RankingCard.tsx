@@ -8,6 +8,9 @@ import { Spacing } from '@/theme/tokens';
 
 import { initialsOf, type RankedRow } from './rank';
 
+/** "TOTAL" is wider than "MEM" and "ORD"; on iPhone it wrapped to "TOTA L". */
+const TOTAL_EXTRA = 12;
+
 function statWidth(screen: number) {
   if (screen < 360) return 36;
   if (screen < 400) return 40;
@@ -59,7 +62,9 @@ export function RankingCard({ rows, meId, title }: { rows: RankedRow[]; meId: st
         </Text>
         <Text style={[styles.col, { width: w, color: colors.brandText }]}>MEM</Text>
         <Text style={[styles.col, { width: w, color: colors.blueText }]}>ORD</Text>
-        <Text style={[styles.col, { width: w + 4, color: colors.text }]}>TOTAL</Text>
+        <Text numberOfLines={1} style={[styles.col, { width: w + TOTAL_EXTRA, color: colors.text }]}>
+          TOTAL
+        </Text>
       </View>
       {rows.map((row, i) => {
         const me = row.userId === meId;
@@ -82,7 +87,7 @@ export function RankingCard({ rows, meId, title }: { rows: RankedRow[]; meId: st
             <Text style={[styles.stat, { width: w, color: row.orders ? colors.blueText : colors.textTertiary }]}>
               {row.orders}
             </Text>
-            <Text style={[styles.stat, styles.total, { width: w + 4, color: row.total ? colors.text : colors.textTertiary }]}>
+            <Text style={[styles.stat, styles.total, { width: w + TOTAL_EXTRA, color: row.total ? colors.text : colors.textTertiary }]}>
               {row.total}
             </Text>
           </View>

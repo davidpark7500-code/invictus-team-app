@@ -1,19 +1,20 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useTheme } from '@/theme/ThemeProvider';
 
 /**
- * Web, opened from the Home Screen: the page runs under the status bar, so
- * without this, scrolled text slides right under the clock and battery.
- * Solid behind the status bar, then a short fade, like the native scroll edge.
- * Nothing in Safari itself, where the status bar has its own space.
+ * Scrolled content slides under the status bar on the tab screens (they have
+ * no navigation bar to blur it), and on the web app opened from the Home
+ * Screen. Without this, text runs right under the clock and battery.
+ * Solid behind the status bar, then a short fade. Nothing in Safari itself,
+ * where the status bar has its own space (top inset 0).
  */
 export function StatusBarFade() {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
-  if (Platform.OS !== 'web' || insets.top === 0) return null;
+  if (insets.top === 0) return null;
 
   const height = insets.top + FADE;
   const solid = withAlpha(colors.background, 0.97);

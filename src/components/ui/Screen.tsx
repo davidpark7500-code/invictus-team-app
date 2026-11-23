@@ -1,7 +1,7 @@
 import { Platform, ScrollView, type ScrollViewProps, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { TAB_HEADER_TOP } from '@/components/ui/TabHeader';
+import { useTabRootScroll } from '@/components/ui/TabHeader';
 import { MaxContentWidth, Spacing } from '@/theme/tokens';
 
 type Props = ScrollViewProps & {
@@ -20,17 +20,18 @@ type Props = ScrollViewProps & {
  */
 export function Screen({ children, contentContainerStyle, playerInset = true, tabRoot = false, ...rest }: Props) {
   const insets = useSafeAreaInsets();
+  const tabTop = useTabRootScroll();
   const bottom = (Platform.OS === 'ios' ? 0 : insets.bottom + 80) + (playerInset ? 72 : 0);
 
   return (
     <ScrollView
-      contentInsetAdjustmentBehavior={tabRoot ? 'never' : 'automatic'}
+      contentInsetAdjustmentBehavior={tabRoot ? tabTop.contentInsetAdjustmentBehavior : 'automatic'}
       keyboardDismissMode="on-drag"
       style={styles.scroll}
       contentContainerStyle={[
         styles.content,
         tabRoot
-          ? { paddingTop: insets.top + TAB_HEADER_TOP }
+          ? { paddingTop: tabTop.paddingTop }
           : [
               Platform.OS === 'android' && { paddingTop: insets.top + Spacing.lg },
               Platform.OS === 'web' && { paddingTop: Spacing.xl },

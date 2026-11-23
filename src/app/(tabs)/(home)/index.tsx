@@ -1,5 +1,5 @@
 import { Link, useRouter } from 'expo-router';
-import { Platform, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { BrandLogo } from '@/components/ui/BrandLogo';
 import { Card } from '@/components/ui/Card';
@@ -96,7 +96,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   welcome: { lineHeight: 23, marginBottom: 12 },
-  top: { marginTop: Platform.OS === 'ios' ? Spacing.md : 0 },
+  top: {},
   topBar: { position: 'absolute', top: 0, right: 0, height: TAB_HEADER_HEIGHT, justifyContent: 'center' },
   brand: { alignItems: 'center', gap: Spacing.sm, paddingHorizontal: 48 },
   cardHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: Spacing.sm },
