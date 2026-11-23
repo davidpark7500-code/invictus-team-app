@@ -52,11 +52,20 @@ If start-up is slow or a .MOV won't play: preferred fallback is **Bunny Stream**
 uploads, about $35–40/month at 300 plays/day). Cloudflare Stream was about $275/month at that
 volume. `scripts/convert-videos.sh` (720p copies) stays available but is optional.
 
-## Status
+## Status (latest)
 
-Content titles, sections, names and pins are in from the screenshots. Waiting on the owner for:
-the missing PDFs (Quick Links and Onboarding), profile photos and bios, the original team photo,
-and linking the Dropbox video files (originals, no compression). All seven talk matches are confirmed. Only on-screen CNA items. Ask before importing anything.
+- Code lives at github.com/davidpark7500-code/invictus-team-app, branch `main`. Push there;
+  Vercel deploys every push to `main` automatically (config in `vercel.json`: builds the web
+  version with `npx expo export --platform web`, serves `dist/`, SPA rewrite).
+- **Open item:** the owner imported the repo into Vercel, but `invictus-team-app.vercel.app`
+  returned 404 DEPLOYMENT_NOT_FOUND. Either Vercel assigned a different domain or the build
+  failed. First job in a Mac session with Claude in Chrome: open the Vercel project, read the
+  deployment status / build logs, fix any build error, and report the live URL.
+- All 19 videos (7 talks, 12 profile videos) stream from the owner's public Dropbox folder link
+  in-app; not yet tested on a phone.
+- Still waiting on the owner for: Quick Links and Onboarding PDFs, profile photos and bios, the
+  original team photo. Only on-screen CNA items. Ask before importing anything.
+- Real events, sign-in (Supabase) and profile share links are not built yet.
 
 ## Capture task (only if the owner asks for more of the old app)
 
