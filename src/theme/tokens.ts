@@ -65,7 +65,6 @@ export const palettes = {
     cardGlass: 'rgba(255,255,255,0.6)',
     glowGold: 'rgba(214,170,30,0.55)',
     glowBlue: 'rgba(47,107,255,0.42)',
-    glowViolet: 'rgba(139,92,246,0.32)',
   },
   dark: {
     ...shared,
@@ -98,7 +97,6 @@ export const palettes = {
     cardGlass: 'rgba(44,44,52,0.4)',
     glowGold: 'rgba(224,188,78,0.42)',
     glowBlue: 'rgba(47,107,255,0.58)',
-    glowViolet: 'rgba(139,92,246,0.42)',
     glassTint: 'rgba(20,20,26,0.35)',
   },
 } as const;

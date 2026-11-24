@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useTheme } from '@/theme/ThemeProvider';
@@ -19,12 +19,13 @@ export function StatusBarFade() {
   const height = insets.top + FADE;
   const solid = withAlpha(colors.background, 0.97);
   return (
-    <LinearGradient
-      pointerEvents="none"
-      colors={[solid, solid, withAlpha(colors.background, 0)]}
-      locations={[0, insets.top / height, 1]}
-      style={[styles.fade, { height }]}
-    />
+    <View pointerEvents="none" style={[styles.fade, { height }]}>
+      <LinearGradient
+        colors={[solid, solid, withAlpha(colors.background, 0)]}
+        locations={[0, insets.top / height, 1]}
+        style={StyleSheet.absoluteFill}
+      />
+    </View>
   );
 }
 

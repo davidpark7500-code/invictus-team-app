@@ -53,12 +53,11 @@ function RootNavigator() {
           <Stack.Screen name="(tabs)" />
           <Stack.Screen
             name="account"
+            // The standard iPhone sheet (swipe down to close). The half-height custom
+            // sheet could fail to appear from inside the native tab bar.
             options={{
-              presentation: 'formSheet',
+              presentation: 'modal',
               contentStyle: { backgroundColor: colors.backgroundElevated },
-              sheetAllowedDetents: [0.6, 1],
-              sheetGrabberVisible: true,
-              sheetCornerRadius: 28,
             }}
           />
         </Stack.Protected>

@@ -1,6 +1,6 @@
 import Constants from 'expo-constants';
 import { useRouter } from 'expo-router';
-import { Platform, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { Glass, GlassGroup } from '@/components/glass/Glass';
 import { Button } from '@/components/ui/Button';
@@ -32,7 +32,7 @@ export default function AccountScreen() {
     <Screen playerInset={false} contentContainerStyle={styles.content}>
       <View style={styles.header}>
         <Text variant="title1">Account</Text>
-        {Platform.OS === 'web' ? <Button label="Close" variant="quiet" onPress={() => router.back()} /> : null}
+        <Button label="Close" variant="quiet" onPress={() => router.back()} />
       </View>
 
       <Card>

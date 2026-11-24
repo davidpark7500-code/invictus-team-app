@@ -25,7 +25,8 @@ export function GlowBackground() {
   const blobs = [
     { id: 'g1', x: 0, y: 0.04, r: 0.52, ...split(colors.glowGold) },
     { id: 'g2', x: 1, y: 0.36, r: 0.5, ...split(colors.glowBlue) },
-    { id: 'g3', x: 0.06, y: 0.74, r: 0.46, ...split(colors.glowViolet) },
+    // Blue and gold only (owner, Nov 2026): this patch was violet.
+    { id: 'g3', x: 0.06, y: 0.74, r: 0.46, ...split(colors.glowBlue) },
     { id: 'g4', x: 0.92, y: 1, r: 0.44, ...split(colors.glowGold) },
   ];
 

@@ -1,11 +1,9 @@
 import { useRouter } from 'expo-router';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-import { Glass } from '@/components/glass/Glass';
 import { Pressable } from '@/components/ui/Pressable';
 import { Text } from '@/components/ui/Text';
 import { useTheme } from '@/theme/ThemeProvider';
-import { Radius } from '@/theme/tokens';
 
 import { useAccount } from './useAccount';
 
@@ -21,14 +19,14 @@ export function AccountButton() {
   // the tap and the navigation can swallow it.
   return (
     <Pressable hitSlop={8} accessibilityRole="button" accessibilityLabel={`Account, ${name}`} onPress={() => router.push('/account')}>
-      <Glass interactive radius={Radius.pill} tintColor={colors.fillStrong} style={styles.round}>
+      <View style={[styles.round, { backgroundColor: colors.fillStrong, borderColor: colors.border }]}>
         <Text style={styles.initials}>{initials}</Text>
-      </Glass>
+      </View>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  round: { width: 40, height: 40, alignItems: 'center', justifyContent: 'center' },
+  round: { width: 40, height: 40, borderRadius: 20, borderWidth: StyleSheet.hairlineWidth, alignItems: 'center', justifyContent: 'center' },
   initials: { fontSize: 14, fontWeight: '700' },
 });
