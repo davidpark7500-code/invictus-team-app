@@ -44,30 +44,36 @@ type Props = {
  */
 export function TabHeader({ title, subtitle, children }: Props) {
   return (
-    <View style={styles.header}>
-      <BrandLogo width={54} />
-      <View style={styles.text}>
-        <Text variant="title3" accessibilityRole="header" numberOfLines={1}>
+    <View>
+      {/* Exactly the same row on every tab, so the logo and title line up across tabs. */}
+      <View style={styles.header}>
+        <BrandLogo width={LOGO_WIDTH} />
+        <Text variant="title3" accessibilityRole="header" numberOfLines={1} style={styles.title}>
           {title}
         </Text>
-        {subtitle ? (
-          <Text variant="footnote" color="textSecondary" numberOfLines={1}>
-            {subtitle}
-          </Text>
-        ) : null}
+        {children}
+        <AccountButton />
       </View>
-      {children}
-      <AccountButton />
+      {/* Under the title, outside the row, so it can't move the logo or the title. */}
+      {subtitle ? (
+        <Text variant="footnote" color="textSecondary" numberOfLines={1} style={styles.subtitle}>
+          {subtitle}
+        </Text>
+      ) : null}
     </View>
   );
 }
+
+const LOGO_WIDTH = 54;
 
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.md,
-    minHeight: TAB_HEADER_HEIGHT,
+    height: TAB_HEADER_HEIGHT,
   },
-  text: { flex: 1 },
+  title: { flex: 1 },
+  // Starts where the title starts (logo + gap), tucked just under it.
+  subtitle: { marginLeft: LOGO_WIDTH + Spacing.md, marginTop: -Spacing.sm },
 });
