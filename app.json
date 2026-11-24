@@ -2,7 +2,7 @@
   "expo": {
     "name": "Invictus Team",
     "slug": "invictus-team",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "invictus",
@@ -75,6 +75,13 @@
           "photosPermission": "Lets admins add team members’ photos to their profiles.",
           "cameraPermission": false,
           "microphonePermission": false
+        }
+      ],
+      [
+        "expo-calendar",
+        {
+          "calendarPermission": "Lets you add team events to your calendar.",
+          "remindersPermission": false
         }
       ]
     ],

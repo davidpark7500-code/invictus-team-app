@@ -6,11 +6,11 @@ import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { TabHeader } from '@/components/ui/TabHeader';
 import { useContent } from '@/data/content';
-import { pinLabel, ProfileAvatar } from '@/features/profiles/ProfileAvatar';
+import { PIN_GROUPS, pinGroup, pinLabel, ProfileAvatar } from '@/features/profiles/ProfileAvatar';
 import { Spacing } from '@/theme/tokens';
 
-/** Pin levels, highest first, as the current app orders them. */
-const PINS = ['EDC', 'Emerald', 'Sapphire', 'Ruby', 'Platinum'];
+/** Pin groups, highest first, then anyone whose pin text names none of them. */
+const GROUPS = [...PIN_GROUPS, 'Other'];
 
 export default function ProfilesScreen() {
   const { profiles } = useContent();
@@ -18,8 +18,8 @@ export default function ProfilesScreen() {
   return (
     <Screen tabRoot>
       <TabHeader title="Profiles" />
-      {PINS.map((pin) => {
-        const list = profiles.filter((p) => p.pin === pin);
+      {GROUPS.map((pin) => {
+        const list = profiles.filter((p) => pinGroup(p) === pin);
         if (!list.length) return null;
         return (
           <View key={pin} style={styles.group}>

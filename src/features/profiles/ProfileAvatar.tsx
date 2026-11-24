@@ -25,6 +25,18 @@ export function displayName(p: Profile) {
   return `${p.firstNames} ${p.lastName}`;
 }
 
+/** Pin groups on the Profiles tab, highest first. */
+export const PIN_GROUPS = ['EDC', 'Emerald', 'Sapphire', 'Ruby', 'Platinum'] as const;
+
+/**
+ * Which Profiles-tab group someone belongs in, read from their pin text, so an
+ * admin can type "Founders Ruby Qual" and they still land under Ruby.
+ */
+export function pinGroup(p: Profile): string {
+  const label = pinLabel(p).toLowerCase();
+  return PIN_GROUPS.find((g) => new RegExp(`\\b${g.toLowerCase()}\\b`).test(label)) ?? 'Other';
+}
+
 export function pinLabel(p: Profile) {
   return [p.founders ? 'Founders' : null, p.pin, p.qualifying ? 'Qual' : null].filter(Boolean).join(' ');
 }

@@ -1,23 +1,20 @@
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Image } from 'expo-image';
-import { Pressable, ScrollView, StyleSheet, Switch, TextInput, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 
 import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
 import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
 import { useContent } from '@/data/content';
 import type { Profile } from '@/data/types';
 import { Icon } from '@/components/ui/Icon';
 import { pickAndUploadPhotos, type ProfileEdits, saveProfile } from '@/features/profiles/editProfile';
-import { ProfileAvatar } from '@/features/profiles/ProfileAvatar';
+import { pinLabel, ProfileAvatar } from '@/features/profiles/ProfileAvatar';
 import { useAuth } from '@/lib/AuthProvider';
 import { useTheme } from '@/theme/ThemeProvider';
 import { Radius, Spacing } from '@/theme/tokens';
 
-/** Pins in the order the Profiles tab groups them. */
-const PINS = ['EDC', 'Emerald', 'Sapphire', 'Ruby', 'Platinum'];
 
 /**
  * Admins edit a team profile here: photo, names, pin and bio. Saved changes go
@@ -53,9 +50,10 @@ function Editor({ profile }: { profile: Profile }) {
   const [edits, setEdits] = useState<ProfileEdits>({
     first_names: profile.firstNames,
     last_name: profile.lastName,
-    pin: profile.pin,
-    founders: profile.founders,
-    qualifying: profile.qualifying ?? false,
+    // One line of text: "Founders Ruby Qual". Founders and Qual live in the text from now on.
+    pin: pinLabel(profile),
+    founders: false,
+    qualifying: false,
     bio: profile.bio ?? '',
     photos: profile.photos ?? (profile.photoUrl ? [profile.photoUrl] : []),
   });
@@ -151,27 +149,17 @@ function Editor({ profile }: { profile: Profile }) {
       />
 
       <Label text="Pin" />
-      <View style={styles.pins}>
-        {PINS.map((pin) => {
-          const on = edits.pin === pin;
-          return (
-            <Pressable
-              key={pin}
-              accessibilityRole="radio"
-              accessibilityState={{ selected: on }}
-              onPress={() => set('pin', pin)}
-              style={[styles.pin, { backgroundColor: on ? colors.brandSoft : colors.fill, borderColor: on ? colors.brand : 'transparent' }]}>
-              <Text variant="subheadline" color={on ? 'brandText' : 'textSecondary'}>
-                {pin}
-              </Text>
-            </Pressable>
-          );
-        })}
-      </View>
-      <Card>
-        <Toggle label="Founders" value={edits.founders} onChange={(v) => set('founders', v)} tint={colors.brand} />
-        <Toggle label="Qualifying (shows “Qual”)" value={edits.qualifying} onChange={(v) => set('qualifying', v)} tint={colors.brand} />
-      </Card>
+      <TextInput
+        style={field}
+        value={edits.pin}
+        onChangeText={(v) => set('pin', v)}
+        placeholder="Founders Emerald"
+        placeholderTextColor={colors.textTertiary}
+        autoCapitalize="words"
+      />
+      <Text variant="caption" color="textTertiary" style={styles.hint}>
+        Shown exactly as typed. Include EDC, Emerald, Sapphire, Ruby or Platinum so they appear in the right group.
+      </Text>
 
       <Label text="Bio" />
       <TextInput
@@ -201,6 +189,7 @@ function Editor({ profile }: { profile: Profile }) {
             ...edits,
             first_names: edits.first_names.trim(),
             last_name: edits.last_name.trim(),
+            pin: edits.pin.trim(),
             bio: edits.bio.trim(),
           });
           if (error) {
@@ -228,16 +217,6 @@ function Label({ text }: { text: string }) {
   );
 }
 
-function Toggle({ label, value, onChange, tint }: { label: string; value: boolean; onChange: (v: boolean) => void; tint: string }) {
-  return (
-    <View style={styles.toggle}>
-      <Text variant="body" style={styles.toggleLabel}>
-        {label}
-      </Text>
-      <Switch value={value} onValueChange={onChange} trackColor={{ true: tint }} thumbColor="#FFFFFF" accessibilityLabel={label} />
-    </View>
-  );
-}
 
 const styles = StyleSheet.create({
   content: { paddingTop: Spacing.lg },
@@ -261,9 +240,6 @@ const styles = StyleSheet.create({
   label: { paddingHorizontal: Spacing.xs, marginBottom: -Spacing.sm, letterSpacing: 0.6 },
   input: { minHeight: 48, borderRadius: Radius.input, paddingHorizontal: Spacing.lg, fontSize: 17 },
   bio: { minHeight: 200, paddingTop: Spacing.md, paddingBottom: Spacing.md, lineHeight: 22 },
-  pins: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.sm },
-  pin: { paddingHorizontal: Spacing.md, paddingVertical: Spacing.sm, borderRadius: Radius.pill, borderWidth: 1 },
-  toggle: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: Spacing.xs },
-  toggleLabel: { flex: 1 },
   center: { textAlign: 'center' },
+  hint: { paddingHorizontal: Spacing.xs, marginTop: -Spacing.sm },
 });

@@ -80,6 +80,12 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
   Several photos per profile (`team_profiles.photos`, migration 0011): swiped through on the
   profile and share page (`PhotoGallery`, arrows on the web); the first is the main photo and
   `photo_url` mirrors it. Edit profile adds up to 10 at a time, removes, and sets the main one.
+- **Pins are free text (owner, Nov 2026):** Edit profile has one Pin line ("Founders Ruby Qual");
+  saving clears the old founders/qualifying flags. The Profiles tab groups by the first of
+  EDC/Emerald/Sapphire/Ruby/Platinum found in the text (`pinGroup`), else "Other".
+- **Add to calendar:** iPhone/Android open the system Add Event screen, prefilled
+  (`expo-calendar/legacy` createEventInCalendarAsync, no permission prompt; app 0.3.0+). Web
+  downloads an .ics file. Date-only events become all-day entries.
 - **Prospect share links:** Share with a prospect makes a 7-day link
   (`create_profile_share`), opened at `/p/<token>` without sign-in (`shared_profile_page`).
   Admins turn a link off by setting `revoked_at` in `profile_shares`.

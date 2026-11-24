@@ -1,4 +1,5 @@
 import { useLocalSearchParams } from 'expo-router';
+import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { Button } from '@/components/ui/Button';
@@ -10,6 +11,7 @@ import { Text } from '@/components/ui/Text';
 import { formatEventPlace, formatEventWhen, isUpcoming } from '@/data/format';
 import { useContent } from '@/data/content';
 import { registrationUrlOf } from '@/data/mock';
+import { addToCalendar, type CalendarResult } from '@/features/events/addToCalendar';
 import { openDocument } from '@/features/media/openDocument';
 import { useTheme } from '@/theme/ThemeProvider';
 import { Spacing } from '@/theme/tokens';
@@ -21,6 +23,7 @@ export default function EventDetailScreen() {
   const { events } = useContent();
   const event = events.find((e) => e.id === id);
   const { colors } = useTheme();
+  const [calendarState, setCalendarState] = useState<CalendarResult | null>(null);
 
   if (!event) {
     return (
@@ -59,7 +62,12 @@ export default function EventDetailScreen() {
         ) : (
           <>
             <Button label={registerLabel} icon="link" disabled={!registerUrl} onPress={() => registerUrl && openDocument(registerUrl)} />
-            <Button label="Add to calendar" icon="events" variant="glass" />
+            <Button
+              label={calendarState === 'added' ? 'Added to calendar' : 'Add to calendar'}
+              icon={calendarState === 'added' ? 'check' : 'events'}
+              variant="glass"
+              onPress={async () => setCalendarState(await addToCalendar(event))}
+            />
           </>
         )}
       </View>
