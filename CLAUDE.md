@@ -81,8 +81,8 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
   profile and share page (`PhotoGallery`, arrows on the web); the first is the main photo and
   `photo_url` mirrors it. Edit profile adds up to 10 at a time, removes, and sets the main one.
 - **Pins are free text (owner, Nov 2026):** Edit profile has one Pin line ("Founders Ruby Qual");
-  saving clears the old founders/qualifying flags. The Profiles tab groups by the first of
-  EDC/Emerald/Sapphire/Ruby/Platinum found in the text (`pinGroup`), else "Other".
+  saving clears the old founders/qualifying flags. The Profiles tab is one list in
+  `team_profiles.sort_order` (the old app's order), not grouped by pin (owner, Nov 2026).
 - **Add to calendar:** iPhone/Android open the system Add Event screen, prefilled
   (`expo-calendar/legacy` createEventInCalendarAsync, no permission prompt; app 0.3.0+). Web
   downloads an .ics file. Date-only events become all-day entries.

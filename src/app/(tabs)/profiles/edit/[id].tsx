@@ -158,7 +158,7 @@ function Editor({ profile }: { profile: Profile }) {
         autoCapitalize="words"
       />
       <Text variant="caption" color="textTertiary" style={styles.hint}>
-        Shown exactly as typed. Include EDC, Emerald, Sapphire, Ruby or Platinum so they appear in the right group.
+        Shown exactly as typed, for example “Founders Ruby Qual”.
       </Text>
 
       <Label text="Bio" />
