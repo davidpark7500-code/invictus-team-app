@@ -67,6 +67,11 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
   panels) use `<Glass content>`: a translucent pane with the web's lit rim and sheen
   (`glass/rim.ts`). Real Liquid Glass smeared the glow into streaks at card edges and frosted
   the middle white. Liquid Glass stays on the tab bar and buttons.
+- **Glow on iPhone is the list's background (Nov 2026):** iOS only shrinks the tab bar on
+  scroll when the ScrollView is the screen's first view (it follows first children down).
+  So screens never put a glow view before their list: `useScreenGlowStyle()` draws the glow
+  as the ScrollView's `backgroundImage` (static while scrolling). `ScreenGlow` is only for
+  screens without a list (sign-in).
 - **Web shell (`public/index.html`):** app-coloured background and logo before the JS loads,
   Safari bars in the app's colour, full-screen "Add to Home Screen" app (`manifest.json`,
   `public/icons/`).

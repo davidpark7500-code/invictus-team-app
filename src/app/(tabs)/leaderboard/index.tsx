@@ -8,7 +8,7 @@ import { TabHeader, useTabRootScroll } from '@/components/ui/TabHeader';
 import { Text } from '@/components/ui/Text';
 import { currentWeek, formatWeekEnd, formatWeekRange, LAUNCH_WEEK, shiftWeek } from '@/features/leaderboard/period';
 import { allTimeRows, ME_ID, placeholderFeed, weekRows } from '@/features/leaderboard/placeholder';
-import { ScreenGlow } from '@/features/leaderboard/GlowBackground';
+import { useScreenGlowStyle } from '@/features/leaderboard/GlowBackground';
 import { RankingCard } from '@/features/leaderboard/RankingCard';
 import { rankRows, type SaleKind } from '@/features/leaderboard/rank';
 import { SaleButton } from '@/features/leaderboard/SaleButton';
@@ -44,14 +44,14 @@ export default function LeaderboardScreen() {
     );
   }, [period, week, thisWeek, extra]);
 
+  const glow = useScreenGlowStyle();
   const me = rows.find((r) => r.userId === ME_ID);
   const tap = (kind: SaleKind) => setExtra((e) => ({ ...e, [kind]: e[kind] + 1 }));
 
   return (
     <View style={styles.root}>
-      <ScreenGlow />
       <ScrollView
-        style={styles.scroll}
+        style={[styles.scroll, glow]}
         contentInsetAdjustmentBehavior={tabTop.contentInsetAdjustmentBehavior}
         contentContainerStyle={[
           styles.content,

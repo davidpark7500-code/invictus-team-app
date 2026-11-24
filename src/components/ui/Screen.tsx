@@ -2,7 +2,7 @@ import { Platform, ScrollView, type ScrollViewProps, StyleSheet, View } from 're
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useTabRootScroll } from '@/components/ui/TabHeader';
-import { ScreenGlow } from '@/features/leaderboard/GlowBackground';
+import { useScreenGlowStyle } from '@/features/leaderboard/GlowBackground';
 import { MaxContentWidth, Spacing } from '@/theme/tokens';
 
 type Props = ScrollViewProps & {
@@ -22,15 +22,17 @@ type Props = ScrollViewProps & {
 export function Screen({ children, contentContainerStyle, playerInset = true, tabRoot = false, ...rest }: Props) {
   const insets = useSafeAreaInsets();
   const tabTop = useTabRootScroll();
+  const glow = useScreenGlowStyle();
   const bottom = (Platform.OS === 'ios' ? 0 : insets.bottom + 80) + (playerInset ? 72 : 0);
 
   return (
+    // The ScrollView must be the screen's first view, or iOS won't shrink the tab bar on
+    // scroll; the glow is its background (see useScreenGlowStyle).
     <View style={styles.screen}>
-      <ScreenGlow />
       <ScrollView
         contentInsetAdjustmentBehavior={tabRoot ? tabTop.contentInsetAdjustmentBehavior : 'automatic'}
         keyboardDismissMode="on-drag"
-        style={styles.scroll}
+        style={[styles.scroll, glow]}
         contentContainerStyle={[
           styles.content,
           tabRoot

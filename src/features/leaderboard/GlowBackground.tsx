@@ -15,20 +15,24 @@ function split(rgba: string) {
  * refract. The solid screen colour sits UNDER this layer (on the root view);
  * a top fade stops it ending in a hard band under the status bar.
  */
-export function GlowBackground() {
-  const { colors, reduceTransparency } = useTheme();
-  const { width, height } = useWindowDimensions();
-  if (reduceTransparency) return null;
-
-  const big = Math.max(width, height);
+function glowBlobs(colors: { glowGold: string; glowBlue: string }) {
   // x, y as fractions of the screen; r as a fraction of the larger side (from the web CSS).
-  const blobs = [
+  return [
     { id: 'g1', x: 0, y: 0.04, r: 0.52, ...split(colors.glowGold) },
     { id: 'g2', x: 1, y: 0.36, r: 0.5, ...split(colors.glowBlue) },
     // Blue and gold only (owner, Nov 2026): this patch was violet.
     { id: 'g3', x: 0.06, y: 0.74, r: 0.46, ...split(colors.glowBlue) },
     { id: 'g4', x: 0.92, y: 1, r: 0.44, ...split(colors.glowGold) },
   ];
+}
+
+export function GlowBackground() {
+  const { colors, reduceTransparency } = useTheme();
+  const { width, height } = useWindowDimensions();
+  if (reduceTransparency) return null;
+
+  const big = Math.max(width, height);
+  const blobs = glowBlobs(colors);
 
   return (
     <View pointerEvents="none" style={StyleSheet.absoluteFill}>
@@ -56,7 +60,34 @@ export function GlowBackground() {
 }
 
 /**
- * The glow behind one screen, for the iPhone and Android app. There, the native
+ * The same glow, as a style for a screen's ScrollView (iPhone and Android app).
+ *
+ * Why a style and not a view behind the list: iOS only shrinks the tab bar on scroll
+ * (and collapses large titles) when the scroll view is the FIRST view on the screen,
+ * following first children all the way down. A glow view placed before the list takes
+ * that spot. As a background image, the glow is drawn on the ScrollView's own outer
+ * view, which doesn't move when the list scrolls.
+ */
+export function useScreenGlowStyle() {
+  const { colors, reduceTransparency } = useTheme();
+  const { width, height } = useWindowDimensions();
+  if (Platform.OS === 'web' || reduceTransparency) return undefined;
+
+  const big = Math.max(width, height);
+  const bg = colors.background;
+  const layers = [
+    // Fade in from the top: background colour at 0, ~35% glow at 60pt, full glow by 200pt.
+    `linear-gradient(to bottom, ${withAlpha(bg, 1)} 0px, ${withAlpha(bg, 0.65)} 60px, ${withAlpha(bg, 0)} 200px)`,
+    ...glowBlobs(colors).map((b) => {
+      const rgb = b.color.replace('rgb(', '').replace(')', '');
+      return `radial-gradient(circle ${Math.round(b.r * big)}px at ${Math.round(b.x * width)}px ${Math.round(b.y * height)}px, rgba(${rgb},${b.opacity}) 0%, rgba(${rgb},0) 68%)`;
+    }),
+  ];
+  return { backgroundImage: layers.join(', ') };
+}
+
+/**
+ * The glow behind one screen with no scrolling list (sign-in), for the iPhone and Android app. There, the native
  * tab bar and screen containers paint a solid background over the app-wide glow,
  * so each screen draws its own. The web shows the app-wide one, so this is empty.
  */
