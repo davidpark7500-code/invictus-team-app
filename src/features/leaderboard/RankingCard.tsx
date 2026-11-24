@@ -55,7 +55,7 @@ export function RankingCard({ rows, meId, title }: { rows: RankedRow[]; meId: st
   const w = statWidth(width);
 
   return (
-    <Glass radius={22} tintColor={colors.cardGlass} style={[styles.card, { borderColor: colors.border }]}>
+    <Glass content radius={22} tintColor={colors.cardGlass} style={[styles.card, { borderColor: colors.border }]}>
       <View style={styles.header}>
         <Text variant="headline" style={styles.title}>
           {title}

@@ -63,6 +63,10 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
   a faint sheen and a soft shadow (`Glass.web.tsx`). Content cards don't blur (they sit on the
   smooth glow, where blur shows nothing, and a blur per card stutters on iPhone); the tab bar
   and header buttons do.
+- **Cards are not Liquid Glass on iPhone (Nov 2026):** content cards (`Card`, the Leaderboard's
+  panels) use `<Glass content>`: a translucent pane with the web's lit rim and sheen
+  (`glass/rim.ts`). Real Liquid Glass smeared the glow into streaks at card edges and frosted
+  the middle white. Liquid Glass stays on the tab bar and buttons.
 - **Web shell (`public/index.html`):** app-coloured background and logo before the JS loads,
   Safari bars in the app's colour, full-screen "Add to Home Screen" app (`manifest.json`,
   `public/icons/`).

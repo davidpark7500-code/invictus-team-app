@@ -95,7 +95,7 @@ export default function LeaderboardScreen() {
 
           <RankingCard rows={rows} meId={ME_ID} title="Ranking" />
 
-          <Glass radius={22} tintColor={colors.cardGlass} style={[styles.feed, { borderColor: colors.border }]}>
+          <Glass content radius={22} tintColor={colors.cardGlass} style={[styles.feed, { borderColor: colors.border }]}>
             <Text variant="headline" style={styles.feedTitle}>
               Live activity
             </Text>

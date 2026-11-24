@@ -5,10 +5,13 @@ import {
   isGlassEffectAPIAvailable,
   isLiquidGlassAvailable,
 } from 'expo-glass-effect';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Platform, StyleSheet, View, type ViewProps } from 'react-native';
 
 import { useTheme } from '@/theme/ThemeProvider';
 import { Radius } from '@/theme/tokens';
+
+import { GLASS_LIGHT } from './rim';
 
 export type GlassVariant = 'regular' | 'clear';
 
@@ -26,6 +29,13 @@ export type GlassProps = ViewProps & {
    * makes scrolling stutter on iPhone). Floating bars and buttons keep it.
    */
   blur?: boolean;
+  /**
+   * A content card (list rows, the leaderboard's panels), not a control. Drawn as a
+   * translucent pane with a lit rim, so the glow shows through it evenly. Liquid Glass
+   * is kept for controls: on content its lens edges smear the glow into coloured
+   * streaks and its frost turns the middle milky white.
+   */
+  content?: boolean;
 };
 
 export const hasNativeGlass =
@@ -45,6 +55,7 @@ export function Glass({
   radius = Radius.lg,
   solid = false,
   blur: _blur,
+  content = false,
   style,
   children,
   ...rest
@@ -61,6 +72,29 @@ export function Glass({
           styles.hairline,
           style,
         ]}>
+        {children}
+      </View>
+    );
+  }
+
+  if (content) {
+    const light = GLASS_LIGHT[scheme];
+    return (
+      <View
+        {...rest}
+        style={[
+          styles.base,
+          styles.hairline,
+          {
+            borderRadius: radius,
+            overflow: 'hidden',
+            backgroundColor: tintColor ?? colors.cardGlass,
+            borderColor: colors.border,
+            boxShadow: light.shadow,
+          },
+          style,
+        ]}>
+        <LinearGradient colors={light.sheen} locations={[0, 0.6]} style={StyleSheet.absoluteFill} pointerEvents="none" />
         {children}
       </View>
     );
