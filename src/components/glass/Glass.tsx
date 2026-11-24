@@ -70,6 +70,9 @@ export function Glass({
     return (
       <GlassView
         {...rest}
+        // Interactive glass sits inside a button: let taps go to the button (and to any
+        // buttons inside a tappable card) instead of the glass's own touch handling.
+        pointerEvents={interactive ? 'box-none' : rest.pointerEvents}
         glassEffectStyle={variant}
         isInteractive={interactive}
         tintColor={tintColor}

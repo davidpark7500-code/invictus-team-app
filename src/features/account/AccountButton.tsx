@@ -1,4 +1,4 @@
-import { Link } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { StyleSheet } from 'react-native';
 
 import { Glass } from '@/components/glass/Glass';
@@ -16,14 +16,15 @@ import { useAccount } from './useAccount';
 export function AccountButton() {
   const { colors } = useTheme();
   const { initials, name } = useAccount();
+  const router = useRouter();
+  // Opens the sheet itself rather than through a Link wrapper, so nothing between
+  // the tap and the navigation can swallow it.
   return (
-    <Link href="/account" asChild>
-      <Pressable hitSlop={8} accessibilityRole="button" accessibilityLabel={`Account, ${name}`}>
-        <Glass interactive radius={Radius.pill} tintColor={colors.fillStrong} style={styles.round}>
-          <Text style={styles.initials}>{initials}</Text>
-        </Glass>
-      </Pressable>
-    </Link>
+    <Pressable hitSlop={8} accessibilityRole="button" accessibilityLabel={`Account, ${name}`} onPress={() => router.push('/account')}>
+      <Glass interactive radius={Radius.pill} tintColor={colors.fillStrong} style={styles.round}>
+        <Text style={styles.initials}>{initials}</Text>
+      </Glass>
+    </Pressable>
   );
 }
 
