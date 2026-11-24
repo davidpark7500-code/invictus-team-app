@@ -10,6 +10,7 @@ import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
 import type { Profile } from '@/data/types';
 import { InlineVideo } from '@/features/media/InlineVideo';
+import { PhotoGallery } from '@/features/profiles/PhotoGallery';
 import { pinLabel, ProfileAvatar } from '@/features/profiles/ProfileAvatar';
 import { supabase } from '@/lib/supabase';
 import { useTheme } from '@/theme/ThemeProvider';
@@ -23,6 +24,7 @@ type SharedRow = {
   qualifying: boolean;
   bio: string;
   photo_url: string | null;
+  photos: string[] | null;
   video_url: string | null;
   expires_at: string;
 };
@@ -63,7 +65,8 @@ export default function SharedProfilePage() {
           founders: row.founders,
           qualifying: row.qualifying,
           bio: row.bio || undefined,
-          photoUrl: row.photo_url ?? undefined,
+          photoUrl: row.photos?.[0] ?? row.photo_url ?? undefined,
+          photos: row.photos?.length ? row.photos : row.photo_url ? [row.photo_url] : [],
           videoUrl: row.video_url ?? undefined,
         },
       });
@@ -95,8 +98,11 @@ export default function SharedProfilePage() {
         </Card>
       ) : (
         <>
+          {state.profile.photos?.length ? (
+            <PhotoGallery photos={state.profile.photos} name={`${state.profile.firstNames} ${state.profile.lastName}`} />
+          ) : null}
           <View style={styles.hero}>
-            <ProfileAvatar profile={state.profile} size={128} />
+            {state.profile.photos?.length ? null : <ProfileAvatar profile={state.profile} size={128} />}
             <Text variant="title1" style={styles.center}>
               {state.profile.firstNames} {state.profile.lastName}
             </Text>

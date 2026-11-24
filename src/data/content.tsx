@@ -135,6 +135,7 @@ type ProfileRow = {
   qualifying: boolean;
   bio: string;
   photo_url: string | null;
+  photos: string[] | null;
   video_url: string | null;
   video_source: string | null;
   sort_order: number;
@@ -195,7 +196,8 @@ async function loadContent(): Promise<Content> {
     founders: p.founders,
     qualifying: p.qualifying,
     bio: p.bio || undefined,
-    photoUrl: p.photo_url ?? undefined,
+    photoUrl: p.photos?.[0] ?? p.photo_url ?? undefined,
+    photos: p.photos?.length ? p.photos : p.photo_url ? [p.photo_url] : [],
     videoUrl: p.video_url ?? undefined,
     videoSource: p.video_source ?? undefined,
   }));

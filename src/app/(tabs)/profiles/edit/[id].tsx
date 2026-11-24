@@ -1,6 +1,7 @@
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Pressable, StyleSheet, Switch, TextInput, View } from 'react-native';
+import { Image } from 'expo-image';
+import { Pressable, ScrollView, StyleSheet, Switch, TextInput, View } from 'react-native';
 
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
@@ -8,7 +9,8 @@ import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
 import { useContent } from '@/data/content';
 import type { Profile } from '@/data/types';
-import { pickAndUploadPhoto, type ProfileEdits, saveProfile } from '@/features/profiles/editProfile';
+import { Icon } from '@/components/ui/Icon';
+import { pickAndUploadPhotos, type ProfileEdits, saveProfile } from '@/features/profiles/editProfile';
 import { ProfileAvatar } from '@/features/profiles/ProfileAvatar';
 import { useAuth } from '@/lib/AuthProvider';
 import { useTheme } from '@/theme/ThemeProvider';
@@ -55,40 +57,79 @@ function Editor({ profile }: { profile: Profile }) {
     founders: profile.founders,
     qualifying: profile.qualifying ?? false,
     bio: profile.bio ?? '',
-    photo_url: profile.photoUrl ?? null,
+    photos: profile.photos ?? (profile.photoUrl ? [profile.photoUrl] : []),
   });
-  const [uploading, setUploading] = useState(false);
+  const [uploading, setUploading] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
   const set = <K extends keyof ProfileEdits>(key: K, value: ProfileEdits[K]) => setEdits((e) => ({ ...e, [key]: value }));
   const field = [styles.input, { color: colors.text, backgroundColor: colors.fill }];
-  const preview: Profile = { ...profile, lastName: edits.last_name || profile.lastName, photoUrl: edits.photo_url ?? undefined };
+  const preview: Profile = { ...profile, lastName: edits.last_name || profile.lastName, photoUrl: edits.photos[0] };
+  const move = (from: number, to: number) => {
+    const next = edits.photos.slice();
+    const [item] = next.splice(from, 1);
+    next.splice(to, 0, item);
+    set('photos', next);
+  };
 
   return (
     <Screen contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
       <Stack.Screen options={{ title: 'Edit profile' }} />
 
       <View style={styles.photo}>
-        <ProfileAvatar profile={preview} size={128} />
-        <View style={styles.photoButtons}>
-          <Button
-            label={edits.photo_url ? 'Change photo' : 'Add photo'}
-            icon="photo"
-            variant="glass"
-            loading={uploading}
-            onPress={async () => {
-              setUploading(true);
-              setMessage(null);
-              const result = await pickAndUploadPhoto(profile.id);
-              setUploading(false);
-              if (result.status === 'uploaded') set('photo_url', result.url);
-              else if (result.status === 'error') setMessage(result.message);
-            }}
-          />
-          {edits.photo_url ? <Button label="Remove photo" variant="quiet" onPress={() => set('photo_url', null)} /> : null}
-        </View>
+        <ProfileAvatar profile={preview} size={96} />
+        <Text variant="footnote" color="textSecondary" style={styles.center}>
+          The first photo is the main one: it shows in the Profiles list. Everyone can swipe through the rest on the profile.
+        </Text>
       </View>
+
+      <Label text={`Photos (${edits.photos.length})`} />
+      {edits.photos.length ? (
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.thumbs}>
+          {edits.photos.map((uri, i) => (
+            <View key={uri} style={styles.thumbWrap}>
+              <Image source={{ uri }} style={[styles.thumb, i === 0 && { borderColor: colors.brand, borderWidth: 2 }]} contentFit="cover" />
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={`Remove photo ${i + 1}`}
+                hitSlop={6}
+                onPress={() => set('photos', edits.photos.filter((_, j) => j !== i))}
+                style={styles.remove}>
+                <Icon name="close" size={12} color="#FFFFFF" />
+              </Pressable>
+              {i === 0 ? (
+                <Text variant="caption" color="brandText" style={styles.thumbNote}>
+                  Main
+                </Text>
+              ) : (
+                <View style={styles.thumbActions}>
+                  <Pressable accessibilityRole="button" accessibilityLabel={`Make photo ${i + 1} the main photo`} onPress={() => move(i, 0)}>
+                    <Text variant="caption" color="textSecondary" style={styles.thumbNote}>
+                      Make main
+                    </Text>
+                  </Pressable>
+                </View>
+              )}
+            </View>
+          ))}
+        </ScrollView>
+      ) : null}
+      <Button
+        label={uploading ?? (edits.photos.length ? 'Add more photos' : 'Add photos')}
+        icon="photo"
+        variant="glass"
+        loading={!!uploading}
+        onPress={async () => {
+          setMessage(null);
+          setUploading('Uploading…');
+          const result = await pickAndUploadPhotos(profile.id, (done, total) => setUploading(`Uploading ${Math.min(done + 1, total)} of ${total}…`));
+          setUploading(null);
+          if (result.error) setMessage(result.error);
+          if (result.uploaded.length) setEdits((e) => ({ ...e, photos: [...e.photos, ...result.uploaded] }));
+          if (result.failed) setMessage(`${result.failed} photo${result.failed > 1 ? 's' : ''} couldn\u2019t be added. Try those again.`);
+        }}
+      />
 
       <Label text="First names" />
       <TextInput
@@ -152,7 +193,7 @@ function Editor({ profile }: { profile: Profile }) {
         label="Save"
         icon="check"
         loading={saving}
-        disabled={uploading || !edits.first_names.trim() || !edits.last_name.trim()}
+        disabled={!!uploading || !edits.first_names.trim() || !edits.last_name.trim()}
         onPress={async () => {
           setSaving(true);
           setMessage(null);
@@ -200,8 +241,23 @@ function Toggle({ label, value, onChange, tint }: { label: string; value: boolea
 
 const styles = StyleSheet.create({
   content: { paddingTop: Spacing.lg },
-  photo: { alignItems: 'center', gap: Spacing.md },
-  photoButtons: { alignSelf: 'stretch', gap: Spacing.xs },
+  photo: { alignItems: 'center', gap: Spacing.sm },
+  thumbs: { gap: Spacing.md, paddingVertical: Spacing.xs },
+  thumbWrap: { width: 96, alignItems: 'center', gap: 4 },
+  thumb: { width: 96, height: 96, borderRadius: Radius.md },
+  remove: {
+    position: 'absolute',
+    top: -6,
+    right: -6,
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0,0,0,0.7)',
+  },
+  thumbActions: { alignItems: 'center' },
+  thumbNote: { textAlign: 'center' },
   label: { paddingHorizontal: Spacing.xs, marginBottom: -Spacing.sm, letterSpacing: 0.6 },
   input: { minHeight: 48, borderRadius: Radius.input, paddingHorizontal: Spacing.lg, fontSize: 17 },
   bio: { minHeight: 200, paddingTop: Spacing.md, paddingBottom: Spacing.md, lineHeight: 22 },

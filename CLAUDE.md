@@ -77,6 +77,9 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
   (photo, names, pin, Founders/Qual, bio). Photos go to the public `team-photos` bucket (admins
   write; migrations 0009/0010), resized to 900px JPEG, a new file per upload. Saves update
   `team_profiles`; everyone sees them on next open. Needs expo-image-picker (native, app 0.2.0+).
+  Several photos per profile (`team_profiles.photos`, migration 0011): swiped through on the
+  profile and share page (`PhotoGallery`, arrows on the web); the first is the main photo and
+  `photo_url` mirrors it. Edit profile adds up to 10 at a time, removes, and sets the main one.
 - **Prospect share links:** Share with a prospect makes a 7-day link
   (`create_profile_share`), opened at `/p/<token>` without sign-in (`shared_profile_page`).
   Admins turn a link off by setting `revoked_at` in `profile_shares`.

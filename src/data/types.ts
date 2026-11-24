@@ -52,6 +52,8 @@ export type Profile = {
   qualifying?: boolean;
   bio?: string;
   photoUrl?: string;
+  /** Photos to swipe through, in order; the first is the main photo (= photoUrl). */
+  photos?: string[];
   videoUrl?: string;
   /** Profile video in Dropbox ProfileVideos/, if one exists. */
   videoSource?: string;

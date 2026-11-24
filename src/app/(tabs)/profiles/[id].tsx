@@ -9,6 +9,7 @@ import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
 import { useContent } from '@/data/content';
 import { InlineVideo } from '@/features/media/InlineVideo';
+import { PhotoGallery } from '@/features/profiles/PhotoGallery';
 import { pinLabel, ProfileAvatar } from '@/features/profiles/ProfileAvatar';
 import { type ShareResult, shareProfile } from '@/features/profiles/shareProfile';
 import { useAuth } from '@/lib/AuthProvider';
@@ -33,8 +34,9 @@ export default function ProfileDetailScreen() {
 
   return (
     <Screen contentContainerStyle={styles.content}>
+      {profile.photos?.length ? <PhotoGallery photos={profile.photos} name={`${profile.firstNames} ${profile.lastName}`} /> : null}
       <View style={styles.hero}>
-        <ProfileAvatar profile={profile} size={128} />
+        {profile.photos?.length ? null : <ProfileAvatar profile={profile} size={128} />}
         <Text variant="title1" style={styles.center}>
           {profile.firstNames} {profile.lastName}
         </Text>

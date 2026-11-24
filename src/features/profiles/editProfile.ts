@@ -11,52 +11,71 @@ export type ProfileEdits = {
   founders: boolean;
   qualifying: boolean;
   bio: string;
-  photo_url: string | null;
+  /** In display order; the first is the main photo. */
+  photos: string[];
 };
 
-export type PhotoResult = { status: 'uploaded'; url: string } | { status: 'cancelled' } | { status: 'error'; message: string };
+export type PhotosResult = { uploaded: string[]; failed: number; cancelled: boolean; error?: string };
 
-const PHOTO_WIDTH = 900;
+/** Wide enough to look sharp full-width on a phone, small enough to load quickly. */
+const PHOTO_WIDTH = 1400;
+const MAX_PICK = 10;
 
 /**
- * Pick a photo from the library (or a file on a computer), shrink it to a sensible
- * size, upload it to the public "team-photos" bucket and return its address.
- * The profile itself only changes when the admin taps Save.
+ * Pick one or more photos from the library (or files on a computer), shrink each to a
+ * sensible size, upload them to the public "team-photos" bucket and return their
+ * addresses. The profile itself only changes when the admin taps Save.
  */
-export async function pickAndUploadPhoto(profileSlug: string): Promise<PhotoResult> {
-  if (!supabase) return { status: 'error', message: 'Not connected to the server.' };
+export async function pickAndUploadPhotos(
+  profileSlug: string,
+  onProgress?: (done: number, total: number) => void,
+): Promise<PhotosResult> {
+  if (!supabase) return { uploaded: [], failed: 0, cancelled: false, error: 'Not connected to the server.' };
 
   const picked = await ImagePicker.launchImageLibraryAsync({
     mediaTypes: ['images'],
-    allowsEditing: true,
-    aspect: [1, 1],
+    allowsMultipleSelection: true,
+    selectionLimit: MAX_PICK,
+    orderedSelection: true,
     quality: 1,
   });
-  if (picked.canceled || !picked.assets?.[0]) return { status: 'cancelled' };
+  if (picked.canceled || !picked.assets?.length) return { uploaded: [], failed: 0, cancelled: true };
 
+  const uploaded: string[] = [];
+  let failed = 0;
+  for (const [i, asset] of picked.assets.entries()) {
+    onProgress?.(i, picked.assets.length);
+    const url = await uploadOne(profileSlug, asset.uri, i);
+    if (url) uploaded.push(url);
+    else failed++;
+  }
+  onProgress?.(picked.assets.length, picked.assets.length);
+  return { uploaded, failed, cancelled: false };
+}
+
+async function uploadOne(profileSlug: string, uri: string, n: number): Promise<string | null> {
   try {
-    const rendered = await ImageManipulator.manipulate(picked.assets[0].uri).resize({ width: PHOTO_WIDTH }).renderAsync();
+    const rendered = await ImageManipulator.manipulate(uri).resize({ width: PHOTO_WIDTH }).renderAsync();
     const saved = await rendered.saveAsync({ compress: 0.82, format: SaveFormat.JPEG, base64: true });
-    if (!saved.base64) throw new Error('no image data');
-
+    if (!saved.base64) return null;
     // A new name per upload, so phones never show a cached older photo.
-    const path = `${profileSlug}/${Date.now()}.jpg`;
-    const { error } = await supabase.storage
+    const path = `${profileSlug}/${Date.now()}-${n}.jpg`;
+    const { error } = await supabase!.storage
       .from('team-photos')
       .upload(path, base64ToBytes(saved.base64), { contentType: 'image/jpeg', upsert: false });
-    if (error) return { status: 'error', message: error.message };
-
-    const { data } = supabase.storage.from('team-photos').getPublicUrl(path);
-    return { status: 'uploaded', url: data.publicUrl };
+    if (error) return null;
+    return supabase!.storage.from('team-photos').getPublicUrl(path).data.publicUrl;
   } catch {
-    return { status: 'error', message: 'Couldn’t prepare that photo. Try a different one.' };
+    return null;
   }
 }
 
 /** Save an admin's changes to a team profile. Everyone sees them the next time they open the app. */
 export async function saveProfile(profileSlug: string, edits: ProfileEdits): Promise<string | null> {
   if (!supabase) return 'Not connected to the server.';
-  const { data, error } = await supabase.from('team_profiles').update(edits).eq('slug', profileSlug).select('slug');
+  // photo_url mirrors the main photo, for anything that shows a single picture.
+  const row = { ...edits, photo_url: edits.photos[0] ?? null };
+  const { data, error } = await supabase.from('team_profiles').update(row).eq('slug', profileSlug).select('slug');
   if (error) return error.message;
   if (!data?.length) return 'Only admins can edit profiles.';
   return null;

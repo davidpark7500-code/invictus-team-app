@@ -27,6 +27,7 @@ export const icons = {
   add: { ios: 'plus', md: 'add' },
   check: { ios: 'checkmark', md: 'check' },
   photo: { ios: 'photo', md: 'image' },
+  close: { ios: 'xmark', md: 'close' },
   edit: { ios: 'pencil', md: 'edit' },
   phone: { ios: 'phone.fill', md: 'phone' },
   mail: { ios: 'envelope.fill', md: 'mail' },
