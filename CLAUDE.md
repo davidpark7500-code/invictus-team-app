@@ -17,7 +17,8 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
   the "two shared logins" decision below: everyone gets a personal account, sign-up gated by a team
   code. The combined app gets a NEW Supabase project (owner must approve the cost first); the live
   Pulse Board project `popwjvdtkznhaudsogso` is never edited, only read at cutover.
-  Built (merged to main): Leaderboard UI with placeholder data (`src/features/leaderboard/`),
+  Built (merged to main): Leaderboard tab on live data, ranked by points (Nov 24; see
+  `docs/04-leaderboard-backend.md` for what's still missing), `src/features/leaderboard/`,
   personal-account sign-in / sign-up with team code, migration 0004, push (`push.ts` +
   `supabase/functions/notify-sale`), data-copy script (`scripts/copy-pulse-data.mjs`).
   Setup and cutover steps: `docs/04-leaderboard-backend.md`.

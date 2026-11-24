@@ -64,6 +64,14 @@ for every week between old and new.
    to email everyone a password-reset link. Share the team code for new sign-ups.
 4. Point pulseinvictus.com at a "we moved" notice. Pause (don't delete) the old project for ~30 days.
 
+## Built (Nov 24 2026)
+The Leaderboard screen reads the new project (`useLeaderboard.ts`): week / all-time board ranked
+by points (1 per membership, 2 per $150+ order), logging sales, realtime feed with Undo (15 min),
+"Fix this week's count" (`remove_my_sales`), name search past 12 people, and Edit name on the
+Account screen. Migration 0012 brought the database in line with Pulse Board. Demo mode (no
+Supabase env) still shows sample numbers.
+
 ## Not built yet
-Wiring the Leaderboard screen to the new project (it shows placeholder numbers), realtime feed,
-Progress chart, Admin screen, welcome sheet, profile-photo upload, password-reset screen.
+Progress chart, Admin screen (member list, delete any sale, CSV export), welcome sheet,
+profile-photo upload for leaderboard members, password-reset screen (needed before the cutover
+emails go out).

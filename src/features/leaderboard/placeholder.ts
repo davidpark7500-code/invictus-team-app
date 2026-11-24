@@ -6,7 +6,7 @@
  * leaderboard_all_time(), sales feed) once the project exists.
  */
 import { trackedWeeks } from './period';
-import type { BoardRow, SaleKind } from './rank';
+import { pointsOf, type BoardRow, type SaleKind } from './rank';
 
 export const ME_ID = 'me';
 
@@ -41,7 +41,7 @@ export function weekRows(week: string): BoardRow[] {
     const active = r() > 0.32;
     const memberships = active ? Math.floor(r() * 7) : 0;
     const orders = active ? Math.floor(r() * 4) : 0;
-    return { userId, fullName, memberships, orders, total: memberships + orders };
+    return { userId, fullName, memberships, orders, total: memberships + orders, points: pointsOf(memberships, orders) };
   });
 }
 
@@ -55,6 +55,7 @@ export function allTimeRows(): BoardRow[] {
         t.memberships += row.memberships;
         t.orders += row.orders;
         t.total += row.total;
+        t.points += row.points;
       }
     }
   }

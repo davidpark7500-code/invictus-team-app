@@ -95,7 +95,7 @@ export function SaleButton({ kind, count, onTap }: { kind: SaleKind; count: numb
               </Text>
             </Animated.View>
             <Text variant="footnote" color="textSecondary" numberOfLines={1}>
-              {isMembership ? '$20 each' : '$150+'}
+              {isMembership ? '$20 · 1 pt' : '$150+ · 2 pts'}
             </Text>
           </View>
           <Animated.View style={[styles.chip, { backgroundColor: accent }, chipStyle]}>

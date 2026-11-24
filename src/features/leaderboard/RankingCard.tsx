@@ -8,8 +8,8 @@ import { Spacing } from '@/theme/tokens';
 
 import { initialsOf, type RankedRow } from './rank';
 
-/** "TOTAL" is wider than "MEM" and "ORD"; on iPhone it wrapped to "TOTA L". */
-const TOTAL_EXTRA = 12;
+/** Points get a little more room than MEM and ORD: they run higher and are the bold column. */
+const PTS_EXTRA = 6;
 
 function statWidth(screen: number) {
   if (screen < 360) return 36;
@@ -44,7 +44,7 @@ function Avatar({ row }: { row: RankedRow }) {
         </View>
       )}
       {/* No badge for people with zero sales: a wall of identical badges reads as blobs. */}
-      {row.total > 0 ? <RankBadge rank={row.rank} /> : null}
+      {row.points > 0 ? <RankBadge rank={row.rank} /> : null}
     </View>
   );
 }
@@ -62,8 +62,8 @@ export function RankingCard({ rows, meId, title }: { rows: RankedRow[]; meId: st
         </Text>
         <Text style={[styles.col, { width: w, color: colors.brandText }]}>MEM</Text>
         <Text style={[styles.col, { width: w, color: colors.blueText }]}>ORD</Text>
-        <Text numberOfLines={1} style={[styles.col, { width: w + TOTAL_EXTRA, color: colors.text }]}>
-          TOTAL
+        <Text numberOfLines={1} style={[styles.col, { width: w + PTS_EXTRA, color: colors.text }]}>
+          PTS
         </Text>
       </View>
       {rows.map((row, i) => {
@@ -87,8 +87,8 @@ export function RankingCard({ rows, meId, title }: { rows: RankedRow[]; meId: st
             <Text style={[styles.stat, { width: w, color: row.orders ? colors.blueText : colors.textTertiary }]}>
               {row.orders}
             </Text>
-            <Text style={[styles.stat, styles.total, { width: w + TOTAL_EXTRA, color: row.total ? colors.text : colors.textTertiary }]}>
-              {row.total}
+            <Text style={[styles.stat, styles.total, { width: w + PTS_EXTRA, color: row.points ? colors.text : colors.textTertiary }]}>
+              {row.points}
             </Text>
           </View>
         );

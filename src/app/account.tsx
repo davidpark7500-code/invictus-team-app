@@ -1,5 +1,6 @@
 import Constants from 'expo-constants';
 import { useRouter } from 'expo-router';
+import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { Glass, GlassGroup } from '@/components/glass/Glass';
@@ -9,6 +10,7 @@ import { Icon, type IconName } from '@/components/ui/Icon';
 import { Pressable } from '@/components/ui/Pressable';
 import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
+import { EditNameSheet } from '@/features/account/EditNameSheet';
 import { useAccount } from '@/features/account/useAccount';
 import { NotificationSettings } from '@/features/account/NotificationSettings';
 import { useAuth } from '@/lib/AuthProvider';
@@ -27,6 +29,7 @@ export default function AccountScreen() {
   const { demoMode, role, signOut } = useAuth();
   const { name, initials, email } = useAccount();
   const router = useRouter();
+  const [editingName, setEditingName] = useState(false);
 
   return (
     <Screen playerInset={false} contentContainerStyle={styles.content}>
@@ -51,7 +54,13 @@ export default function AccountScreen() {
             </Text>
           </View>
         </View>
+        {!demoMode ? (
+          <View style={styles.editName}>
+            <Button label="Edit name" icon="edit" variant="glass" onPress={() => setEditingName(true)} />
+          </View>
+        ) : null}
       </Card>
+      <EditNameSheet open={editingName} onClose={() => setEditingName(false)} current={name} />
 
       <Text variant="footnote" color="textSecondary" style={styles.label}>
         NOTIFICATIONS
@@ -112,5 +121,6 @@ const styles = StyleSheet.create({
   avatar: { width: 56, height: 56, borderRadius: 28, alignItems: 'center', justifyContent: 'center' },
   avatarText: { fontSize: 20, fontWeight: '700' },
   profileText: { flex: 1, gap: 2 },
+  editName: { marginTop: Spacing.md },
   about: { textAlign: 'center', marginTop: Spacing.lg },
 });
