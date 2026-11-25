@@ -49,6 +49,7 @@ export const icons = {
   waveform: { ios: 'waveform', md: 'graphic_eq' },
   flag: { ios: 'flag.fill', md: 'flag' },
   notes: { ios: 'note.text', md: 'description' },
+  trash: { ios: 'trash', md: 'delete' },
 } as const;
 
 export type IconName = keyof typeof icons;

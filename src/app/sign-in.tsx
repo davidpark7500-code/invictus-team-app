@@ -50,7 +50,7 @@ export default function SignInScreen() {
               <Text variant="subheadline" color="textSecondary" style={styles.centerText}>
                 {signingUp
                   ? 'Create your account. You’ll need the team code from your upline.'
-                  : 'Sign in with your own account.'}
+                  : 'On Pulse Board? Sign in with the same email and password you use there.'}
               </Text>
             </View>
 

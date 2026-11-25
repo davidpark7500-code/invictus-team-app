@@ -200,6 +200,21 @@ async function main() {
   }
   log(`Profiles: ${idMap.size} ${APPLY ? 'updated' : 'to update'}, ${photos} photos ${APPLY ? 'copied' : 'to copy'}. Admins carried over: ${oldProfiles.filter((p) => p.role === 'admin').map((p) => p.full_name).join(', ') || 'none'}.`);
 
+  // 2b. Logins: members keep the email and password they use on Pulse Board. The bcrypt hash
+  // goes from one database to the other as-is and is never printed. Only accounts this copy
+  // created and that haven't signed in to the app yet are touched (see migration 0015).
+  const { data: logins, error: loginError } = await oldDb.rpc('export_login_hashes');
+  fail('read logins', loginError);
+  let carried = 0;
+  if (APPLY) {
+    for (const l of logins) {
+      const { data: ok, error } = await newDb.rpc('import_login_hash', { p_email: l.email, p_hash: l.password_hash });
+      fail(`carry login for ${l.email}`, error);
+      if (ok) carried++;
+    }
+  }
+  log(`Logins: ${logins.length} in Pulse Board, ${APPLY ? `${carried} carried over (people who already signed in to the app keep theirs)` : 'to carry over'}.`);
+
   // 3. Sales (legacy_id = old sale id, so re-runs skip what's already there)
   const [oldSales, copied] = await Promise.all([
     allRows(oldDb, 'sales', 'id, user_id, kind, sale_date, created_at, notified_at'),

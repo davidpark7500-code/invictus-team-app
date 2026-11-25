@@ -1,7 +1,7 @@
 import Constants from 'expo-constants';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Linking, StyleSheet, View } from 'react-native';
 
 import { Glass, GlassGroup } from '@/components/glass/Glass';
 import { Button } from '@/components/ui/Button';
@@ -10,12 +10,16 @@ import { Icon, type IconName } from '@/components/ui/Icon';
 import { Pressable } from '@/components/ui/Pressable';
 import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
+import { DeleteAccount } from '@/features/account/DeleteAccount';
 import { EditNameSheet } from '@/features/account/EditNameSheet';
 import { useAccount } from '@/features/account/useAccount';
 import { NotificationSettings } from '@/features/account/NotificationSettings';
 import { useAuth } from '@/lib/AuthProvider';
 import { type ThemePreference, useTheme } from '@/theme/ThemeProvider';
 import { Radius, Spacing } from '@/theme/tokens';
+
+/** Served from the web build's public/ folder; also the URL given to App Store Connect and Google Play. */
+const PRIVACY_URL = 'https://invictus-team-app.vercel.app/privacy.html';
 
 const options: { value: ThemePreference; label: string; icon: IconName }[] = [
   { value: 'system', label: 'System', icon: 'auto' },
@@ -100,10 +104,16 @@ export default function AccountScreen() {
       {!demoMode ? (
         <Card>
           <Button label="Sign out" icon="signOut" variant="quiet" onPress={signOut} />
+          <DeleteAccount />
         </Card>
       ) : null}
 
-      <Text variant="caption" color="textTertiary" style={styles.about}>
+      <Pressable onPress={() => Linking.openURL(PRIVACY_URL)} haptic={false} accessibilityRole="link" style={styles.about}>
+        <Text variant="caption" color="textSecondary" style={styles.centerText}>
+          Privacy policy
+        </Text>
+      </Pressable>
+      <Text variant="caption" color="textTertiary" style={styles.centerText}>
         Invictus Team · {Constants.expoConfig?.version ?? ''}
       </Text>
     </Screen>
@@ -122,5 +132,6 @@ const styles = StyleSheet.create({
   avatarText: { fontSize: 20, fontWeight: '700' },
   profileText: { flex: 1, gap: 2 },
   editName: { marginTop: Spacing.md },
-  about: { textAlign: 'center', marginTop: Spacing.lg },
+  about: { alignSelf: 'center', marginTop: Spacing.lg, padding: Spacing.xs },
+  centerText: { textAlign: 'center' },
 });
