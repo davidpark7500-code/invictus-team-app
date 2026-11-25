@@ -71,7 +71,7 @@ export default function HomeScreen() {
               <Icon name="play" size={16} color={colors.onBrand} />
             </View>
           }
-          onPress={() => router.push(`/resources/${t.id}`)}
+          onPress={() => router.push(`/resources/${t.id}`, { withAnchor: true })}
         />
       ))}
     </Screen>
@@ -84,7 +84,7 @@ function EventCard({ event, label }: { event: TeamEvent; label: string }) {
   const router = useRouter();
   const guestUrl = event.type === 'group_evaluation' ? registrationUrlOf(event) : undefined;
   return (
-    <Card onPress={() => router.push(`/events/${event.id}`)} tintColor={colors.brandSoft}>
+    <Card onPress={() => router.push(`/events/${event.id}`, { withAnchor: true })} tintColor={colors.brandSoft}>
       <View style={styles.cardHead}>
         <Pill label={label} filled color={colors.brand} textColor={colors.onBrand} />
         <Text variant="caption" color="textSecondary">

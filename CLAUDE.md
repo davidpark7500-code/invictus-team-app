@@ -27,7 +27,9 @@ claims ([Certain] / [Likely] / [Guessing]), no filler praise.
   Team code set (hashed in `private.team_settings`; never write the code in this public repo).
   Email confirmation is OFF on purpose (the team code is the gate). Public URL and publishable key
   are in Vercel (production) and EAS (production) env, and in `.env.local` (not committed).
-  Pulse Board data not copied yet; the Leaderboard still shows sample members.
+  Pulse Board data copied Nov 25 2026 (24 people, photos, 13 sales, and their logins as bcrypt
+  hashes, so members sign in with their Pulse Board email and password). Re-run the copy at
+  cutover for new sales and changed passwords. Store listing draft: `docs/05-app-store-listing.md`.
 
 - **Stack:** Expo SDK 58 + Expo Router, React Native, Supabase. One codebase for iOS, Android, web.
 - **Tabs shipped:** Home, Events, Profiles, Resources. No Audio tab: PDFs, audio, video and

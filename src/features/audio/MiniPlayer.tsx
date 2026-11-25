@@ -23,7 +23,7 @@ export function MiniPlayer({ placement = 'regular' }: Props) {
 
   const compact = placement === 'inline';
   return (
-    <Pressable onPress={() => router.push(`/resources/${track.id}`)} haptic={false} style={styles.hit}>
+    <Pressable onPress={() => router.push(`/resources/${track.id}`, { withAnchor: true })} haptic={false} style={styles.hit}>
       <Glass variant="regular" radius={Radius.pill} style={[styles.bar, compact && styles.barCompact]}>
         <View style={[styles.art, { backgroundColor: colors.brandSoft }]}>
           <Icon name="waveform" size={16} color={colors.brandText} />
