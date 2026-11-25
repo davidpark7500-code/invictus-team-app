@@ -57,6 +57,12 @@ Copies people (by email, marked invited), names, alert preferences, admin role, 
 and sales (with `legacy_id`, so re-runs only add new ones), then compares every person's totals
 for every week between old and new.
 
+Before creating each person it adds their email to `private.invited_emails` (migration 0013):
+Supabase's admin create-user writes the row before it adds app_metadata, so the team-code trigger
+checks that list instead of the `invited` flag. First run: Nov 25 2026 (24 people, 6 photos,
+13 sales). Re-runs only add sales; a sale removed on Pulse Board after a run isn't removed here,
+and `--verify` reports it.
+
 ## 5. Cutover
 1. Announce a short freeze. Run `--apply` once more for the final delta; verify shows all match.
 2. Ship the app build (TestFlight / Play internal first).

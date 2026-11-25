@@ -146,6 +146,9 @@ async function main() {
     let newId = newByEmail.get(email);
     if (newId) existing++;
     else if (APPLY) {
+      // The team-code check runs before Supabase adds app_metadata, so it looks this list up instead.
+      const invite = await newDb.rpc('invite_email', { p_email: email });
+      fail(`invite ${email}`, invite.error);
       const { data, error } = await newDb.auth.admin.createUser({
         email,
         email_confirm: true,
