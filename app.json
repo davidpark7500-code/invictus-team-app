@@ -2,7 +2,7 @@
   "expo": {
     "name": "Invictus Team",
     "slug": "invictus-team",
-    "version": "0.3.0",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "invictus",
@@ -14,7 +14,7 @@
         "tinted": "./assets/brand/icon-ios-tinted.png"
       },
       "bundleIdentifier": "com.invictusteam.app",
-      "supportsTablet": true,
+      "supportsTablet": false,
       "infoPlist": {
         "UIBackgroundModes": [
           "audio"
