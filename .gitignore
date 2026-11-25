@@ -45,3 +45,6 @@ example
 # copied from node_modules by scripts/copy-pdfjs.mjs
 public/pdfjs/
 .vercel
+
+# Firebase config for Android push; builds get it from the EAS file variable GOOGLE_SERVICES_JSON
+/google-services.json
